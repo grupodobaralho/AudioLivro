@@ -1,8 +1,10 @@
-# fluxoAges
-Sistema de controle do fluxo de atividades da AGES.
+# AudioLivro
+Sistema para doação de ádios para ÁudioLivro editados pela EDIPUCrs.
+
+Projeto desenvolvido pelos alunos da AGES - FACIN - PUCRS
 
 Versão de Produção Atual
 
-Lider Tecnico do Projeto Daniele Souza
+Lider Tecnico do Projeto
 
 
