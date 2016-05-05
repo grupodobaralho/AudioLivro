@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>FluxoAGES</groupId>
-	<artifactId>FluxoAGES</artifactId>
+	<groupId>AudioLivro</groupId>
+	<artifactId>AudioLivro</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>FluxoAGES</name>
-	<description>Peojeto Fluxo AGES - FACUN - PUCRS</description>
+	<description>Projeto Audio Livros para EDIPUC</description>
 	<profiles>
 		<!-- Profile de desenvolvimento (padrao) -->
 		<profile>
@@ -15,54 +15,34 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<sgbd.user>
-					root
-				</sgbd.user>
-				<sgbd.password>
-					senha
-				</sgbd.password>
-				<upload.path>
-					c:\\uploadProjetos
-				</upload.path>
-				<log.path>
-					c:\\cawt\\
-				</log.path>
+				<sgbd.url>jdbc:mysql://localhost:3306/audio_e</sgbd.url>
+				<sgbd.user>root</sgbd.user>
+				<sgbd.password>senha</sgbd.password>
+				<upload.path>c:\\uploadProjetos</upload.path>
+				<log.path>c:\\cawt\\</log.path>
 			</properties>
 		</profile>
 		<!-- Profile de homologacao -->
 		<profile>
 			<id>homologacao</id>
 			<properties>
-				<sgbd.user>
-					root
-				</sgbd.user>
-				<sgbd.password>
-					senha
-				</sgbd.password>
-				<upload.path>
-					c:\\uploadProjetos
-				</upload.path>
-				<log.path>
-					c:\\cawt\\
-				</log.path>
+				<build.number>SNAPSHOT</build.number>
+				<sgbd.url>jdbc:mysql://10.32.223.4:3306/audio_e</sgbd.url>
+				<sgbd.user>material</sgbd.user>
+				<sgbd.password>material123_e#BD</sgbd.password>
+				<upload.path>/home/ages/uploadProjetos</upload.path>
+				<log.path>/home/ages/</log.path>
 			</properties>
 		</profile>
-		<!-- Profile de producao -->
+		<!-- Profile de producao NÃO USAMOS-->
 		<profile>
 			<id>producao</id>
 			<properties>
-				<sgbd.user>
-					ages_e
-				</sgbd.user>
-				<sgbd.password>
-					oissac1906#ages_e
-				</sgbd.password>
-				<upload.path>
-					/home/ages/uploadProjetos
-				</upload.path>
-				<log.path>
-					/home/ages/
-				</log.path>
+				<sgbd.url>jdbc:mysql://localhost:3306/ages_e</sgbd.url>
+				<sgbd.user>ages_e</sgbd.user>
+				<sgbd.password>oissac1906#ages_e</sgbd.password>
+				<upload.path>/home/ages/uploadProjetos</upload.path>
+				<log.path>/home/ages/</log.path>
 			</properties>
 		</profile>
 	</profiles>
@@ -101,7 +81,7 @@
 				<configuration>
 					<url>http://localhost:8080/manager/text</url>
 					<server>TomcatServer</server>
-					<path>/FluxoAGES</path>
+					<path>/AudioLivro</path>
 					<username>admin</username>
                 	<password>admin</password>
 				</configuration>
@@ -133,6 +113,11 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
 		</dependency>
 	</dependencies>
 </project>
