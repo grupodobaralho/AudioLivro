@@ -21,7 +21,7 @@
             <img class="logo" src="img/logo-ages.png" alt="AGES">
            
             <section class="login">
-                <h1>Fluxo <span>A</span>GES</h1><!-- Título principal -->
+                <h1>Audio <span>Livros</span> - EDIPUC</h1><!-- Título principal -->
                 
                 <label id="msg" name="msg"></label>
         
