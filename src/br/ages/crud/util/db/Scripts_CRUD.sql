@@ -11,12 +11,9 @@
 
 USE audio_e;
 
--- DROP TABLE TB_TIPO_USUARIO;
--- DROP TABLE TB_PROJETO_USUARIO;
--- DROP TABLE TB_PROJETO_STAKEHOLDERS;
+
 -- DROP TABLE TB_USUARIO;
--- DROP TABLE TB_PROJETO;
--- DROP TABLE TB_STAKEHOLDERS;
+
 
 -- Tabela Usuario
 CREATE TABLE tb_usuario (
@@ -61,65 +58,101 @@ VALUES
 
 select * from tb_usuario;
 
--- Tabela Projeto
-  CREATE TABLE tb_projeto (
-  ID_PROJETO int(11) NOT NULL AUTO_INCREMENT,
-  NOME_PROJETO varchar(120) NOT NULL, 
-  STATUS_PROJETO varchar(10) NOT NULL,  
-  WORKSPACE varchar(60) DEFAULT NULL,  
-  DATA_INICIO datetime NOT NULL, 
-  DATA_FIM datetime DEFAULT NULL,
-  DATA_FIM_PREVISTO datetime NOT NULL,
-  DATA_INCLUSAO datetime NOT NULL,
-  PRIMARY KEY (ID_PROJETO) 
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
- 
--- Tabela Stakeholders
-CREATE TABLE tb_stakeholders (
-  ID_STAKEHOLDER int(11) NOT NULL AUTO_INCREMENT,
-  NOME_STAKEHOLDER varchar(45) NOT NULL,
-  DATA_INCLUSAO datetime DEFAULT NULL, 
-  PRIMARY KEY (ID_STAKEHOLDER)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
--- Tabela Projeto/Usuario
-CREATE TABLE tb_projeto_usuario (
-  ID_PROJETO int(11) NOT NULL,
-  ID_USUARIO int(11) NOT NULL,
-  PRIMARY KEY (ID_PROJETO,ID_USUARIO),
-  KEY fk_usuario_idx (ID_USUARIO),
-  CONSTRAINT fk_projeto FOREIGN KEY (ID_PROJETO) REFERENCES tb_projeto (ID_PROJETO) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT fk_usuario FOREIGN KEY (ID_USUARIO) REFERENCES tb_usuario (ID_USUARIO) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Tabela Projeto/Stakeholders
-CREATE TABLE tb_projeto_stakeholders (
-  ID_PROJETO int(11) NOT NULL,
-  ID_STAKEHOLDER int(11) NOT NULL,
-  PRIMARY KEY (ID_PROJETO,ID_STAKEHOLDER),
-  KEY fk_stakeholder_idx (ID_STAKEHOLDER),
-  CONSTRAINT fk_projeto_s FOREIGN KEY (ID_PROJETO) REFERENCES tb_projeto (ID_PROJETO) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT fk_stakeholder FOREIGN KEY (ID_STAKEHOLDER) REFERENCES tb_stakeholders (ID_STAKEHOLDER) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Tabela para o Registro do Ponto, horas fora aula na agencia.
-CREATE TABLE tb_ponto (
-  id_ponto INT NOT NULL AUTO_INCREMENT COMMENT '',
-  data_entrada DATETIME NULL COMMENT '',
-  hora_entrada DATETIME NULL COMMENT '',
-  data_saida DATETIME NULL COMMENT '',
-  hora_saida DATETIME NULL COMMENT '',
-  id_usuario_aluno INT NULL COMMENT '',
-  id_usuario_responsavel INT NULL COMMENT '',
-  status_ponto VARCHAR(30) NULL COMMENT '',
-  PRIMARY KEY (id_ponto)  COMMENT '')
-COMMENT = 'Tabela para o Registro do Ponto, horas fora aula na agencia. ';
+-- -----------------------------------------------------
+-- Table TB_DOADOR
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS TB_DOADOR (
+  id_doador INT NOT NULL,
+  Data_criacao DATE NOT NULL,
+  Data_alteracao DATE NOT NULL,
+  Nome VARCHAR(70) NOT NULL,
+  CPF VARCHAR(14) NOT NULL,
+  Email VARCHAR(70) NOT NULL,
+  PRIMARY KEY (id_doador)) 
+ENGINE = InnoDB;
 
 
--- Tabelas da aplicação
--- Tabela para Armazenar a menor unidade de um livro
-CREATE TABLE `audio_e`.`tb_blocos` (
-  `id_blocos` INT NOT NULL COMMENT '',
-  `conteudo` VARCHAR(45) NULL COMMENT '',
-  `data_criacao` DATETIME NULL COMMENT '',
-  PRIMARY KEY (`id_blocos`)  COMMENT '');
+-- -----------------------------------------------------
+-- Table TB_BLOCO, unidade mínima de texto
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS TB_BLOCO (
+  id_bloco INT NOT NULL,
+  Data_criacao DATE NOT NULL,
+  Data_alteracao DATE NOT NULL,
+  Local_conteudo VARCHAR(100) NOT NULL,
+  Local_arquivo_audio VARCHAR(100) NOT NULL,
+  Status_bloco VARCHAR(25) NOT NULL,
+  Tamanho_bloco VARCHAR(25) NOT NULL,
+  PRIMARY KEY (id_bloco))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table TB_LIVRO
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS TB_LIVRO (
+  id_livro INT NOT NULL,
+  Data_criacao DATE NOT NULL,
+  Data_alteracao DATE NOT NULL,
+  Titulo VARCHAR(100) NOT NULL,
+  Autores VARCHAR(150) NOT NULL,
+  PRIMARY KEY (id_livro))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table TB_LIVRO_BLOCO, relação tb_livro com tb_bloco
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS TB_LIVRO_BLOCO (
+  id_livro_bloco INT NOT NULL,
+  Data_criacao DATE NOT NULL,
+  Data_alteracao DATE NOT NULL,
+  id_livro INT NOT NULL,
+  id_bloco INT NOT NULL,
+  PRIMARY KEY (id_livro_bloco),
+  INDEX id_livro_idx (id_livro ASC),
+  INDEX id_bloco_idx (id_bloco ASC),
+  CONSTRAINT id_livro
+    FOREIGN KEY (id_livro)
+    REFERENCES TB_LIVRO (id_livro)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT id_bloco
+    FOREIGN KEY (id_bloco)
+    REFERENCES TB_BLOCO (id_bloco)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------------
+-- Table TB_DOACAO, controle de doações
+-- -----------------------------------------------------------
+CREATE TABLE IF NOT EXISTS TB_DOACAO (
+  id_doacao INT NOT NULL,
+  id_doador INT NOT NULL,
+  id_livro_bloco INT NOT NULL,
+  Data_criacao DATE NOT NULL,
+  Data_alteracao DATE NOT NULL,
+  Data_limite_doador DATE NOT NULL,
+  Data_fechamento_doacao DATE NOT NULL,
+  PRIMARY KEY (id_doacao),
+  INDEX id_doador_idx (id_doador ASC),
+  INDEX id_livro_bloco_idx (id_livro_bloco ASC),
+  CONSTRAINT id_doador
+    FOREIGN KEY (id_doador)
+    REFERENCES TB_DOADOR (id_doador)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT id_livro_bloco
+    FOREIGN KEY (id_livro_bloco)
+    REFERENCES TB_LIVRO_BLOCO (id_livro_bloco)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
