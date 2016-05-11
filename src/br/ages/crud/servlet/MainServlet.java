@@ -19,6 +19,7 @@ import br.ages.crud.command.EditUserCommand;
 import br.ages.crud.command.ListUserCommand;
 import br.ages.crud.command.LoginCommand;
 import br.ages.crud.command.LogoutCommand;
+import br.ages.crud.command.ModeloCommand;
 import br.ages.crud.command.RemoveUserCommand;
 import br.ages.crud.command.SenhaCommand;
 import br.ages.crud.model.Usuario;
@@ -46,6 +47,8 @@ public class MainServlet extends HttpServlet {
 		comandos.put("editUser", new EditUserCommand());
 		comandos.put("removerUsuario", new RemoveUserCommand());
 		
+		// tela modelo
+		comandos.put("modelo", new ModeloCommand());
 	}
 
 	@Override

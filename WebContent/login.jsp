@@ -56,7 +56,7 @@
 		            	<a href="" data-toggle="modal" data-id="login" data-usuario="#login" data-target="#modalSenha" title="Click para recuperar a senha senha"> Recuperar Senha</a>
 		             	<hr>
 			            <div class="text-center">
-			             	<input class="btn btn-primary login pull-center" type="submit" value="Entrar">
+			             	<input class="btn btn-danger login pull-center"  type="submit" value="Entrar">
 			         	</div>
 			         </form>
 			         

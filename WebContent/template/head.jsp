@@ -77,7 +77,7 @@
         				<li class="dropdown">
         					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
         						<span class="glyphicon glyphicon-user"></span>
-        						Olá, <%=usuarioSessao.getNome()%>!
+        						Olá, <%=usuarioSessao.getNome() + usuarioSessao.getStatusUsuario()%>!
         						<span class="caret"></span>
         					</a>
                            
