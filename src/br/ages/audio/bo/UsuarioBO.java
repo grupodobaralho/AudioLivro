@@ -1,4 +1,4 @@
-package br.ages.crud.bo;
+package br.ages.audio.bo;
 
 import java.sql.SQLException;
 import java.text.Normalizer;

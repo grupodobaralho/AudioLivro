@@ -6,11 +6,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import br.ages.crud.exception.NegocioException;
 
-public class ModeloCommand implements Command {
-private String proxima;
+public class CreateScreenLivroCommand implements Command {
+
+	private String proxima;
+
 	@Override
 	public String execute(HttpServletRequest request) throws SQLException, NegocioException {
-		proxima = "modelo.jsp";
+		proxima = "livro/addLivro.jsp";
 		return proxima;
 	}
 

@@ -9,7 +9,7 @@ import java.util.ListIterator;
 
 import javax.servlet.http.HttpServletRequest;
 
-import br.ages.crud.bo.UsuarioBO;
+import br.ages.audio.bo.UsuarioBO;
 import br.ages.crud.dao.UsuarioDAO;
 import br.ages.crud.exception.NegocioException;
 import br.ages.crud.model.PerfilAcesso;

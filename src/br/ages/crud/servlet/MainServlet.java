@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import br.ages.crud.command.AddLivroCommand;
 import br.ages.crud.command.AddUserCommand;
 import br.ages.crud.command.Command;
+import br.ages.crud.command.CreateScreenLivroCommand;
 import br.ages.crud.command.CreateScreenUserCommand;
 import br.ages.crud.command.EditUserCommand;
 import br.ages.crud.command.ListUserCommand;
@@ -49,6 +51,10 @@ public class MainServlet extends HttpServlet {
 		
 		// tela modelo
 		comandos.put("modelo", new ModeloCommand());
+		
+		//Livros
+		comandos.put("telaLivro", new CreateScreenLivroCommand());
+		comandos.put("cadastraLivro", new AddLivroCommand());
 	}
 
 	@Override

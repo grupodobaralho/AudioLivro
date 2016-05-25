@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import br.ages.crud.bo.UsuarioBO;
+import br.ages.audio.bo.UsuarioBO;
 import br.ages.crud.exception.NegocioException;
 import br.ages.crud.model.Usuario;
 

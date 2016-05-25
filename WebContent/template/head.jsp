@@ -70,6 +70,16 @@
 				            	<li><a href="main?acao=telaUser">Cadastrar</a></li> 
 				          	</ul>
         				</li>
+						
+						<li class="dropdown">
+			          		<a class="dropdown-toggle" data-toggle="dropdown" href="#">Livro
+				          		<span class="caret"></span>
+				          	</a>
+				          	<ul class="dropdown-menu">
+				            	<li><a href="">Listar</a></li>
+				            	<li><a href="main?acao=telaLivro">Cadastrar</a></li> 
+				          	</ul>
+        				</li>
 
 					</ul>
 

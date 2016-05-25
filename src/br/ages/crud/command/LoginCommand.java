@@ -2,7 +2,7 @@ package br.ages.crud.command;
 
 import javax.servlet.http.HttpServletRequest;
 
-import br.ages.crud.bo.UsuarioBO;
+import br.ages.audio.bo.UsuarioBO;
 import br.ages.crud.model.Usuario;
 
 public class LoginCommand implements Command {

@@ -4,7 +4,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-import br.ages.crud.bo.UsuarioBO;
+import br.ages.audio.bo.UsuarioBO;
 import br.ages.crud.model.PerfilAcesso;
 import br.ages.crud.model.StatusUsuario;
 import br.ages.crud.model.TipoUsuario;
