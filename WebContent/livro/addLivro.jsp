@@ -3,6 +3,9 @@
 
 <jsp:include page="../template/head.jsp"></jsp:include>
 
+<!-- MODAL / POPUP -->
+<jsp:include page="../template/modal.jsp"></jsp:include>
+
 <div class="panel panel-primary panel-addLivro">
 
 	<div class="panel-heading text-center ">Cadastro Livro</div>
@@ -19,14 +22,25 @@
 				<input class="form-control" name="isbn" id="isbn">
 				<label class="form-label" > Titulo Livro</label>
 				<input class="form-control" name="titulo" id="titulo">
+				
+				<!-- Testando Modal -->
+				<hr>
+				
+				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalCap">Novo Capítulo</button>
+				
 				<hr>
 				<div class="text-center">
 					<input class="btn btn-danger" type="reset"
 						value="Cancelar">
 					<input class="btn btn-info" type="submit"
-						value="Cadastro">
+						value="Cadastrar">
 				</div>
+				
 			</div>
+			
+				
+			</div>
+		</form>
 		</form>
 	</div>
 </div>
