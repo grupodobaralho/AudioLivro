@@ -1,19 +1,3 @@
-/***
-* Scripts para criacao e insersao de dados
-* Base Dados Fluxo AGES
-* Casssio Trindade, Daniele Souza e Victor Diehl
-* 09/2015
-***/
-
-
--- alter table ages_e.tb_usuario
--- add constraint U_username unique(usuario);
-
-USE audio_e;
-
-
--- DROP TABLE TB_USUARIO;
-
 
 -- Tabela Usuario
 CREATE TABLE tb_usuario (
@@ -62,7 +46,7 @@ select * from tb_usuario;
 -- Table audio_e.TB_DOADOR
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS audio_e.TB_DOADOR (
-  id_doador INT NOT NULL,
+  id_doador INT NOT NULL AUTO_INCREMENT,
   Data_criacao DATE NOT NULL,
   Data_alteracao DATE NOT NULL,
   Nome VARCHAR(70) NOT NULL,
@@ -77,7 +61,7 @@ ENGINE = InnoDB;
 -- Table audio_e.TB_BLOCO, unidade mínima de um bloco
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS audio_e.TB_BLOCO (
-  id_bloco INT NOT NULL,
+  id_bloco INT NOT NULL AUTO_INCREMENT,
   Data_criacao DATE NOT NULL,
   Data_alteracao DATE NOT NULL,
   Local_conteudo VARCHAR(100) NOT NULL,
@@ -92,7 +76,7 @@ ENGINE = InnoDB;
 -- Table audio_e.TB_LIVRO
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS audio_e.TB_LIVRO (
-  id_livro INT NOT NULL,
+  id_livro INT NOT NULL AUTO_INCREMENT,
   Data_criacao DATE NOT NULL,
   Data_alteracao DATE NOT NULL,
   ISBN VARCHAR(17) NOT NULL,
@@ -107,7 +91,7 @@ ENGINE = InnoDB;
 -- Table audio_e.TB_CAPITULO
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS audio_e.TB_CAPITULO (
-  id_capitulo INT NOT NULL,
+  id_capitulo INT NOT NULL AUTO_INCREMENT,
   Data_criacao DATE NOT NULL,
   Data_alteracao DATE NOT NULL,
   id_livro INT NOT NULL,
@@ -127,7 +111,7 @@ ENGINE = InnoDB;
 -- Table audio_e.TB_CAPITULO_BLOCO, relação TB_CAPITULO e TB_BLOCO
 -- ------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS audio_e.TB_CAPITULO_BLOCO (
-  id_capitulo_bloco INT NOT NULL,
+  id_capitulo_bloco INT NOT NULL AUTO_INCREMENT,
   Data_criacao DATE NOT NULL,
   Data_alteracao DATE NOT NULL,
   id_bloco INT NOT NULL,
@@ -152,7 +136,7 @@ ENGINE = InnoDB;
 -- Table audio_e.TB_DOACAO
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS audio_e.TB_DOACAO (
-  id_doacao INT NOT NULL,
+  id_doacao INT NOT NULL AUTO_INCREMENT,
   Data_criacao DATE NOT NULL,
   Data_alteracao DATE NOT NULL,
   id_capitulo_bloco INT NOT NULL,
@@ -173,3 +157,4 @@ CREATE TABLE IF NOT EXISTS audio_e.TB_DOACAO (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+ 

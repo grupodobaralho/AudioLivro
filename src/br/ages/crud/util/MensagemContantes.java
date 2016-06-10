@@ -59,6 +59,13 @@ public class MensagemContantes {
 	
 	public static final String MSG_INF_DENY = "Acesso negado! Você precisa logar primeiro.";
 	
+	public static final String MSG_ERR_LIVRO_JA_EXISTENTE = "Livro ? já cadastrado";
+	
+	public static final String MSG_SUC_CADASTRO_LIVRO = "O livro ? foi cadastrado com sucesso!";
+	
+	public static final String MSG_ERR_LIVRO_DADOS_INVALIDOS = "Dados do Livro inválidos ou inconsistentes!";
+	
+	
 
 	//msgs de projeto
 

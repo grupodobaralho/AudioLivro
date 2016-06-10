@@ -81,6 +81,9 @@ $( document ).ready(function() {
 	  		
 	      		<div class="modal-header modal-ages">
 		        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+		        	
+		        	<h4 class="modal-title">Cadastrar Capitulo</h4>
+		        	
 		        	<h4 class="modal-title"></h4>
 	      		</div>
 	      		
@@ -94,13 +97,26 @@ $( document ).ready(function() {
 						<label class="form-label" > Numero capitulo</label>
 						<input class="form-control" name="numero" id="numero">
 	        				
+	        				
+	        				
+	        			<div  style="padding-bottom:8%;">
+        				<form method="post" action='upload' enctype="multipart/form-data">
+							<label class="form-label ages">Arquivo:</label>
+							<input class="form-control" id="file" name="file" value="${param.file}" type="file" maxlength="120">
+			
+							<div style="padding-top:3%;">
+							<input class="btn btn-primary pull-right" type="submit"	value="Enviar">
+						</div>
+			
+						</form>
+						</div>
 	        			</div>	
 		      	</div>
 		      	
 		      	<div class="modal-footer">
 		      		<form action="" method="post" id="formEditar">
 		      			<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-		      			<button type="submit" class="btn btn-primary">Editar</button>
+		      			<button type="submit" class="btn btn-primary">Cadastrar</button>
 		      		</form>
 		      	</div>
 		      	
