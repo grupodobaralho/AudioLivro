@@ -1,3 +1,4 @@
+
 package br.ages.crud.util;
 
 public class MensagemContantes {
@@ -112,4 +113,7 @@ public class MensagemContantes {
 
 	public static final String MSG_ERR_PONTO_JA_EXISTENTE = "Ponto ja existente para o Aluno ? na data";
 
+	public static final String MSG_ERR_BLOCO = "Erro bloco";
+
 }
+

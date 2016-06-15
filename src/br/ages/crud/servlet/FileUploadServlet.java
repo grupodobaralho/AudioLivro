@@ -14,6 +14,7 @@ import javax.servlet.http.Part;
 
 import org.apache.log4j.Logger;
 
+import br.ages.crud.dao.BlocoDAO;
 import br.ages.crud.model.Projeto;
 import br.ages.crud.util.Constantes;
  
@@ -121,22 +122,28 @@ public class FileUploadServlet extends HttpServlet {
 
 		try {
 			logger.debug("Iniciando o Upload");
-
+			BlocoDAO BlocoDAO = new BlocoDAO();
 			String savePath = SAVE_DIR + File.separator ;
 			File fileSaveDir = new File(savePath);
-
+			
+			
 			if (!fileSaveDir.exists())
 				fileSaveDir.mkdir();
 
 			Part part = request.getPart("file");
 			String fileName = extractFileName(part);
 			part.write(new File(savePath + File.separator + fileName).toString());
-
+			// caminho que será salvo no banco com o local onde o pdf está salvo
+			String caminho = savePath + fileName;
+			
 			request.setAttribute("msgSucesso", "Upload feito com sucesso!");
-
+			
+			
+			
 			getServletContext().getRequestDispatcher("/main?acao=telaLivro").forward(request, response);
 			
 			logger.info("Executado o Upload em: " + savePath + " - " + fileName );
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
