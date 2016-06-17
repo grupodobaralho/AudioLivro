@@ -6,6 +6,8 @@
 <!-- MODAL / POPUP -->
 <jsp:include page="../template/modal.jsp"></jsp:include>
 
+<jsp:include page="/template/msg.jsp"></jsp:include>
+
 <div class="panel panel-primary panel-addLivro">
 
 	<div class="panel-heading text-center ">Cadastro Livro</div>
@@ -13,7 +15,7 @@
 
 	<div class="panel-body">
 
-		<jsp:include page="/template/msg.jsp"></jsp:include>
+		<!-- <jsp:include page="/template/msg.jsp"></jsp:include> -->
             
             <div  style="padding-bottom:8%;">
         <form method="post" action='upload' enctype="multipart/form-data">

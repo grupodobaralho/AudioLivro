@@ -19,7 +19,7 @@ public class AddLivroCommand implements Command {
 		
 		livroBO = new LivroBO();
 		
-		proxima = "addLivro.jsp";
+		proxima = "/main?acao=telaLivro";
 		livro = new Livro();
 		
 		try {
@@ -31,7 +31,7 @@ public class AddLivroCommand implements Command {
 			
 			 boolean result = livroBO.cadastrarLivro(livro);
 			 if(result){
-				 proxima = "addLivro.jsp";
+				 proxima = "/main?acao=telaLivro";
 				request.setAttribute("msgSucesso", MensagemContantes.MSG_SUC_CADASTRO_LIVRO.replace("?", livro.getTitulo()));
 			 }else
 				 request.setAttribute("msgErro", MensagemContantes.MSG_ERR_LIVRO_DADOS_INVALIDOS);
