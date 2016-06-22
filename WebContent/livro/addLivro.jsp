@@ -37,10 +37,10 @@
 			<hr>
 			<h4>Capítulos</h4>
 			<div class="form-group">
-			    <div class="col-sm-8">
+			    <div class="col-sm-8" id="divCapituloNome">
 			      <input type="text" class="form-control" id="capituloNome" placeholder="Nome capítulo">
 			    </div>
-			    <div class="col-sm-3">
+			    <div class="col-sm-3" id="divCapituloNumero">
 			      <input type="text" class="form-control" id="capituloNumero" placeholder="Número capítulo">
 			    </div>
 			    <div class="col-sm-1">
@@ -97,31 +97,56 @@
 		
 		$( "#addTitulo" ).on({
 			click: function() {
-				// guarda o nome do capítulo informado pelo usuário
-				var capituloNome = $( "#capituloNome" ).val();
-				// guarda o número do capítulo informado pelo usuário
-				var capituloNumero = $( "#capituloNumero" ).val();
-				
-				var contentToAppend = "	<tr>";
-					contentToAppend+= "		<td>" + capituloNumero + "</td>";
-					contentToAppend+= "		<td>" + capituloNome + "</td>";
-					contentToAppend+= "		<td>0</td>";
-					contentToAppend+= "		<td>";
-					contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Editar\">";
-					contentToAppend+= "				<span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span>";
-					contentToAppend+= "			</button>";
-					contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Remover\">";
-					contentToAppend+= "				<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>";
-					contentToAppend+= "			</button>";
-					contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Adicionar bloco\" data-toggle=\"modal\" data-target=\"#modalCap\">";
-					contentToAppend+= "				<span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>";
-					contentToAppend+= "			</button>";
-					contentToAppend+= "		</td>";
-					contentToAppend+= "	</tr>";
-				
-				$('#tableCapitulos > tbody:last-child')
-					.append(contentToAppend);
+				addCapitulo();
 			}
 		});
+		
+		function addCapitulo() {
+			// guarda o nome do capítulo informado pelo usuário
+			var capituloNome = $( "#capituloNome" ).val();
+			// guarda o número do capítulo informado pelo usuário
+			var capituloNumero = $( "#capituloNumero" ).val();
+			
+			// valida se os campos estão devidamente preenchidos
+			if ( capituloNome.length == 0 && capituloNumero == 0 ) {
+				$( "#divCapituloNome" ).addClass("has-error");
+				$( "#divCapituloNumero" ).addClass("has-error");
+				return;
+			}
+			else if ( capituloNome.length == 0 ) {
+				$( "#divCapituloNumero" ).removeClass("has-error");
+				$( "#divCapituloNome" ).addClass("has-error");
+				return;
+			}
+			else if ( capituloNumero.length == 0 ) {
+				$( "#divCapituloNome" ).removeClass("has-error");
+				$( "#divCapituloNumero" ).addClass("has-error");
+				return;
+			}
+			else {
+				$( "#divCapituloNome" ).removeClass("has-error");
+				$( "#divCapituloNumero" ).removeClass("has-error");
+			}
+			
+			var contentToAppend = "	<tr>";
+				contentToAppend+= "		<td>" + capituloNumero + "</td>";
+				contentToAppend+= "		<td>" + capituloNome + "</td>";
+				contentToAppend+= "		<td>0</td>";
+				contentToAppend+= "		<td>";
+				contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Editar\">";
+				contentToAppend+= "				<span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span>";
+				contentToAppend+= "			</button>";
+				contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Remover\">";
+				contentToAppend+= "				<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>";
+				contentToAppend+= "			</button>";
+				contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Adicionar bloco\" data-toggle=\"modal\" data-target=\"#modalCap\">";
+				contentToAppend+= "				<span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>";
+				contentToAppend+= "			</button>";
+				contentToAppend+= "		</td>";
+				contentToAppend+= "	</tr>";
+			
+			$('#tableCapitulos > tbody:last-child')
+				.append(contentToAppend);
+		}
 	});
 </script>
