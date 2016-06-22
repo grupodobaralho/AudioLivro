@@ -44,14 +44,14 @@
 			      <input type="text" class="form-control" id="capituloNumero" placeholder="Número capítulo">
 			    </div>
 			    <div class="col-sm-1">
-			    	<button type="button" class="btn btn-success">
+			    	<button type="button" class="btn btn-success" id="addTitulo" name="addTitulo">
 			    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 			    	</button>
 			    </div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-12">
-					<table class="table table-striped header-fixed">
+					<table class="table table-striped header-fixed" id="tableCapitulos">
 						<thead>
 							<tr>
 								<th>Capítulo</th>
@@ -65,86 +65,6 @@
 								<td>1</td>
 								<td>Parte 1</td>
 								<td>3</td>
-								<td>
-									<button type="button" class="btn btn-default btn-xs" title="Editar">
-							    		<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-							    	</button>
-							    	<button type="button" class="btn btn-default btn-xs" title="Remover">
-							    		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-							    	</button>
-									<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalCap">
-							    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-							    	</button>
-								</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>Parte 2</td>
-								<td>4</td>
-								<td>
-									<button type="button" class="btn btn-default btn-xs" title="Editar">
-							    		<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-							    	</button>
-							    	<button type="button" class="btn btn-default btn-xs" title="Remover">
-							    		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-							    	</button>
-									<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalCap">
-							    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-							    	</button>
-								</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>Parte 3</td>
-								<td>3</td>
-								<td>
-									<button type="button" class="btn btn-default btn-xs" title="Editar">
-							    		<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-							    	</button>
-							    	<button type="button" class="btn btn-default btn-xs" title="Remover">
-							    		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-							    	</button>
-									<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalCap">
-							    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-							    	</button>
-								</td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td>Parte 4</td>
-								<td>8</td>
-								<td>
-									<button type="button" class="btn btn-default btn-xs" title="Editar">
-							    		<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-							    	</button>
-							    	<button type="button" class="btn btn-default btn-xs" title="Remover">
-							    		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-							    	</button>
-									<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalCap">
-							    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-							    	</button>
-								</td>
-							</tr>
-							<tr>
-								<td>5</td>
-								<td>Parte 5</td>
-								<td>2</td>
-								<td>
-									<button type="button" class="btn btn-default btn-xs" title="Editar">
-							    		<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-							    	</button>
-							    	<button type="button" class="btn btn-default btn-xs" title="Remover">
-							    		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-							    	</button>
-									<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalCap">
-							    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-							    	</button>
-								</td>
-							</tr>
-							<tr>
-								<td>6</td>
-								<td>Parte 6</td>
-								<td>4</td>
 								<td>
 									<button type="button" class="btn btn-default btn-xs" title="Editar">
 							    		<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
@@ -175,5 +95,33 @@
 <script type="text/javascript">
 	$( document ).ready(function() {
 		
+		$( "#addTitulo" ).on({
+			click: function() {
+				// guarda o nome do capítulo informado pelo usuário
+				var capituloNome = $( "#capituloNome" ).val();
+				// guarda o número do capítulo informado pelo usuário
+				var capituloNumero = $( "#capituloNumero" ).val();
+				
+				var contentToAppend = "	<tr>";
+					contentToAppend+= "		<td>" + capituloNumero + "</td>";
+					contentToAppend+= "		<td>" + capituloNome + "</td>";
+					contentToAppend+= "		<td>0</td>";
+					contentToAppend+= "		<td>";
+					contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Editar\">";
+					contentToAppend+= "				<span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span>";
+					contentToAppend+= "			</button>";
+					contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Remover\">";
+					contentToAppend+= "				<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>";
+					contentToAppend+= "			</button>";
+					contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Adicionar bloco\" data-toggle=\"modal\" data-target=\"#modalCap\">";
+					contentToAppend+= "				<span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>";
+					contentToAppend+= "			</button>";
+					contentToAppend+= "		</td>";
+					contentToAppend+= "	</tr>";
+				
+				$('#tableCapitulos > tbody:last-child')
+					.append(contentToAppend);
+			}
+		});
 	});
 </script>
