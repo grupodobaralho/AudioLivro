@@ -66,10 +66,10 @@
 								<td>Parte 1</td>
 								<td>3</td>
 								<td>
-									<button type="button" class="btn btn-default btn-xs" title="Editar">
+									<button type="button" class="btn btn-default btn-xs" title="Editar" id="editCapitulo">
 							    		<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 							    	</button>
-							    	<button type="button" class="btn btn-default btn-xs" title="Remover">
+							    	<button type="button" class="btn btn-default btn-xs" title="Remover" id="deleteCapitulo">
 							    		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 							    	</button>
 									<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalCap">
@@ -94,6 +94,9 @@
 
 <script type="text/javascript">
 	$( document ).ready(function() {
+		var arrNumeroCapitulos = [];
+		
+		arrNumeroCapitulos = getNumeroCapitulosExistentes();
 		
 		$( "#addTitulo" ).on({
 			click: function() {
@@ -101,11 +104,25 @@
 			}
 		});
 		
+		$( this ).on('click', 'button#editCapitulo', function() {
+			editCapitulo(this);
+		});
+		
+		$( this ).on('click', 'button#deleteCapitulo', function() {
+			deleteCapitulo(this);
+		});
+		
+		// Functions
 		function addCapitulo() {
 			// guarda o nome do capítulo informado pelo usuário
 			var capituloNome = $( "#capituloNome" ).val();
-			// guarda o número do capítulo informado pelo usuário
-			var capituloNumero = $( "#capituloNumero" ).val();
+			// guarda o número do capítulo informado pelo usuário, já removendo os zeros a esquerda
+			var capituloNumero = $( "#capituloNumero" ).val().replace(/^0+/, '');
+			$( "#capituloNumero" ).val(capituloNumero);
+			// verifica se o número do capítulo é um número
+			var isNumeric = Math.floor(capituloNumero) == capituloNumero && $.isNumeric(capituloNumero);
+			// verifica se o número do capítulo já não foi adicionado
+			var hasNumeroCapitulo = $.inArray(capituloNumero, arrNumeroCapitulos) == -1;
 			
 			// valida se os campos estão devidamente preenchidos
 			if ( capituloNome.length == 0 && capituloNumero == 0 ) {
@@ -118,7 +135,7 @@
 				$( "#divCapituloNome" ).addClass("has-error");
 				return;
 			}
-			else if ( capituloNumero.length == 0 ) {
+			else if ( capituloNumero.length == 0 || !isNumeric || !hasNumeroCapitulo) {
 				$( "#divCapituloNome" ).removeClass("has-error");
 				$( "#divCapituloNumero" ).addClass("has-error");
 				return;
@@ -133,13 +150,13 @@
 				contentToAppend+= "		<td>" + capituloNome + "</td>";
 				contentToAppend+= "		<td>0</td>";
 				contentToAppend+= "		<td>";
-				contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Editar\">";
+				contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Editar\" id=\"editCapitulo\">";
 				contentToAppend+= "				<span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span>";
 				contentToAppend+= "			</button>";
-				contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Remover\">";
+				contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Remover\" id=\"deleteCapitulo\">";
 				contentToAppend+= "				<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>";
 				contentToAppend+= "			</button>";
-				contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Adicionar bloco\" data-toggle=\"modal\" data-target=\"#modalCap\">";
+				contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Adicionar bloco\" data-toggle=\"modal\" data-target=\"#modalCap\" disabled=\"disabled\">";
 				contentToAppend+= "				<span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>";
 				contentToAppend+= "			</button>";
 				contentToAppend+= "		</td>";
@@ -147,6 +164,67 @@
 			
 			$('#tableCapitulos > tbody:last-child')
 				.append(contentToAppend);
+			
+			$( "#capituloNome" ).val("");
+			$( "#capituloNumero" ).val("");
+			
+			arrNumeroCapitulos.push(capituloNumero);
+		}
+		
+		function editCapitulo(btn) {
+			// Busca a coluna pai do botão
+			var td_Btn = $( btn ).parent();
+			// Busca a linha pai da coluna do botão
+			var tr_td_Btn = $( td_Btn ).parent();
+			// Busca todas as colunas da linha do botão
+			var tds = $( tr_td_Btn ).children();
+			
+			// Seleciona apenas as colunas do numero do capítulo e do nome do capítulo
+			var capituloNumero = tds.eq(0).text();
+			var capituloNome = tds.eq(1).text();
+			
+			// Preenche os valores nos respectivos campos
+			$( "#capituloNome" ).val(capituloNome);
+			$( "#capituloNumero" ).val(capituloNumero);
+			
+			// Remove a linha da tabela
+			$( tr_td_Btn ).remove();
+			arrNumeroCapitulos = jQuery.grep(arrNumeroCapitulos, function(value) {
+			  return value != capituloNumero;
+			});
+		}
+		
+		function deleteCapitulo(btn) {
+			// Busca a coluna pai do botão
+			var td_Btn = $( btn ).parent();
+			// Busca a linha pai da coluna do botão
+			var tr_td_Btn = $( td_Btn ).parent();
+			// Busca todas as colunas da linha do botão
+			var tds = $( tr_td_Btn ).children();
+			// Seleciona apenas as colunas do numero do capítulo e do nome do capítulo
+			var capituloNumero = tds.eq(0).text();
+			// Remove a linha da tabela
+			$( tr_td_Btn ).remove();
+			
+			arrNumeroCapitulos = jQuery.grep(arrNumeroCapitulos, function(value) {
+			  return value != capituloNumero;
+			});
+		}
+		
+		function getNumeroCapitulosExistentes() {
+			var arrCapitulos = [];
+			var trs = $( "#tableCapitulos > tbody > tr" );
+			
+			$( trs ).each(function() {
+				// Busca todas as colunas da linha
+				var tds = $( this ).children();
+				// Seleciona apenas as colunas do numero do capítulo
+				var capituloNumero = tds.eq(0).text();
+				
+				arrCapitulos.push(capituloNumero);
+			});
+			
+			return arrCapitulos;
 		}
 	});
 </script>
