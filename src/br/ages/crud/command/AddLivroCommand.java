@@ -25,9 +25,11 @@ public class AddLivroCommand implements Command {
 		try {
 			String isbn = request.getParameter("isbn");
 			String titulo = request.getParameter("titulo");
+			String autores = request.getParameter("autores");
 			
 			livro.setTitulo(titulo);
 			livro.setISBN(isbn);
+			livro.setAutores(autores);
 			
 			 boolean result = livroBO.cadastrarLivro(livro);
 			 if(result){

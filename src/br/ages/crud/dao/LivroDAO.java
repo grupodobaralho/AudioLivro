@@ -26,19 +26,20 @@ public class LivroDAO {
 			conexao = ConexaoUtil.getConexao();
 			
 			StringBuilder sql = new StringBuilder();
-			sql.append("insert into tb_livro (Titulo, ISBN, Data_criacao, Data_alteracao)");
-			sql.append("values (?,?,?,?)");
+			sql.append("insert into tb_livro (Titulo, ISBN, Autores, Data_criacao, Data_alteracao)");
+			sql.append("values (?,?,?,?,?)");
 			
 			// converte a data para data Juliana, data que o banco reconhece
-						java.util.Date utilDate = new java.util.Date();
-						java.sql.Date dataCadastro = new java.sql.Date(utilDate.getTime());
+			java.util.Date utilDate = new java.util.Date();
+			java.sql.Date dataCadastro = new java.sql.Date(utilDate.getTime());
 			
 			//cadastra o livro e gera id
 			PreparedStatement statement = conexao.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, livro.getTitulo());
 			statement.setString(2, livro.getISBN());
-			statement.setDate(3, dataCadastro);
+			statement.setString(3, livro.getAutores());
 			statement.setDate(4, dataCadastro);
+			statement.setDate(5, dataCadastro);
 			
 			statement.executeUpdate();
 			
@@ -46,19 +47,12 @@ public class LivroDAO {
 			if(resultset.first()){
 				idLivro = resultset.getInt(1);
 			}
-			
-			
-			
 			return idLivro;
 		} catch (ClassNotFoundException | SQLException e) {
 			throw new PersistenciaException(MensagemContantes.MSG_ERR_LIVRO_JA_EXISTENTE.replace("?", livro.getTitulo()));
 
 		} finally {
 			conexao.close();
-	
-		}
-	
-		
+		}		
 	}
-
 }

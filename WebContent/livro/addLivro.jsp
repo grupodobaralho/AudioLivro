@@ -13,27 +13,28 @@
 	</div>
 	<div class="panel-body">
 		<form method="post" action="main?acao=cadastraLivro" class="form-horizontal">
+			<input type="hidden" id="idCapitulosToUpsert" name="idCapitulosToUpsert" value="" />
+			<input type="hidden" id="idCapitulosToDelete" name="idCapitulosToDelete" value="" />
+			<input type="hidden" id="idLivro" name="idLivro" value="" />
+			
 			<div class="form-group">
 				<label for="isbn" class="col-sm-2 control-label">ISBN</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" id="isbn" placeholder="ISBN">
+			      <input type="text" class="form-control" id="isbn" name="isbn" maxlength="17" placeholder="ISBN">
 			    </div>
 			</div>
 			<div class="form-group">
 				<label for="titulo" class="col-sm-2 control-label">Título</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" id="titulo" placeholder="Título">
+			      <input type="text" class="form-control" id="titulo" name="titulo" maxlength="100" placeholder="Título">
 			    </div>
 			</div>
 			<div class="form-group">
 				<label for="autores" class="col-sm-2 control-label">Autores</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" id="autores" placeholder="Autores">
+			      <input type="text" class="form-control" id="autores" name="autores" maxlength="150" placeholder="Autores">
 			    </div>
 			</div>
-				<!-- <hr>
-					<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalCap">Novo Capítulo</button>
-				<hr> -->
 			<hr>
 			<h4>Capítulos</h4>
 			<div class="form-group">
