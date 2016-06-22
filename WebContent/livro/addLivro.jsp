@@ -51,30 +51,109 @@
 			</div>
 			<div class="form-group">
 				<div class="col-sm-12">
-					<table class="table table-condensed">
+					<table class="table table-striped header-fixed">
 						<thead>
 							<tr>
 								<th>Capítulo</th>
 								<th>Nome</th>
-								<th>#</th>
+								<th>Qtd Blocos</th>
+								<th>Ações</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>1</td>
 								<td>Parte 1</td>
+								<td>3</td>
 								<td>
-									<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modalCap">
-							    		<span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span>
+									<button type="button" class="btn btn-default btn-xs" title="Editar">
+							    		<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							    	</button>
+							    	<button type="button" class="btn btn-default btn-xs" title="Remover">
+							    		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+							    	</button>
+									<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalCap">
+							    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 							    	</button>
 								</td>
 							</tr>
 							<tr>
 								<td>2</td>
 								<td>Parte 2</td>
+								<td>4</td>
 								<td>
-									<button type="button" class="btn btn-primary btn-xs">
-							    		<span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span>
+									<button type="button" class="btn btn-default btn-xs" title="Editar">
+							    		<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							    	</button>
+							    	<button type="button" class="btn btn-default btn-xs" title="Remover">
+							    		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+							    	</button>
+									<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalCap">
+							    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							    	</button>
+								</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>Parte 3</td>
+								<td>3</td>
+								<td>
+									<button type="button" class="btn btn-default btn-xs" title="Editar">
+							    		<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							    	</button>
+							    	<button type="button" class="btn btn-default btn-xs" title="Remover">
+							    		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+							    	</button>
+									<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalCap">
+							    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							    	</button>
+								</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>Parte 4</td>
+								<td>8</td>
+								<td>
+									<button type="button" class="btn btn-default btn-xs" title="Editar">
+							    		<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							    	</button>
+							    	<button type="button" class="btn btn-default btn-xs" title="Remover">
+							    		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+							    	</button>
+									<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalCap">
+							    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							    	</button>
+								</td>
+							</tr>
+							<tr>
+								<td>5</td>
+								<td>Parte 5</td>
+								<td>2</td>
+								<td>
+									<button type="button" class="btn btn-default btn-xs" title="Editar">
+							    		<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							    	</button>
+							    	<button type="button" class="btn btn-default btn-xs" title="Remover">
+							    		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+							    	</button>
+									<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalCap">
+							    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							    	</button>
+								</td>
+							</tr>
+							<tr>
+								<td>6</td>
+								<td>Parte 6</td>
+								<td>4</td>
+								<td>
+									<button type="button" class="btn btn-default btn-xs" title="Editar">
+							    		<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							    	</button>
+							    	<button type="button" class="btn btn-default btn-xs" title="Remover">
+							    		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+							    	</button>
+									<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalCap">
+							    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 							    	</button>
 								</td>
 							</tr>
