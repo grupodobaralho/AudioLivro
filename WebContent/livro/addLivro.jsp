@@ -14,6 +14,7 @@
 	<div class="panel-body">
 		<form method="post" action="main?acao=cadastraLivro" class="form-horizontal" id="formSaveLivro">
 			<input type="hidden" id="idLivro" name="idLivro" value="" />
+			<input type="hidden" id="msg" name="msg" value="" />
 			
 			<div class="form-group">
 				<label for="isbn" class="col-sm-2 control-label">ISBN</label>
@@ -279,13 +280,17 @@
 					capitulosToUpsert: JSON.stringify(arrNumeroCapitulos),
 					livro: JSON.stringify(livro)
 				},
-				success: function(data){
-					console.log("Success");
-					$( this ).prop("disabled", false);
-					$( "#saveLivro" ).val("Salvar");
-				},
-				error: function() {
-					// TODO - Tratamento de erro
+				statusCode: {
+					200: function(p) {
+						var arr = p.responseText.split(';');
+						$( "#idLivro" ).val(arr[0]);
+						$( "#msg" ).val(arr[1]);
+						
+						$( "#saveLivro" ).prop("disabled", false);
+						$( "#saveLivro" ).val("Salvar");
+						
+						$( "form#formSaveLivro" ).submit();
+					}
 				}
 			});
 		}

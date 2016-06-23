@@ -1,18 +1,19 @@
 package br.ages.audio.bo;
 
+import java.sql.SQLException;
+
 import br.ages.crud.dao.LivroDAO;
 import br.ages.crud.exception.NegocioException;
+import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Livro;
 
 public class LivroBO {
 
-	private LivroDAO livroDAO;
+	private LivroDAO livroDAO = new LivroDAO();
 	
 	public LivroBO(){}
 	
 	public int cadastrarLivro(Livro livro) {
-
-		livroDAO = new LivroDAO();
 		int idLivro = 0;
 		
 		try {
@@ -34,6 +35,10 @@ public class LivroBO {
 		if (livro.getISBN().length() > 0)
 			return true;
 		return false;
+	}
+	
+	public Livro buscarLivro(int idLivro) throws PersistenciaException, SQLException {
+		return livroDAO.buscarLivro(idLivro);
 	}
 
 }

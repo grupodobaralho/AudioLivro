@@ -55,4 +55,35 @@ public class LivroDAO {
 			conexao.close();
 		}		
 	}
+	
+	public Livro buscarLivro(int idLivro) throws PersistenciaException, SQLException {
+		Livro livro = null;
+		
+		Connection conexao = null;
+		try {
+			conexao = ConexaoUtil.getConexao();
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("select id_livro, isbn, titulo, autores from tb_livro");
+			sql.append("where id_livro = ?");
+			
+			PreparedStatement statement = conexao.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+			statement.setInt(1, idLivro);
+			
+			ResultSet resultset = statement.executeQuery();
+			if(resultset.next()){
+				livro = new Livro();
+				livro.setIdLivro(resultset.getInt("ID_LIVRO"));
+				livro.setISBN(resultset.getString("ISBN"));
+				livro.setTitulo(resultset.getString("TITULO"));
+				livro.setAutores(resultset.getString("AUTORES"));
+			}
+			return livro;
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new PersistenciaException("Error");
+
+		} finally {
+			conexao.close();
+		}
+	}
 }
