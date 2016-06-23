@@ -61,22 +61,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Parte 1</td>
-								<td>3</td>
-								<td>
-									<button type="button" class="btn btn-default btn-xs" title="Editar" id="editCapitulo">
-							    		<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-							    	</button>
-							    	<button type="button" class="btn btn-default btn-xs" title="Remover" id="deleteCapitulo">
-							    		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-							    	</button>
-									<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalCap">
-							    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-							    	</button>
-								</td>
-							</tr>
+							
 						</tbody>
 					</table>
 				</div>

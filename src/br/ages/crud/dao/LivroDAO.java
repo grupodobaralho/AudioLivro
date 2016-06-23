@@ -64,7 +64,7 @@ public class LivroDAO {
 			conexao = ConexaoUtil.getConexao();
 			
 			StringBuilder sql = new StringBuilder();
-			sql.append("select id_livro, isbn, titulo, autores from tb_livro");
+			sql.append("select id_livro, isbn, titulo, autores from tb_livro ");
 			sql.append("where id_livro = ?");
 			
 			PreparedStatement statement = conexao.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
