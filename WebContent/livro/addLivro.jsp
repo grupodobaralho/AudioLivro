@@ -14,6 +14,7 @@
 	<div class="panel-body">
 		<form method="post" action="main?acao=cadastraLivro" class="form-horizontal" id="formSaveLivro">
 			<input type="hidden" id="idLivro" name="idLivro" value="" />
+			<input type="hidden" id="msg" name="msg" value="" />
 			
 			<div class="form-group">
 				<label for="isbn" class="col-sm-2 control-label">ISBN</label>
@@ -60,22 +61,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Parte 1</td>
-								<td>3</td>
-								<td>
-									<button type="button" class="btn btn-default btn-xs" title="Editar" id="editCapitulo">
-							    		<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-							    	</button>
-							    	<button type="button" class="btn btn-default btn-xs" title="Remover" id="deleteCapitulo">
-							    		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-							    	</button>
-									<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalCap">
-							    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-							    	</button>
-								</td>
-							</tr>
+							
 						</tbody>
 					</table>
 				</div>
@@ -279,13 +265,17 @@
 					capitulosToUpsert: JSON.stringify(arrNumeroCapitulos),
 					livro: JSON.stringify(livro)
 				},
-				success: function(data){
-					console.log("Success");
-					$( this ).prop("disabled", false);
-					$( "#saveLivro" ).val("Salvar");
-				},
-				error: function() {
-					// TODO - Tratamento de erro
+				statusCode: {
+					200: function(p) {
+						var arr = p.responseText.split(';');
+						$( "#idLivro" ).val(arr[0]);
+						$( "#msg" ).val(arr[1]);
+						
+						$( "#saveLivro" ).prop("disabled", false);
+						$( "#saveLivro" ).val("Salvar");
+						
+						$( "form#formSaveLivro" ).submit();
+					}
 				}
 			});
 		}

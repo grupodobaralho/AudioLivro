@@ -18,6 +18,7 @@ import br.ages.crud.command.Command;
 import br.ages.crud.command.CreateScreenLivroCommand;
 import br.ages.crud.command.CreateScreenUserCommand;
 import br.ages.crud.command.EditUserCommand;
+import br.ages.crud.command.ListLivroCommand;
 import br.ages.crud.command.ListUserCommand;
 import br.ages.crud.command.LoginCommand;
 import br.ages.crud.command.LogoutCommand;
@@ -54,11 +55,12 @@ public class MainServlet extends HttpServlet {
 		
 		//Livros
 		comandos.put("telaLivro", new CreateScreenLivroCommand());
+		comandos.put("listLivro", new ListLivroCommand());
 		comandos.put("cadastraLivro", new AddLivroCommand());
 	}
 
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse reponse) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String acao = request.getParameter("acao");
 		String proxima = null;
@@ -73,13 +75,14 @@ public class MainServlet extends HttpServlet {
 		}
 	
 		LogParametrosSession.logParametros(request);
-		
-		if ( proxima == "json" ) {
-			reponse.setStatus(200);
-			return;
+		Object isJSON = request.getAttribute("JSON");
+		if ( isJSON != null ) {
+			response.setContentType("application/json");
+			response.getWriter().print(proxima);
 		}
-		
-		request.getRequestDispatcher(proxima).forward(request, reponse);
+		else {
+			request.getRequestDispatcher(proxima).forward(request, response);
+		}
 	}
 
 	private Command verificarComando(String acao) {

@@ -10,7 +10,7 @@ private CapituloDAO capituloDAO;
 	
 	public CapituloBO(){}
 	
-	public boolean cadastrarCapitulos(Capitulo[] capitulosToInsert, Capitulo[] capitulosToDelete, Livro livro) {
+	public boolean cadastrarCapitulos(Capitulo[] capitulosToInsert, Livro livro) {
 
 		capituloDAO = new CapituloDAO();
 		

@@ -4,18 +4,26 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mysql.jdbc.Statement;
 
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Livro;
+import br.ages.crud.model.PerfilAcesso;
+import br.ages.crud.model.StatusUsuario;
+import br.ages.crud.model.TipoUsuario;
+import br.ages.crud.model.Usuario;
 import br.ages.crud.util.ConexaoUtil;
 import br.ages.crud.util.MensagemContantes;
 
 public class LivroDAO {
 	
+	private ArrayList<Livro> listarLivros;
+	
 	public LivroDAO(){
-		
+		listarLivros = new ArrayList<>();
 	}
 
 	public int cadastraLivro(Livro livro) throws PersistenciaException, SQLException {
@@ -54,5 +62,66 @@ public class LivroDAO {
 		} finally {
 			conexao.close();
 		}		
+	}
+	
+	public Livro buscarLivro(int idLivro) throws PersistenciaException, SQLException {
+		Livro livro = null;
+		
+		Connection conexao = null;
+		try {
+			conexao = ConexaoUtil.getConexao();
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("select id_livro, isbn, titulo, autores from tb_livro ");
+			sql.append("where id_livro = ?");
+			
+			PreparedStatement statement = conexao.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+			statement.setInt(1, idLivro);
+			
+			ResultSet resultset = statement.executeQuery();
+			if(resultset.next()){
+				livro = new Livro();
+				livro.setIdLivro(resultset.getInt("ID_LIVRO"));
+				livro.setISBN(resultset.getString("ISBN"));
+				livro.setTitulo(resultset.getString("TITULO"));
+				livro.setAutores(resultset.getString("AUTORES"));
+			}
+			return livro;
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new PersistenciaException("Error");
+
+		} finally {
+			conexao.close();
+		}
+	}
+	
+	public List<Livro> listarLivros() throws PersistenciaException, SQLException {
+		Connection conexao = null;
+		// tentativa de readaptação do listarUsuarios()
+		try {
+			conexao = ConexaoUtil.getConexao();
+
+			StringBuilder sql = new StringBuilder();
+			sql.append("select ID_LIVRO, ISBN, TITULO, AUTORES ");
+			sql.append("from audio_e.tb_livro");
+
+			PreparedStatement statement = conexao.prepareStatement(sql.toString());
+			ResultSet resultset = statement.executeQuery();
+			while (resultset.next()) {
+				Livro livro = new Livro();
+				livro.setIdLivro(resultset.getInt("ID_LIVRO"));
+				livro.setISBN(resultset.getString("ISBN"));
+				livro.setTitulo(resultset.getString("TITULO"));
+				livro.setAutores(resultset.getString("AUTORES"));
+				
+				listarLivros.add(livro);
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new PersistenciaException(e);
+		} finally {
+			conexao.close();
+		}
+		return listarLivros;
 	}
 }
