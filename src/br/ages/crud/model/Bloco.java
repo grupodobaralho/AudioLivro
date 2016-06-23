@@ -5,6 +5,7 @@ public class Bloco {
 	private String lcl_arq_audio;
 	private Status statusBloco;
 	
+	
 	public Bloco(String lclC, String lclArq, Status x){
 		lcl_conteudo = lclC;
 		lcl_arq_audio = lclArq;
@@ -34,7 +35,9 @@ public class Bloco {
 	public void setStatusBloco(Status statusBloco) {
 		this.statusBloco = statusBloco;
 	}
+	
 
+	
 	@Override
 	public String toString() {
 		return "== Informações do Bloco ==\nLocal do conteúdo: " + lcl_conteudo + 

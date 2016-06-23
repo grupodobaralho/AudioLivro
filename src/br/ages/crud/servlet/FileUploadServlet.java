@@ -121,10 +121,17 @@ public class FileUploadServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
+			
 			logger.debug("Iniciando o Upload");
-			BlocoDAO BlocoDAO = new BlocoDAO();
+			
 			String savePath = SAVE_DIR + File.separator ;
 			File fileSaveDir = new File(savePath);
+			
+			
+			String isbn = request.getParameter("isbn");
+			
+			//futuramente ira receber o id do capitulo para gerar nome do bloco
+			//String idCap = request.getParameter(");
 			
 			
 			if (!fileSaveDir.exists())
@@ -133,6 +140,7 @@ public class FileUploadServlet extends HttpServlet {
 			Part part = request.getPart("file");
 			String fileName = extractFileName(part);
 			part.write(new File(savePath + File.separator + fileName).toString());
+			
 			// caminho que será salvo no banco com o local onde o pdf está salvo
 			String caminho = savePath + fileName;
 			
