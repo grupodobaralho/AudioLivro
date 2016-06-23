@@ -1,11 +1,10 @@
 package br.ages.crud.command;
 
-import java.sql.Array;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+
+import com.google.gson.Gson;
 
 import br.ages.audio.bo.CapituloBO;
 import br.ages.audio.bo.LivroBO;
@@ -20,34 +19,39 @@ public class AddLivroCommand implements Command {
 	private LivroBO livroBO;
 	private Livro livro;
 	private CapituloBO capituloBO;
+	
 	@Override
 	public String execute(HttpServletRequest request) throws SQLException, NegocioException {
 		
 		livroBO = new LivroBO();
 		capituloBO = new CapituloBO();
 		
-		proxima = "/main?acao=telaLivro";
+		proxima = "json";
 		livro = new Livro();
 		
 		try {
-			String isbn = request.getParameter("isbn");
-			String titulo = request.getParameter("titulo");
-			String autores = request.getParameter("autores");
-			String[] capitulosToUpsert = request.getParameterValues("idCapitulosToUpsert");
-			String[] capitulosToDelete = request.getParameterValues("idCapitulosToDelete");
+			String jsonCapitulosToUpsert = request.getParameter("capitulosToUpsert");
+			String jsonCapitulosToDelete = request.getParameter("capitulosToDelete");
+			String jsonLivro = request.getParameter("livro");
 			
-			livro.setTitulo(titulo);
-			livro.setISBN(isbn);
-			livro.setAutores(autores);
+			// Parse from JSON to class
+			Gson gson = new Gson();
+			Capitulo[] capitulosToUpsert = gson.fromJson(jsonCapitulosToUpsert, Capitulo[].class);
+			Capitulo[] capitulosToDelete = gson.fromJson(jsonCapitulosToDelete, Capitulo[].class);
+			livro = gson.fromJson(jsonLivro, Livro.class);
 			
-			 boolean result = livroBO.cadastrarLivro(livro);
-			 if( result ){
-//				 boolean resultCapitulos = capituloBO.cadastrarCapitulos(toCapitulos(capitulosToDelete), toCapitulos(capitulosToUpsert), livro.getIdLivro());
+			livro.setIdLivro(livroBO.cadastrarLivro(livro));
+			if( livro.getIdLivro() > 0 ){
+				boolean resultCapitulos = capituloBO.cadastrarCapitulos(capitulosToUpsert, capitulosToDelete, livro);
 				 
-				 proxima = "/main?acao=telaLivro";
+				if ( !resultCapitulos ) {
+					// TODO tratamento de erro quando nao conseguir salvar os capitulos
+				}
+			
 				request.setAttribute("msgSucesso", MensagemContantes.MSG_SUC_CADASTRO_LIVRO.replace("?", livro.getTitulo()));
-			 }else
-				 request.setAttribute("msgErro", MensagemContantes.MSG_ERR_LIVRO_DADOS_INVALIDOS);
+			}else {
+				request.setAttribute("msgErro", MensagemContantes.MSG_ERR_LIVRO_DADOS_INVALIDOS);
+			}
 			 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -55,19 +59,5 @@ public class AddLivroCommand implements Command {
 		
 		
 		return proxima;
-	}
-	
-	private List<Capitulo> toCapitulos(String[] idCapitulos) {
-		List<Capitulo> capitulos = new ArrayList<Capitulo>();
-		
-		for ( int i = 0; i < idCapitulos.length; i++ ) {
-			String idCapituloStr = idCapitulos[i];
-			
-			Capitulo cap = new Capitulo();
-			cap.setIdCapitulo(Integer.valueOf(idCapituloStr));
-			capitulos.add(cap);
-		}
-		
-		return capitulos;
 	}
 }

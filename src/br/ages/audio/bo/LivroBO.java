@@ -10,14 +10,15 @@ public class LivroBO {
 	
 	public LivroBO(){}
 	
-	public boolean cadastrarLivro(Livro livro) {
+	public int cadastrarLivro(Livro livro) {
 
 		livroDAO = new LivroDAO();
+		int idLivro = 0;
 		
 		try {
 			if (validaLivro(livro)) {
-				livroDAO.cadastraLivro(livro);
-				return true;
+				idLivro = livroDAO.cadastraLivro(livro);
+				return idLivro;
 			}
 			throw new NegocioException("O cadastro não pode ser efetuado");
 
@@ -26,7 +27,7 @@ public class LivroBO {
 			e.printStackTrace();
 		}
 
-		return false;
+		return 0;
 	}
 
 	private boolean validaLivro(Livro livro) {

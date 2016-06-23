@@ -1,9 +1,8 @@
 package br.ages.audio.bo;
 
-import java.util.List;
-
 import br.ages.crud.dao.CapituloDAO;
 import br.ages.crud.model.Capitulo;
+import br.ages.crud.model.Livro;
 
 public class CapituloBO {
 	
@@ -11,14 +10,19 @@ private CapituloDAO capituloDAO;
 	
 	public CapituloBO(){}
 	
-	public boolean cadastrarCapitulos(List<Capitulo> capitulosToInsert, List<Capitulo> capitulosToDelete, Integer idLivro) {
+	public boolean cadastrarCapitulos(Capitulo[] capitulosToInsert, Capitulo[] capitulosToDelete, Livro livro) {
 
 		capituloDAO = new CapituloDAO();
 		
 		try {
-			for (int i = 0; i < capitulosToInsert.size(); i++) {
-				Capitulo capitulo = capitulosToInsert.get(i);
-				capituloDAO.cadastrarCapitulo(capitulo);
+			int idCapitulo = 0;
+			for (int i = 0; i < capitulosToInsert.length; i++) {
+				Capitulo capitulo = capitulosToInsert[i];
+				capitulo.setLivro(livro);
+				idCapitulo = capituloDAO.cadastrarCapitulo(capitulo);
+				if ( idCapitulo == 0) {
+					return false;
+				}
 			}
 			return true;
 		} catch (Exception e) {

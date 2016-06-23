@@ -74,8 +74,12 @@ public class MainServlet extends HttpServlet {
 	
 		LogParametrosSession.logParametros(request);
 		
-		request.getRequestDispatcher(proxima).forward(request, reponse);
+		if ( proxima == "json" ) {
+			reponse.setStatus(200);
+			return;
+		}
 		
+		request.getRequestDispatcher(proxima).forward(request, reponse);
 	}
 
 	private Command verificarComando(String acao) {

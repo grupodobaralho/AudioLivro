@@ -13,8 +13,6 @@
 	</div>
 	<div class="panel-body">
 		<form method="post" action="main?acao=cadastraLivro" class="form-horizontal" id="formSaveLivro">
-			<input type="hidden" id="idCapitulosToUpsert" name="idCapitulosToUpsert" value="" />
-			<input type="hidden" id="idCapitulosToDelete" name="idCapitulosToDelete" value="" />
 			<input type="hidden" id="idLivro" name="idLivro" value="" />
 			
 			<div class="form-group">
@@ -83,8 +81,8 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-11"></div>
-				<div class="col-sm-1">
+				<div class="col-sm-10"></div>
+				<div class="col-sm-2">
 					<input class="btn btn-info" type="button" id="saveLivro" value="Salvar">
 				</div>
 			</div>
@@ -96,25 +94,20 @@
 <script type="text/javascript">
 	$( document ).ready(function() {
 		var arrNumeroCapitulos = [];
-		var arrNumeroCapitulosOrigin = [];
-		
-		arrNumeroCapitulos = getNumeroCapitulosExistentes();
-		arrNumeroCapitulosOrigin = arrNumeroCapitulos; 
+		var livro = null;
 		
 		// Ação do botão que salva o formulário
 		$( this ).on('click', '#saveLivro', function() {
 			if ( validateForm() ) {
-				var arrNumeroCapitulosToDelete = [];
+				$( "#saveLivro" ).val("Salvando...");
+				$( this ).prop("disabled", true);
 				
-				jQuery.grep(arrNumeroCapitulosOrigin, function(el) {
-		        	if (jQuery.inArray(el, arrNumeroCapitulos) == -1) {
-		        		arrNumeroCapitulosToDelete.push(el);
-		        	}
-				});
+				livro = new Object();
+				livro.ISBN = $( "#isbn" ).val();
+				livro.titulo = $( "#titulo" ).val();
+				livro.autores = $( "#autores" ).val();
 				
-				$( '#idCapitulosToUpsert' ).val(arrNumeroCapitulos);
-				$( '#idCapitulosToDelete' ).val(arrNumeroCapitulosToDelete);
-				$( '#formSaveLivro' ).submit();
+				sendDataToBackend();
 			}
 		});
 		// Ação do botão que adiciona títulos
@@ -194,7 +187,11 @@
 			$( "#capituloNome" ).val("");
 			$( "#capituloNumero" ).val("");
 			
-			arrNumeroCapitulos.push(capituloNumero);
+			// Cria o objeto de capitulo
+			var obj = new Object();
+			obj.nome = capituloNome;
+			obj.numero = capituloNumero;
+			arrNumeroCapitulos.push(obj);
 		}
 		
 		function editCapitulo(btn) {
@@ -237,22 +234,6 @@
 			});
 		}
 		
-		function getNumeroCapitulosExistentes() {
-			var arrCapitulos = [];
-			var trs = $( "#tableCapitulos > tbody > tr" );
-			
-			$( trs ).each(function() {
-				// Busca todas as colunas da linha
-				var tds = $( this ).children();
-				// Seleciona apenas as colunas do numero do capítulo
-				var capituloNumero = tds.eq(0).text();
-				
-				arrCapitulos.push(capituloNumero);
-			});
-			
-			return arrCapitulos;
-		}
-		
 		function validateForm() {
 			if ( $( '#isbn' ).val().length == 0 ||
 				 $( '#titulo' ).val().length == 0 || 
@@ -287,6 +268,26 @@
 			$( '#divMsgDadosInvalidos' ).hide();
 			
 			return true;
+		}
+		
+		function sendDataToBackend() {
+			$.ajax({
+				url: "main?acao=cadastraLivro",
+				type: "POST",
+				dataType: "JSON",
+				data: {
+					capitulosToUpsert: JSON.stringify(arrNumeroCapitulos),
+					livro: JSON.stringify(livro)
+				},
+				success: function(data){
+					console.log("Success");
+					$( this ).prop("disabled", false);
+					$( "#saveLivro" ).val("Salvar");
+				},
+				error: function() {
+					// TODO - Tratamento de erro
+				}
+			});
 		}
 	});
 </script>
