@@ -1,6 +1,7 @@
 package br.ages.audio.bo;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import br.ages.crud.dao.LivroDAO;
 import br.ages.crud.exception.NegocioException;
@@ -39,6 +40,20 @@ public class LivroBO {
 	
 	public Livro buscarLivro(int idLivro) throws PersistenciaException, SQLException {
 		return livroDAO.buscarLivro(idLivro);
+	}
+	
+	public List<Livro> listarLivros() throws NegocioException {
+
+		List<Livro> listLivros = null;
+
+		try {
+			listLivros = livroDAO.listarLivros();
+		} catch (PersistenciaException | SQLException e) {
+			e.printStackTrace();
+			throw new NegocioException(e);
+		}
+
+		return listLivros;
 	}
 
 }
