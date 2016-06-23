@@ -12,26 +12,26 @@
 		Cadastro Livro
 	</div>
 	<div class="panel-body">
-		<form method="post" action="main?acao=cadastraLivro" class="form-horizontal">
+		<form method="post" action="main?acao=cadastraLivro" class="form-horizontal" id="formSaveLivro">
 			<input type="hidden" id="idCapitulosToUpsert" name="idCapitulosToUpsert" value="" />
 			<input type="hidden" id="idCapitulosToDelete" name="idCapitulosToDelete" value="" />
 			<input type="hidden" id="idLivro" name="idLivro" value="" />
 			
 			<div class="form-group">
 				<label for="isbn" class="col-sm-2 control-label">ISBN</label>
-			    <div class="col-sm-10">
+			    <div class="col-sm-10" id="divISBN">
 			      <input type="text" class="form-control" id="isbn" name="isbn" maxlength="17" placeholder="ISBN">
 			    </div>
 			</div>
 			<div class="form-group">
 				<label for="titulo" class="col-sm-2 control-label">Título</label>
-			    <div class="col-sm-10">
+			    <div class="col-sm-10" id="divTitulo">
 			      <input type="text" class="form-control" id="titulo" name="titulo" maxlength="100" placeholder="Título">
 			    </div>
 			</div>
 			<div class="form-group">
 				<label for="autores" class="col-sm-2 control-label">Autores</label>
-			    <div class="col-sm-10">
+			    <div class="col-sm-10" id="divAutores">
 			      <input type="text" class="form-control" id="autores" name="autores" maxlength="150" placeholder="Autores">
 			    </div>
 			</div>
@@ -85,7 +85,7 @@
 			<div class="form-group">
 				<div class="col-sm-11"></div>
 				<div class="col-sm-1">
-					<input class="btn btn-info" type="submit" value="Salvar">
+					<input class="btn btn-info" type="button" id="saveLivro" value="Salvar">
 				</div>
 			</div>
 		</form>
@@ -96,19 +96,36 @@
 <script type="text/javascript">
 	$( document ).ready(function() {
 		var arrNumeroCapitulos = [];
+		var arrNumeroCapitulosOrigin = [];
 		
 		arrNumeroCapitulos = getNumeroCapitulosExistentes();
+		arrNumeroCapitulosOrigin = arrNumeroCapitulos; 
 		
-		$( "#addTitulo" ).on({
-			click: function() {
-				addCapitulo();
+		// Ação do botão que salva o formulário
+		$( this ).on('click', '#saveLivro', function() {
+			if ( validateForm() ) {
+				var arrNumeroCapitulosToDelete = [];
+				
+				jQuery.grep(arrNumeroCapitulosOrigin, function(el) {
+		        	if (jQuery.inArray(el, arrNumeroCapitulos) == -1) {
+		        		arrNumeroCapitulosToDelete.push(el);
+		        	}
+				});
+				
+				$( '#idCapitulosToUpsert' ).val(arrNumeroCapitulos);
+				$( '#idCapitulosToDelete' ).val(arrNumeroCapitulosToDelete);
+				$( '#formSaveLivro' ).submit();
 			}
 		});
-		
+		// Ação do botão que adiciona títulos
+		$( this ).on('click', '#addTitulo', function() {
+			addCapitulo();
+		});
+		// Ação do botão que edita títulos
 		$( this ).on('click', 'button#editCapitulo', function() {
 			editCapitulo(this);
 		});
-		
+		// Ação do botão que deleta títulos
 		$( this ).on('click', 'button#deleteCapitulo', function() {
 			deleteCapitulo(this);
 		});
@@ -129,21 +146,29 @@
 			if ( capituloNome.length == 0 && capituloNumero == 0 ) {
 				$( "#divCapituloNome" ).addClass("has-error");
 				$( "#divCapituloNumero" ).addClass("has-error");
+				
+				$( '#divMsgDadosInvalidos' ).show();
 				return;
 			}
 			else if ( capituloNome.length == 0 ) {
 				$( "#divCapituloNumero" ).removeClass("has-error");
 				$( "#divCapituloNome" ).addClass("has-error");
+				
+				$( '#divMsgDadosInvalidos' ).show();
 				return;
 			}
 			else if ( capituloNumero.length == 0 || !isNumeric || !hasNumeroCapitulo) {
 				$( "#divCapituloNome" ).removeClass("has-error");
 				$( "#divCapituloNumero" ).addClass("has-error");
+				
+				$( '#divMsgDadosInvalidos' ).show();
 				return;
 			}
 			else {
 				$( "#divCapituloNome" ).removeClass("has-error");
 				$( "#divCapituloNumero" ).removeClass("has-error");
+				
+				$( '#divMsgDadosInvalidos' ).hide();
 			}
 			
 			var contentToAppend = "	<tr>";
@@ -226,6 +251,42 @@
 			});
 			
 			return arrCapitulos;
+		}
+		
+		function validateForm() {
+			if ( $( '#isbn' ).val().length == 0 ||
+				 $( '#titulo' ).val().length == 0 || 
+				 $( '#autores' ).val().length == 0) {
+				
+				if ( $( '#isbn' ).val().length == 0 ) {
+					$( '#divISBN' ).addClass("has-error");
+				}
+				else {
+					$( '#divISBN' ).removeClass("has-error");
+				}
+				
+				if ( $( '#titulo' ).val().length == 0 ) {
+					$( '#divTitulo' ).addClass("has-error");
+				}
+				else {
+					$( '#divTitulo' ).removeClass("has-error");
+				}
+				
+				if ( $( '#autores' ).val().length == 0 ) {
+					$( '#divAutores' ).addClass("has-error");
+				}
+				else {
+					$( '#divAutores' ).removeClass("has-error");
+				}
+				
+				$( '#divMsgDadosInvalidos' ).show();
+				
+				return false;
+			}
+			
+			$( '#divMsgDadosInvalidos' ).hide();
+			
+			return true;
 		}
 	});
 </script>

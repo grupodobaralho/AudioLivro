@@ -8,6 +8,8 @@ public class LivroBO {
 
 	private LivroDAO livroDAO;
 	
+	public LivroBO(){}
+	
 	public boolean cadastrarLivro(Livro livro) {
 
 		livroDAO = new LivroDAO();

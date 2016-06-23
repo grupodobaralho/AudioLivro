@@ -32,7 +32,7 @@ public class AddLivroCommand implements Command {
 			livro.setAutores(autores);
 			
 			 boolean result = livroBO.cadastrarLivro(livro);
-			 if(result){
+			 if( result ){
 				 proxima = "/main?acao=telaLivro";
 				request.setAttribute("msgSucesso", MensagemContantes.MSG_SUC_CADASTRO_LIVRO.replace("?", livro.getTitulo()));
 			 }else
