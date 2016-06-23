@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Capitulo {
+	private Integer idCapitulo;
 	private String nome;
 	private int numero;
+	private Livro livro;
 	private List<Bloco> blocos;
 	
-	public Capitulo(String nome, int numero){
+	public Capitulo() {}
+	
+	public Capitulo(String nome, int numero, Livro livro){
 		this.nome = nome;
 		this.numero = numero;
+		this.setLivro(livro);
 		blocos = new ArrayList<Bloco>();
 	}
 
@@ -39,7 +44,23 @@ public class Capitulo {
 	}
 
 	public String toString() {
-		return "== Informações do Capítulo ==\nNome: " + nome + "\nNúmero: " + numero;
+		return "== Informaï¿½ï¿½es do Capï¿½tulo ==\nNome: " + nome + "\nNï¿½mero: " + numero;
+	}
+
+	public Livro getLivro() {
+		return livro;
+	}
+
+	public void setLivro(Livro livro) {
+		this.livro = livro;
+	}
+
+	public Integer getIdCapitulo() {
+		return idCapitulo;
+	}
+
+	public void setIdCapitulo(Integer idCapitulo) {
+		this.idCapitulo = idCapitulo;
 	}
 	
 	
