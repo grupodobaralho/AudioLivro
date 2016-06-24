@@ -144,9 +144,9 @@
 		// Functions
 		function addCapitulo() {
 			// guarda o nome do capítulo informado pelo usuário
-			var capituloNome = $( "#capituloNome" ).val();
+			var capituloNome = $( "input#capituloNome" ).val();
 			// guarda o número do capítulo informado pelo usuário, já removendo os zeros a esquerda
-			var capituloNumero = $( "#capituloNumero" ).val().replace(/^0+/, '');
+			var capituloNumero = $( "input#capituloNumero" ).val().replace(/^0+/, '');
 			$( "#capituloNumero" ).val(capituloNumero);
 			// verifica se o número do capítulo é um número
 			var isNumeric = Math.floor(capituloNumero) == capituloNumero && $.isNumeric(capituloNumero);
@@ -203,8 +203,8 @@
 			$('#tableCapitulos > tbody:last-child')
 				.append(contentToAppend);
 			
-			$( "#capituloNome" ).val("");
-			$( "#capituloNumero" ).val("");
+			$( "input#capituloNome" ).val("");
+			$( "input#capituloNumero" ).val("");
 			
 			// Cria o objeto de capitulo
 			var obj = new Object();
@@ -226,8 +226,8 @@
 			var capituloNome = tds.eq(2).text();
 			
 			// Preenche os valores nos respectivos campos
-			$( "#capituloNome" ).val(capituloNome);
-			$( "#capituloNumero" ).val(capituloNumero);
+			$( "input#capituloNome" ).val(capituloNome);
+			$( "input#capituloNumero" ).val(capituloNumero);
 			
 			// Remove a linha da tabela
 			$( tr_td_Btn ).remove();
