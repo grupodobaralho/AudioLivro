@@ -17,7 +17,7 @@
 		Cadastro Livro
 	</div>
 	<div class="panel-body">
-		<form method="post" action="main?acao=cadastraLivro" class="form-horizontal" id="formSaveLivro">
+		<form method="post" action="main?acao=telaLivro" class="form-horizontal" id="formSaveLivro">
 			<input type="hidden" id="idLivro" name="idLivro" value="<%=(livro != null) ? livro.getIdLivro() : ""%>" />
 			<input type="hidden" id="msg" name="msg" value="" />
 			
@@ -120,6 +120,7 @@
 				$( this ).prop("disabled", true);
 				
 				livro = new Object();
+				livro.idLivro = $( "#idLivro" ).val() != "" ? $( "#idLivro" ).val() : null;
 				livro.ISBN = $( "#isbn" ).val();
 				livro.titulo = $( "#titulo" ).val();
 				livro.autores = $( "#autores" ).val();

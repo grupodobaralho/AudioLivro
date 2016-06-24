@@ -31,16 +31,19 @@ public class AddLivroCommand implements Command {
 		livro = new Livro();
 		
 		try {
-			String idLivro = request.getParameter("idLivro");
 			String jsonLivro = request.getParameter("livro");
-			
-			if ( idLivro != null && idLivro.length() > 0 ) {
-				proxima = editLivro(request, idLivro);
+			if ( jsonLivro.length() > 0 ) {
+				// Parse from JSON to class
+				Gson gson = new Gson();
+				livro = gson.fromJson(jsonLivro, Livro.class);
+				
+				if ( livro.getIdLivro() != null && livro.getIdLivro() > 0 ) {
+					proxima = editLivro(request, livro);
+				}
+				else if ( jsonLivro != null ) {
+					proxima = addLivro(request);
+				}
 			}
-			else if ( jsonLivro != null ) {
-				proxima = addLivro(request);
-			}
-			 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -74,15 +77,14 @@ public class AddLivroCommand implements Command {
 		return proxima;
 	}
 	
-	private String editLivro(HttpServletRequest request, String idLivro) throws NumberFormatException, PersistenciaException, SQLException {
-		String msg = request.getParameter("msg");
-		
+	private String editLivro(HttpServletRequest request, Livro livro) throws NumberFormatException, PersistenciaException, SQLException {
 		proxima = "/main?acao=telaLivro";
 		
-		if ( msg != null && msg.length() > 0 ) {
-			livro = livroBO.buscarLivro(Integer.parseInt(idLivro));
-			request.setAttribute("msgSucesso", MensagemContantes.MSG_SUC_CADASTRO_LIVRO.replace("?", livro.getTitulo()));
-		}
+		String jsonCapitulosToUpsert = request.getParameter("capitulosToUpsert");
+		
+		// Parse from JSON to class
+		Gson gson = new Gson();
+		Capitulo[] capitulosToUpsert = gson.fromJson(jsonCapitulosToUpsert, Capitulo[].class);
 		
 		return proxima;
 	}
