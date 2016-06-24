@@ -96,14 +96,19 @@ $( document ).ready(function() {
 		        	<h4 class="modal-title">Cadastrar Capitulo</h4>
 	      		</div>
 		      	<div class="modal-body">
-	        		<form method="post" action="main?acao=cadastraLivro">
+	        		<form method="post" class="form-horizontal" action="main?acao=cadastraLivro">
 		        		<div class="form-group">
-		        		<h4>Livro: </h4>
-		        			<label  class="form-label" id="livroNome" > </label>
-						<h6>Capítulo: </h6>	
-							<label class="form-label" id="capituloNome"> </label>
+	        				<label for="livro" class="col-sm-1 control-label">Livro: </label>
+	        				<label for="livroNome" class="col-sm-11 control-label leftAli" id="livroNome"> </label>
+	        				
+		        		</div>
+		        		<div class="form-group">
+		        			<label for="capitulo" class="col-sm-2 control-label leftAli">Capitulo: </label>
+		        			<label for="capituloNome" class="col-sm-10 control-label leftAli" id="capituloNome" > </label>
+		        		</div>
+		        			
 								        	
-						</div>
+						
         			</form>	
 		      	</div>
 		      	<div class="modal-footer">

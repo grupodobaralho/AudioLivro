@@ -115,3 +115,8 @@ body{
     width: 25%;
     float: left;
 }
+
+.leftAli {
+	text-align: left !important;
+}
+}
