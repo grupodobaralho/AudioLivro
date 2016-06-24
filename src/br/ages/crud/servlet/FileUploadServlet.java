@@ -129,6 +129,7 @@ public class FileUploadServlet extends HttpServlet {
 			
 			
 			String isbn = request.getParameter("isbn");
+			//String idLivro = 
 			
 			//futuramente ira receber o id do capitulo para gerar nome do bloco
 			//String idCap = request.getParameter(");
@@ -144,11 +145,12 @@ public class FileUploadServlet extends HttpServlet {
 			// caminho que será salvo no banco com o local onde o pdf está salvo
 			String caminho = savePath + fileName;
 			
+			
 			request.setAttribute("msgSucesso", "Upload feito com sucesso!");
 			
 			
 			
-			getServletContext().getRequestDispatcher("/main?acao=telaLivro").forward(request, response);
+			getServletContext().getRequestDispatcher("/main?acao=telaLivro&idLivro=").forward(request, response);
 			
 			logger.info("Executado o Upload em: " + savePath + " - " + fileName );
 			

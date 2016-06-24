@@ -26,10 +26,15 @@ $( document ).ready(function() {
 	
 	$('#modalBloco').on('show.bs.modal', function (event) {
 	  	var botao = $(event.relatedTarget);
-	  	var capituloId = botao.data('capituloId');
+	  	var capituloId = botao.data('capitulo_id');
+	  	var capituloNome = botao.data('capitulo_nome');
+	  	var livroNome = botao.data('livro_nome');
+	  	var capituloNumero = botao.data('capitulo_numero');
 		
 	  	$(this).find('.modal-title').text('Adicionar Blocos');
-	  	
+		$(this).find('#livroNome').text(livroNome);
+		$(this).find('#capituloNome').text(capituloNome);
+		
 	  	$('#formBloco').attr('action', "main?acao=telaBloco&id_capitulo=" + capituloId);
 	});
 });
@@ -93,15 +98,17 @@ $( document ).ready(function() {
 		      	<div class="modal-body">
 	        		<form method="post" action="main?acao=cadastraLivro">
 		        		<div class="form-group">
-		        			<label  class="form-label"> Nome capitulo</label>
-							<input class="form-control" name="nome" id="nome">
-							<label class="form-label" > Numero capitulo</label>
-							<input class="form-control" name="numero" id="numero">
-	        			</div>
+		        		<h4>Livro: </h4>
+		        			<label  class="form-label" id="livroNome" > </label>
+						<h6>Capítulo: </h6>	
+							<label class="form-label" id="capituloNome"> </label>
+								        	
+						</div>
         			</form>	
 		      	</div>
 		      	<div class="modal-footer">
 		      		<form action="" method="post" id="formBloco">
+		      			<input type="hidden" id="idLivro" name="idLivro" value="" />
 		      			<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
 		      			<button type="submit" class="btn btn-primary">Salvar</button>
 		      		</form>

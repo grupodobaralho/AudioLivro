@@ -29,6 +29,7 @@ public class TelaLivroCommand implements Command{
 		try {
 			String idLivro = request.getParameter("idLivro");
 			
+			
 			if ( idLivro != null ) {
 				livro = livroBO.buscarLivro(Integer.parseInt(idLivro));
 				capitulos = capituloBO.buscarCapitulosDoLivro(livro);
