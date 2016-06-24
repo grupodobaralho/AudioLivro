@@ -84,7 +84,7 @@
 									<button type="button" class="btn btn-default btn-xs" title="Remover" id="deleteCapitulo">
 										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 									</button>
-									<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalBloco" data-capitulo_id="<%=capitulo.getIdCapitulo()%>">
+									<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalBloco" data-livro_nome="<%=livro.getTitulo()%>" data-capitulo_nome="<%=capitulo.getNome()%>" data-capitulo_numero="<%=capitulo.getNumero()%>" data-capitulo_id="<%=capitulo.getIdCapitulo()%>">
 										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 									</button>
             					</td>
