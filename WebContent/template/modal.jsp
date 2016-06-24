@@ -23,6 +23,15 @@ $( document ).ready(function() {
 	  	
 	  	$('#formEditar').attr('action', "main?acao=telaUser&id_usuario=" + id + "&isEdit=true");
 	});
+	
+	$('#modalBloco').on('show.bs.modal', function (event) {
+	  	var botao = $(event.relatedTarget);
+	  	var capituloId = botao.data('capituloId');
+		
+	  	$(this).find('.modal-title').text('Adicionar Blocos');
+	  	
+	  	$('#formBloco').attr('action', "main?acao=telaBloco&id_capitulo=" + capituloId);
+	});
 });
 </script>
 
@@ -74,7 +83,7 @@ $( document ).ready(function() {
 	  	</div>
 	</div>
 	
-	<div class="modal fade" id="modalCap" role="dialog">
+	<div class="modal fade" id="modalBloco" role="dialog">
   		<div class="modal-dialog">
 	  		<div class="modal-content">
 	      		<div class="modal-header modal-ages">
@@ -92,7 +101,7 @@ $( document ).ready(function() {
         			</form>	
 		      	</div>
 		      	<div class="modal-footer">
-		      		<form action="" method="post" id="formEditar">
+		      		<form action="" method="post" id="formBloco">
 		      			<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
 		      			<button type="submit" class="btn btn-primary">Salvar</button>
 		      		</form>

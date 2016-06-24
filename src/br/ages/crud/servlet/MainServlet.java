@@ -15,7 +15,6 @@ import org.apache.log4j.Logger;
 import br.ages.crud.command.AddLivroCommand;
 import br.ages.crud.command.AddUserCommand;
 import br.ages.crud.command.Command;
-import br.ages.crud.command.CreateScreenLivroCommand;
 import br.ages.crud.command.CreateScreenUserCommand;
 import br.ages.crud.command.EditUserCommand;
 import br.ages.crud.command.ListLivroCommand;
@@ -25,6 +24,7 @@ import br.ages.crud.command.LogoutCommand;
 import br.ages.crud.command.ModeloCommand;
 import br.ages.crud.command.RemoveUserCommand;
 import br.ages.crud.command.SenhaCommand;
+import br.ages.crud.command.TelaLivroCommand;
 import br.ages.crud.model.Usuario;
 import br.ages.crud.util.LogParametrosSession;
 
@@ -54,7 +54,7 @@ public class MainServlet extends HttpServlet {
 		comandos.put("modelo", new ModeloCommand());
 		
 		//Livros
-		comandos.put("telaLivro", new CreateScreenLivroCommand());
+		comandos.put("telaLivro", new TelaLivroCommand());
 		comandos.put("listLivro", new ListLivroCommand());
 		comandos.put("cadastraLivro", new AddLivroCommand());
 	}

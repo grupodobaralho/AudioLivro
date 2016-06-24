@@ -4,19 +4,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.mysql.jdbc.Statement;
 
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Capitulo;
+import br.ages.crud.model.Livro;
 import br.ages.crud.util.ConexaoUtil;
 import br.ages.crud.util.MensagemContantes;
 
 public class CapituloDAO {
 	
-	public CapituloDAO() {
-		
-	}
+	public CapituloDAO() {}
 	
 	public int cadastrarCapitulo(Capitulo capitulo) throws PersistenciaException, SQLException {
 		Connection conexao = null;
@@ -54,5 +54,40 @@ public class CapituloDAO {
 		} finally {
 			conexao.close();
 		}	
+	}
+	
+	public ArrayList<Capitulo> buscarCapitulosDoLivro(Livro livro) throws PersistenciaException, SQLException {
+		ArrayList<Capitulo> capitulos = new ArrayList<>();
+		Connection conexao = null;
+		// tentativa de readaptação do listarUsuarios()
+		try {
+			conexao = ConexaoUtil.getConexao();
+
+			StringBuilder sql = new StringBuilder();
+			sql.append("select ID_CAPITULO, NUMERO, NOME ");
+			sql.append("from audio_e.tb_capitulo ");
+			sql.append("where id_livro = ?");
+
+			PreparedStatement statement = conexao.prepareStatement(sql.toString());
+			statement.setInt(1, livro.getIdLivro());
+			
+			ResultSet resultset = statement.executeQuery();
+			while (resultset.next()) {
+				Capitulo capitulo = new Capitulo();
+				capitulo.setIdCapitulo(resultset.getInt("ID_CAPITULO"));
+				capitulo.setNumero(resultset.getInt("NUMERO"));
+				capitulo.setNome(resultset.getString("NOME"));
+				capitulo.setLivro(livro);
+				
+				capitulos.add(capitulo);
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new PersistenciaException(e);
+		} finally {
+			conexao.close();
+		}
+		
+		return capitulos;
 	}
 }

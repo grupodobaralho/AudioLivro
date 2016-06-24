@@ -1,4 +1,5 @@
 <%@page import="br.ages.crud.model.Livro"%>
+<%@page import="br.ages.crud.util.EncryptUtil"%>
 <%@page import="java.util.List"%>
 <jsp:include page="../template/head.jsp"></jsp:include>
 
@@ -40,7 +41,7 @@
 	            	<td align="center"><%=livro.getAutores() %></td>
 	            	<td align="center">
 						<form action="" method="post">
-            				<a href="" title="Editar"> <i class="glyphicon glyphicon-pencil"></i></a>
+            				<a href="main?acao=telaLivro&idLivro=<%=livro.getIdLivro().toString()%>" title="Editar"> <i class="glyphicon glyphicon-pencil"></i></a>
             			</form>
             		</td>
             		

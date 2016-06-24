@@ -1,37 +1,42 @@
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@page import="br.ages.crud.model.Livro"%>
+<%@page import="br.ages.crud.model.Capitulo"%>
+<%@page import="java.util.ArrayList"%>
 
 <jsp:include page="../template/head.jsp"></jsp:include>
 
 <!-- MODAL / POPUP -->
 <jsp:include page="../template/modal.jsp"></jsp:include>
 <jsp:include page="/template/msg.jsp"></jsp:include>
-
+<%
+	Livro livro = (Livro) request.getAttribute("livro");
+%>
 <div class="panel panel-primary">
 	<div class="panel-heading text-center">
 		Cadastro Livro
 	</div>
 	<div class="panel-body">
 		<form method="post" action="main?acao=cadastraLivro" class="form-horizontal" id="formSaveLivro">
-			<input type="hidden" id="idLivro" name="idLivro" value="" />
+			<input type="hidden" id="idLivro" name="idLivro" value="<%=(livro != null) ? livro.getIdLivro() : ""%>" />
 			<input type="hidden" id="msg" name="msg" value="" />
 			
 			<div class="form-group">
 				<label for="isbn" class="col-sm-2 control-label">ISBN</label>
 			    <div class="col-sm-10" id="divISBN">
-			      <input type="text" class="form-control" id="isbn" name="isbn" maxlength="17" placeholder="ISBN">
+			      <input type="text" class="form-control" id="isbn" name="isbn" maxlength="17" placeholder="ISBN" value="<%= (livro != null) ? livro.getISBN() : ""%>">
 			    </div>
 			</div>
 			<div class="form-group">
 				<label for="titulo" class="col-sm-2 control-label">Título</label>
 			    <div class="col-sm-10" id="divTitulo">
-			      <input type="text" class="form-control" id="titulo" name="titulo" maxlength="100" placeholder="Título">
+			      <input type="text" class="form-control" id="titulo" name="titulo" maxlength="100" placeholder="Título" value="<%=(livro != null) ? livro.getTitulo() : ""%>">
 			    </div>
 			</div>
 			<div class="form-group">
 				<label for="autores" class="col-sm-2 control-label">Autores</label>
 			    <div class="col-sm-10" id="divAutores">
-			      <input type="text" class="form-control" id="autores" name="autores" maxlength="150" placeholder="Autores">
+			      <input type="text" class="form-control" id="autores" name="autores" maxlength="150" placeholder="Autores" value="<%=(livro != null) ? livro.getAutores() : ""%>">
 			    </div>
 			</div>
 			<hr>
@@ -54,14 +59,40 @@
 					<table class="table table-striped header-fixed" id="tableCapitulos">
 						<thead>
 							<tr>
-								<th>Capítulo</th>
-								<th>Nome</th>
-								<th>Qtd Blocos</th>
-								<th>Ações</th>
+								<th style="width: 15%; text-align: center;">ID</th>
+								<th style="width: 15%; text-align: center;">Capítulo</th>
+								<th style="width: 40%; text-align: center;">Nome</th>
+								<th style="width: 15%; text-align: center;">Qtd Blocos</th>
+								<th style="width: 15%; text-align: center;">Ações</th>
 							</tr>
 						</thead>
 						<tbody>
-							
+							<%
+								ArrayList<Capitulo> capitulos = (ArrayList<Capitulo>) request.getAttribute("capitulos");
+								if (capitulos != null) {
+									for (Capitulo capitulo : capitulos) {
+							%>
+							<tr>
+								<td style="width: 15%; text-align: center;"><%=capitulo.getIdCapitulo()%></td>
+            					<td style="width: 15%; text-align: center;"><%=capitulo.getNumero()%></td>
+            					<td style="width: 40%; text-align: center;"><%=capitulo.getNome()%></td>
+            					<td style="width: 15%; text-align: center;">0</td>
+            					<td style="width: 15%; text-align: center;">
+            						<button type="button" class="btn btn-default btn-xs" title="Editar" id="editCapitulo">
+										<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+									<button type="button" class="btn btn-default btn-xs" title="Remover" id="deleteCapitulo">
+										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+									</button>
+									<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalBloco" data-capitulo_id="<%=capitulo.getIdCapitulo()%>">
+										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+									</button>
+            					</td>
+            				</tr>
+							<% 
+									}
+								}
+							%>
 						</tbody>
 					</table>
 				</div>
@@ -151,10 +182,11 @@
 			}
 			
 			var contentToAppend = "	<tr>";
-				contentToAppend+= "		<td>" + capituloNumero + "</td>";
-				contentToAppend+= "		<td>" + capituloNome + "</td>";
-				contentToAppend+= "		<td>0</td>";
-				contentToAppend+= "		<td>";
+				contentToAppend+= "		<td style=\"width: 15%; text-align: center;\">#</td>";
+				contentToAppend+= "		<td style=\"width: 15%; text-align: center;\">" + capituloNumero + "</td>";
+				contentToAppend+= "		<td style=\"width: 40%; text-align: center;\">" + capituloNome + "</td>";
+				contentToAppend+= "		<td style=\"width: 15%; text-align: center;\">0</td>";
+				contentToAppend+= "		<td style=\"width: 15%; text-align: center;\">";
 				contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Editar\" id=\"editCapitulo\">";
 				contentToAppend+= "				<span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span>";
 				contentToAppend+= "			</button>";
@@ -189,8 +221,8 @@
 			var tds = $( tr_td_Btn ).children();
 			
 			// Seleciona apenas as colunas do numero do capítulo e do nome do capítulo
-			var capituloNumero = tds.eq(0).text();
-			var capituloNome = tds.eq(1).text();
+			var capituloNumero = tds.eq(1).text();
+			var capituloNome = tds.eq(2).text();
 			
 			// Preenche os valores nos respectivos campos
 			$( "#capituloNome" ).val(capituloNome);
