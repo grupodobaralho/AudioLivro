@@ -106,6 +106,10 @@ $( document ).ready(function() {
 		        			<label for="capitulo" class="col-sm-2 control-label leftAli">Capitulo: </label>
 		        			<label for="capituloNome" class="col-sm-10 control-label leftAli" id="capituloNome" > </label>
 		        		</div>
+		        		
+		        		<div class="form-group">
+		        		
+		        		</div>
 		        			
 								        	
 						
