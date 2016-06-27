@@ -1,3 +1,12 @@
+DROP TABLE tb_usuario;
+DROP TABLE tb_tipo_usuario;
+DROP TABLE tb_doacao;
+DROP TABLE tb_doador;
+DROP TABLE tb_capitulo_bloco;
+DROP TABLE tb_capitulo;
+DROP TABLE tb_bloco;
+DROP TABLE tb_livro;
+
 
 -- Tabela Usuario
 CREATE TABLE tb_usuario (
@@ -67,7 +76,9 @@ CREATE TABLE IF NOT EXISTS audio_e.TB_BLOCO (
   Local_conteudo VARCHAR(100) NOT NULL,
   Local_arquivo_audio VARCHAR(100) NOT NULL,
   Status_bloco VARCHAR(25) NOT NULL,
-  Tamanho_bloco VARCHAR(25) NOT NULL,
+  Tamanho_arquivopdf VARCHAR(25) NULL, -- antigo tamanho_bloco
+  Tamanho_arquivomp3 VARCHAR(25) NULL,
+  Ordem_bloco INT (3) NULL,
   PRIMARY KEY (id_bloco))
 ENGINE = InnoDB;
 
