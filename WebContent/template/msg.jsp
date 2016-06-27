@@ -23,3 +23,10 @@
 	    	${msgAviso != null ? msgAviso : ''}              
 		</div>
 	</div>
+	
+	<div class="form-group" style="width:100%; display:none;" id="divMsgDadosInvalidos">
+		<div class="alert alert-danger alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<strong>Atenção!</strong> Os dados informados estão inválidos. Por favor, verifique.
+		</div>
+	</div>

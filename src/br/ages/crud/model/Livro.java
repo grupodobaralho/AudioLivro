@@ -3,6 +3,7 @@ package br.ages.crud.model;
 import java.util.List;
 
 public class Livro {
+	private Integer idLivro;
 	private String titulo;
 	private String ISBN;
 	private String autores;
@@ -43,7 +44,15 @@ public class Livro {
 	}
 	
 	public String toString() {
-		return "== Informações do Livro ==\nTitulo: "+titulo+"\nISBN: "+ISBN+"\nAutores: "+autores;
+		return "== Informaï¿½ï¿½es do Livro ==\nTitulo: "+titulo+"\nISBN: "+ISBN+"\nAutores: "+autores;
+	}
+
+	public Integer getIdLivro() {
+		return idLivro;
+	}
+
+	public void setIdLivro(Integer idLivro) {
+		this.idLivro = idLivro;
 	}
 	
 }

@@ -76,7 +76,7 @@
 				          		<span class="caret"></span>
 				          	</a>
 				          	<ul class="dropdown-menu">
-				            	<li><a href="">Listar</a></li>
+				            	<li><a href="main?acao=listLivro">Listar</a></li>
 				            	<li><a href="main?acao=telaLivro">Cadastrar</a></li> 
 				          	</ul>
         				</li>

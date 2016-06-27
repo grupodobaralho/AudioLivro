@@ -1,43 +1,59 @@
 package br.ages.audio.bo;
 
-import javax.xml.transform.sax.TransformerHandler;
+import java.sql.SQLException;
+import java.util.List;
 
 import br.ages.crud.dao.LivroDAO;
 import br.ages.crud.exception.NegocioException;
+import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Livro;
 
 public class LivroBO {
 
-	private LivroDAO livroDAO;
+	private LivroDAO livroDAO = new LivroDAO();
 	
-	public LivroBO(){
+	public LivroBO(){}
+	
+	public int cadastrarLivro(Livro livro) {
+		int idLivro = 0;
 		
-	}
-
-	public boolean cadastrarLivro(Livro livro) {
-
-		livroDAO = new LivroDAO();
-		
-		int idLivro;
 		try {
 			if (validaLivro(livro)) {
 				idLivro = livroDAO.cadastraLivro(livro);
-				return true;
+				return idLivro;
 			}
-			throw new NegocioException("O cadastro não pode ser efetuado");
+			throw new NegocioException("O cadastro nÃ£o pode ser efetuado");
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
 
-		return false;
+		return 0;
 	}
 
 	private boolean validaLivro(Livro livro) {
 		if (livro.getISBN().length() > 0)
 			return true;
 		return false;
+	}
+	
+	public Livro buscarLivro(int idLivro) throws PersistenciaException, SQLException {
+		return livroDAO.buscarLivro(idLivro);
+	}
+	
+	public List<Livro> listarLivros() throws NegocioException {
+
+		List<Livro> listLivros = null;
+
+		try {
+			listLivros = livroDAO.listarLivros();
+		} catch (PersistenciaException | SQLException e) {
+			e.printStackTrace();
+			throw new NegocioException(e);
+		}
+
+		return listLivros;
 	}
 
 }

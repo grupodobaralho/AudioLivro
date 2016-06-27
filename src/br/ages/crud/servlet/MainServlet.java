@@ -15,15 +15,16 @@ import org.apache.log4j.Logger;
 import br.ages.crud.command.AddLivroCommand;
 import br.ages.crud.command.AddUserCommand;
 import br.ages.crud.command.Command;
-import br.ages.crud.command.CreateScreenLivroCommand;
 import br.ages.crud.command.CreateScreenUserCommand;
 import br.ages.crud.command.EditUserCommand;
+import br.ages.crud.command.ListLivroCommand;
 import br.ages.crud.command.ListUserCommand;
 import br.ages.crud.command.LoginCommand;
 import br.ages.crud.command.LogoutCommand;
 import br.ages.crud.command.ModeloCommand;
 import br.ages.crud.command.RemoveUserCommand;
 import br.ages.crud.command.SenhaCommand;
+import br.ages.crud.command.TelaLivroCommand;
 import br.ages.crud.model.Usuario;
 import br.ages.crud.util.LogParametrosSession;
 
@@ -53,12 +54,16 @@ public class MainServlet extends HttpServlet {
 		comandos.put("modelo", new ModeloCommand());
 		
 		//Livros
-		comandos.put("telaLivro", new CreateScreenLivroCommand());
+		comandos.put("telaLivro", new TelaLivroCommand());
+		comandos.put("listLivro", new ListLivroCommand());
 		comandos.put("cadastraLivro", new AddLivroCommand());
+		
+		//Bloco
+//		comandos.put("telaBloco", new TelaBlocoCommand());
 	}
 
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse reponse) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String acao = request.getParameter("acao");
 		String proxima = null;
@@ -73,9 +78,14 @@ public class MainServlet extends HttpServlet {
 		}
 	
 		LogParametrosSession.logParametros(request);
-		
-		request.getRequestDispatcher(proxima).forward(request, reponse);
-		
+		Object isJSON = request.getAttribute("JSON");
+		if ( isJSON != null ) {
+			response.setContentType("application/json");
+			response.getWriter().print(proxima);
+		}
+		else {
+			request.getRequestDispatcher(proxima).forward(request, response);
+		}
 	}
 
 	private Command verificarComando(String acao) {
