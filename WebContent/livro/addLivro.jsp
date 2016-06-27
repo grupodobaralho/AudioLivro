@@ -22,9 +22,9 @@
 			<input type="hidden" id="msg" name="msg" value="" />
 			
 			<div class="form-group">
-				<label for="isbn" class="col-sm-2 control-label">ISBN</label>
+				<label for="livroIsbn" class="col-sm-2 control-label">ISBN</label>
 			    <div class="col-sm-10" id="divISBN">
-			      <input type="text" class="form-control" id="isbn" name="isbn" maxlength="17" placeholder="ISBN" value="<%= (livro != null) ? livro.getISBN() : ""%>">
+			      <input type="text" class="form-control" id="livroIsbn" name="livroIsbn" maxlength="17" placeholder="ISBN" value="<%= (livro != null) ? livro.getISBN() : ""%>">
 			    </div>
 			</div>
 			<div class="form-group">
@@ -84,7 +84,7 @@
 									<button type="button" class="btn btn-default btn-xs" title="Remover" id="deleteCapitulo">
 										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 									</button>
-									<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalBloco" data-livro_nome="<%=livro.getTitulo()%>" data-capitulo_nome="<%=capitulo.getNome()%>" data-capitulo_numero="<%=capitulo.getNumero()%>" data-capitulo_id="<%=capitulo.getIdCapitulo()%>">
+									<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalBloco" data-livro_nome="<%=livro.getTitulo()%>" data-capitulo_nome="<%=capitulo.getNome()%>" data-capitulo_numero="<%=capitulo.getNumero()%>" data-capitulo_id="<%=capitulo.getIdCapitulo()%>" data-livro_isbn="<%=livro.getISBN()%>">
 										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 									</button>
             					</td>
@@ -121,7 +121,7 @@
 				
 				livro = new Object();
 				livro.idLivro = $( "#idLivro" ).val() != "" ? $( "#idLivro" ).val() : null;
-				livro.ISBN = $( "#isbn" ).val();
+				livro.ISBN = $( "#livroIsbn" ).val();
 				livro.titulo = $( "#titulo" ).val();
 				livro.autores = $( "#autores" ).val();
 				
@@ -254,11 +254,11 @@
 		}
 		
 		function validateForm() {
-			if ( $( '#isbn' ).val().length == 0 ||
+			if ( $( '#livroIsbn' ).val().length == 0 ||
 				 $( '#titulo' ).val().length == 0 || 
 				 $( '#autores' ).val().length == 0) {
 				
-				if ( $( '#isbn' ).val().length == 0 ) {
+				if ( $( '#livroIsbn' ).val().length == 0 ) {
 					$( '#divISBN' ).addClass("has-error");
 				}
 				else {
