@@ -1,15 +1,26 @@
 package br.ages.crud.model;
 
 public class Bloco {
+	private Integer id_bloco;
 	private String lcl_conteudo;
 	private String lcl_arq_audio;
 	private Status statusBloco;
+	
+	public Bloco(){}
 	
 	
 	public Bloco(String lclC, String lclArq, Status x){
 		lcl_conteudo = lclC;
 		lcl_arq_audio = lclArq;
 		statusBloco = x;
+	}
+
+	public Integer getId_bloco() {
+		return id_bloco;
+	}
+
+	public void setId_bloco(Integer id_bloco) {
+		this.id_bloco = id_bloco;
 	}
 
 	public String getLcl_conteudo() {
@@ -44,5 +55,4 @@ public class Bloco {
 				"\nLocal do arquivo áudio: " + lcl_arq_audio + "\nStatus do Bloco: "
 				+ statusBloco;
 	}
-	
 }
