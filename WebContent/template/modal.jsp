@@ -30,12 +30,18 @@ $( document ).ready(function() {
 	  	var capituloNome = botao.data('capitulo_nome');
 	  	var livroNome = botao.data('livro_nome');
 	  	var capituloNumero = botao.data('capitulo_numero');
+	  	var isbn = botao.data('livro_isbn');
 		
 	  	$(this).find('.modal-title').text('Adicionar Blocos');
 		$(this).find('#livroNome').text(livroNome);
 		$(this).find('#capituloNome').text(capituloNome);
 		
-	  	$('#formBloco').attr('action', "main?acao=telaBloco&id_capitulo=" + capituloId);
+		$( "#idCapitulo" ).val(capituloId);
+		$( "#isbn" ).val(isbn);
+	});
+	
+	$( this ).on('click', 'button#modalBlocoBtnSalvar', function() {
+		$( 'form#formBloco' ).submit();
 	});
 });
 </script>
@@ -93,34 +99,30 @@ $( document ).ready(function() {
 	  		<div class="modal-content">
 	      		<div class="modal-header modal-ages">
 		        	<button type="button" class="close" data-dismiss="modal">&times;</button>
-		        	<h4 class="modal-title">Cadastrar Capitulo</h4>
+		        	<h4 class="modal-title">Cadastrar Bloco</h4>
 	      		</div>
 		      	<div class="modal-body">
-	        		<form method="post" class="form-horizontal" action="main?acao=cadastraLivro">
-		        		<div class="form-group">
-	        				<label for="livro" class="col-sm-1 control-label">Livro: </label>
-	        				<label for="livroNome" class="col-sm-11 control-label leftAli" id="livroNome"> </label>
-	        				
-		        		</div>
-		        		<div class="form-group">
-		        			<label for="capitulo" class="col-sm-2 control-label leftAli">Capitulo: </label>
-		        			<label for="capituloNome" class="col-sm-10 control-label leftAli" id="capituloNome" > </label>
-		        		</div>
-		        		
-		        		<div class="form-group">
-		        		
-		        		</div>
-		        			
-								        	
-						
-        			</form>	
+		      		<div class="form-group">
+        				<label for="livro" class="col-sm-2 control-label">Livro: </label>
+        				<label for="livroNome" class="col-sm-10 control-label leftAli" id="livroNome"> </label>
+        				
+	        		</div>
+	        		<div class="form-group">
+	        			<label for="capitulo" class="col-sm-2 control-label">Capitulo: </label>
+	        			<label for="capituloNome" class="col-sm-10 control-label leftAli" id="capituloNome" > </label>
+	        		</div>
+	        		<form method="post" action='upload' enctype="multipart/form-data" id="formBloco">
+	        			<input type="hidden" id="idLivro" name="idLivro" value="" />
+		      			<input type="hidden" id="isbn" name="isbn" value="" />
+		      			<input type="hidden" id="idCapitulo" name="idCapitulo" value="" />
+		      			
+						<label class="form-label ages">Arquivo:</label>
+						<input class="form-control" id="file" name="file" value="${param.file}" type="file" maxlength="120">
+					</form>
 		      	</div>
 		      	<div class="modal-footer">
-		      		<form action="" method="post" id="formBloco">
-		      			<input type="hidden" id="idLivro" name="idLivro" value="" />
-		      			<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-		      			<button type="submit" class="btn btn-primary">Salvar</button>
-		      		</form>
+	      			<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+	      			<button type="button" class="btn btn-primary" id="modalBlocoBtnSalvar">Salvar</button>
 		      	</div>
 		    </div>
 	  	</div>

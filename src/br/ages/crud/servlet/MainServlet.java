@@ -24,6 +24,7 @@ import br.ages.crud.command.LogoutCommand;
 import br.ages.crud.command.ModeloCommand;
 import br.ages.crud.command.RemoveUserCommand;
 import br.ages.crud.command.SenhaCommand;
+import br.ages.crud.command.TelaBlocoCommand;
 import br.ages.crud.command.TelaLivroCommand;
 import br.ages.crud.model.Usuario;
 import br.ages.crud.util.LogParametrosSession;
@@ -59,7 +60,7 @@ public class MainServlet extends HttpServlet {
 		comandos.put("cadastraLivro", new AddLivroCommand());
 		
 		//Bloco
-//		comandos.put("telaBloco", new TelaBlocoCommand());
+		comandos.put("telaBloco", new TelaBlocoCommand());
 	}
 
 	@Override
