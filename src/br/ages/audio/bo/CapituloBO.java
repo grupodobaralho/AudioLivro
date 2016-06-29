@@ -119,20 +119,22 @@ public class CapituloBO {
 	private ArrayList<Capitulo> getLivrosToUpdate(ArrayList<Capitulo> capitulos, Capitulo[] capitulosToUpsert) {
 		ArrayList<Capitulo> capitulosReturn = new ArrayList<Capitulo>();
 		
-		for ( int i = 0; i < capitulos.size(); i++ ) {
-			Capitulo capitulo = capitulos.get(i);
-			boolean toDelete = true;
-			
-			for ( int j = 0; j < capitulosToUpsert.length; j++ ) {
-				Capitulo capituloToUpsert = capitulosToUpsert[j];
-				if ( capituloToUpsert.getIdCapitulo() > 0 && capituloToUpsert.getIdCapitulo() == capitulo.getIdCapitulo() ) {
-					toDelete = false;
-					break;
+		if (capitulosToUpsert.length > 0) {
+			for ( int i = 0; i < capitulos.size(); i++ ) {
+				Capitulo capitulo = capitulos.get(i);
+				boolean toDelete = true;
+				
+				for ( int j = 0; j < capitulosToUpsert.length; j++ ) {
+					Capitulo capituloToUpsert = capitulosToUpsert[j];
+					if ( capituloToUpsert.getIdCapitulo() > 0 && capituloToUpsert.getIdCapitulo() == capitulo.getIdCapitulo() ) {
+						toDelete = false;
+						break;
+					}
 				}
-			}
-			
-			if ( toDelete ) {
-				capitulosReturn.add(capitulo);
+				
+				if ( toDelete ) {
+					capitulosReturn.add(capitulo);
+				}
 			}
 		}
 		return capitulosReturn;

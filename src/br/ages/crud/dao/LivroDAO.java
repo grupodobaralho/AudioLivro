@@ -64,7 +64,7 @@ public class LivroDAO {
 		Connection conexao = null;
 		try {
 			conexao = ConexaoUtil.getConexao();
-			// converte a data para data Juliana, data que o banco reconhece
+			
 			java.util.Date utilDate = new java.util.Date();
 			java.sql.Date sysdate = new java.sql.Date(utilDate.getTime());
 			

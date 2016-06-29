@@ -47,8 +47,6 @@ public class AddLivroCommand implements Command {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
-		
 		return proxima;
 	}
 	
