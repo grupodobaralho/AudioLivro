@@ -41,7 +41,7 @@ public class AddLivroCommand implements Command {
 					proxima = editLivro(request, livro);
 				}
 				else if ( jsonLivro != null ) {
-					proxima = addLivro(request);
+					proxima = addLivro(request, livro);
 				}
 			}
 		} catch (Exception e) {
@@ -52,24 +52,20 @@ public class AddLivroCommand implements Command {
 		return proxima;
 	}
 	
-	private String addLivro(HttpServletRequest request) {
-		String jsonCapitulosToUpsert = request.getParameter("capitulosToUpsert");
-		String jsonLivro = request.getParameter("livro");
-		
-		// Parse from JSON to class
-		Gson gson = new Gson();
-		Capitulo[] capitulosToUpsert = gson.fromJson(jsonCapitulosToUpsert, Capitulo[].class);
-		livro = gson.fromJson(jsonLivro, Livro.class);
-		
+	private String addLivro(HttpServletRequest request, Livro livro) {
 		livro.setIdLivro(livroBO.cadastrarLivro(livro));
 		if( livro.getIdLivro() > 0 ){
+			String jsonCapitulosToUpsert = request.getParameter("capitulosToUpsert");
+			// Parse from JSON to class
+			Gson gson = new Gson();
+			Capitulo[] capitulosToUpsert = gson.fromJson(jsonCapitulosToUpsert, Capitulo[].class);
+			
 			boolean resultCapitulos = capituloBO.cadastrarCapitulos(capitulosToUpsert, livro);
 			if ( !resultCapitulos ) {
 				// TODO tratamento de erro quando nao conseguir salvar os capitulos
 			}
-			proxima = livro.getIdLivro() + ";1";
+			proxima = livro.getIdLivro() + ";" + MensagemContantes.MSG_SUC_CADASTRO_LIVRO.replace("?", livro.getTitulo());
 			request.setAttribute("JSON", true);
-			request.setAttribute("msgSucesso", MensagemContantes.MSG_SUC_CADASTRO_LIVRO.replace("?", livro.getTitulo()));
 		}else {
 			request.setAttribute("msgErro", MensagemContantes.MSG_ERR_LIVRO_DADOS_INVALIDOS);
 		}
@@ -81,10 +77,16 @@ public class AddLivroCommand implements Command {
 		proxima = "/main?acao=telaLivro";
 		
 		String jsonCapitulosToUpsert = request.getParameter("capitulosToUpsert");
-		
 		// Parse from JSON to class
 		Gson gson = new Gson();
 		Capitulo[] capitulosToUpsert = gson.fromJson(jsonCapitulosToUpsert, Capitulo[].class);
+		
+		if ( livroBO.atualizarLivro(livro) ) {
+			capituloBO.atualizarCapitulos(capitulosToUpsert);
+			
+			proxima = livro.getIdLivro() + ";" + MensagemContantes.MSG_SUC_ATUALIZAR_LIVRO.replace("?", livro.getTitulo());
+			request.setAttribute("JSON", true);
+		}
 		
 		return proxima;
 	}

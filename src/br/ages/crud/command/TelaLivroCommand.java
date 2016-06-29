@@ -28,7 +28,7 @@ public class TelaLivroCommand implements Command{
 		
 		try {
 			String idLivro = request.getParameter("idLivro");
-			
+			String msg = request.getParameter("msg");
 			
 			if ( idLivro != null ) {
 				livro = livroBO.buscarLivro(Integer.parseInt(idLivro));
@@ -36,6 +36,10 @@ public class TelaLivroCommand implements Command{
 				
 				request.setAttribute("livro", livro);
 				request.setAttribute("capitulos", capitulos);
+				
+				if ( msg != null && msg.length() > 0 ) {
+					request.setAttribute("msgSucesso", msg);
+				}
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

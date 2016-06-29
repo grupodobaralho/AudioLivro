@@ -37,6 +37,11 @@ public class CapituloBO {
 		return false;
 	}
 	
+	public boolean atualizarCapitulos(Capitulo[] capitulosToUpsert) {
+		
+		return true;
+	}
+	
 	public ArrayList<Capitulo> buscarCapitulosDoLivro(Livro livro) throws PersistenciaException, SQLException {
 		return capituloDAO.buscarCapitulosDoLivro(livro);
 	}

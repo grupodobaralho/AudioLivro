@@ -17,7 +17,7 @@
 		Cadastro Livro
 	</div>
 	<div class="panel-body">
-		<form method="post" action="main?acao=telaLivro" class="form-horizontal" id="formSaveLivro">
+		<form method="post" action="" class="form-horizontal" id="formSaveLivro">
 			<input type="hidden" id="idLivro" name="idLivro" value="<%=(livro != null) ? livro.getIdLivro() : ""%>" />
 			<input type="hidden" id="msg" name="msg" value="" />
 			
@@ -110,7 +110,7 @@
 
 <script type="text/javascript">
 	$( document ).ready(function() {
-		var arrNumeroCapitulos = [];
+		var arrCapitulos = [];
 		var livro = null;
 		
 		// Ação do botão que salva o formulário
@@ -124,6 +124,8 @@
 				livro.ISBN = $( "#livroIsbn" ).val();
 				livro.titulo = $( "#titulo" ).val();
 				livro.autores = $( "#autores" ).val();
+				
+				updateCapitulosToSend();
 				
 				sendDataToBackend();
 			}
@@ -151,7 +153,7 @@
 			// verifica se o número do capítulo é um número
 			var isNumeric = Math.floor(capituloNumero) == capituloNumero && $.isNumeric(capituloNumero);
 			// verifica se o número do capítulo já não foi adicionado
-			var hasNumeroCapitulo = $.inArray(capituloNumero, arrNumeroCapitulos) == -1;
+			var capitulo_exists = existsCapitulo(capituloNumero);
 			
 			// valida se os campos estão devidamente preenchidos
 			if ( capituloNome.length == 0 && capituloNumero == 0 ) {
@@ -168,7 +170,7 @@
 				$( '#divMsgDadosInvalidos' ).show();
 				return;
 			}
-			else if ( capituloNumero.length == 0 || !isNumeric || !hasNumeroCapitulo) {
+			else if ( capituloNumero.length == 0 || !isNumeric || capitulo_exists) {
 				$( "#divCapituloNome" ).removeClass("has-error");
 				$( "#divCapituloNumero" ).addClass("has-error");
 				
@@ -210,7 +212,7 @@
 			var obj = new Object();
 			obj.nome = capituloNome;
 			obj.numero = capituloNumero;
-			arrNumeroCapitulos.push(obj);
+			arrCapitulos.push(obj);
 		}
 		
 		function editCapitulo(btn) {
@@ -231,8 +233,8 @@
 			
 			// Remove a linha da tabela
 			$( tr_td_Btn ).remove();
-			arrNumeroCapitulos = jQuery.grep(arrNumeroCapitulos, function(value) {
-			  return value != capituloNumero;
+			arrCapitulos = jQuery.grep(arrCapitulos, function(value) {
+			  return value.numero != capituloNumero;
 			});
 		}
 		
@@ -244,12 +246,12 @@
 			// Busca todas as colunas da linha do botão
 			var tds = $( tr_td_Btn ).children();
 			// Seleciona apenas as colunas do numero do capítulo e do nome do capítulo
-			var capituloNumero = tds.eq(0).text();
+			var capituloNumero = tds.eq(1).text();
 			// Remove a linha da tabela
 			$( tr_td_Btn ).remove();
 			
-			arrNumeroCapitulos = jQuery.grep(arrNumeroCapitulos, function(value) {
-			  return value != capituloNumero;
+			arrCapitulos = jQuery.grep(arrCapitulos, function(value) {
+			  return value.numero != capituloNumero;
 			});
 		}
 		
@@ -289,24 +291,59 @@
 			return true;
 		}
 		
+		function existsCapitulo(capituloNumero) {
+			for ( x in arrCapitulos ) {
+				capitulo = arrCapitulos[x];
+				if ( capitulo.numero == capituloNumero ) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		function updateCapitulosToSend() {
+			arrCapitulos = [];
+			var trs = $( "#tableCapitulos > tbody > tr" );
+			
+			$( trs ).each(function() {
+				// Busca todas as colunas da linha
+				var tds = $( this ).children();
+				// Seleciona apenas as colunas do id_capitulo, numero_capitulo e nome_capitulo
+				var idCapitulo = tds.eq(0).text();
+				var capituloNumero = tds.eq(1).text();
+				var capituloNome = tds.eq(2).text();
+				
+				// Cria o objeto de capitulo
+				var obj = new Object();
+				
+				if ( idCapitulo != null && idCapitulo != "#" ) {
+					obj.idCapitulo = idCapitulo;
+				}
+				
+				obj.nome = capituloNome;
+				obj.numero = capituloNumero;
+				arrCapitulos.push(obj);
+			});
+		}
+		
 		function sendDataToBackend() {
 			$.ajax({
 				url: "main?acao=cadastraLivro",
 				type: "POST",
 				dataType: "JSON",
 				data: {
-					capitulosToUpsert: JSON.stringify(arrNumeroCapitulos),
+					capitulosToUpsert: JSON.stringify(arrCapitulos),
 					livro: JSON.stringify(livro)
 				},
 				statusCode: {
 					200: function(p) {
 						var arr = p.responseText.split(';');
-						$( "#idLivro" ).val(arr[0]);
 						$( "#msg" ).val(arr[1]);
 						
 						$( "#saveLivro" ).prop("disabled", false);
 						$( "#saveLivro" ).val("Salvar");
 						
+						$( "form#formSaveLivro" ).attr("action", "main?acao=telaLivro&idLivro=" + arr[0]);
 						$( "form#formSaveLivro" ).submit();
 					}
 				}
