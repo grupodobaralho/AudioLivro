@@ -27,10 +27,10 @@ public class TelaLivroCommand implements Command{
 		proxima = "livro/addLivro.jsp";
 		
 		try {
-			String idLivro = request.getParameter("idLivro");
+			String idLivro = request.getParameter("livroIdLivro");
 			String msg = request.getParameter("msg");
 			
-			if ( idLivro != null ) {
+			if ( idLivro != null && idLivro.length() > 0 ) {
 				livro = livroBO.buscarLivro(Integer.parseInt(idLivro));
 				capitulos = capituloBO.buscarCapitulosDoLivro(livro);
 				
@@ -40,6 +40,9 @@ public class TelaLivroCommand implements Command{
 				if ( msg != null && msg.length() > 0 ) {
 					request.setAttribute("msgSucesso", msg);
 				}
+			}
+			else if ( msg != null && msg.length() > 0 ) {
+				request.setAttribute("msgErro", msg);
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

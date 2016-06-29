@@ -18,7 +18,7 @@
 	</div>
 	<div class="panel-body">
 		<form method="post" action="" class="form-horizontal" id="formSaveLivro">
-			<input type="hidden" id="idLivro" name="idLivro" value="<%=(livro != null) ? livro.getIdLivro() : ""%>" />
+			<input type="hidden" id="livroIdLivro" name="livroIdLivro" value="<%=(livro != null) ? livro.getIdLivro() : ""%>" />
 			<input type="hidden" id="msg" name="msg" value="" />
 			
 			<div class="form-group">
@@ -120,10 +120,12 @@
 				$( this ).prop("disabled", true);
 				
 				livro = new Object();
-				livro.idLivro = $( "#idLivro" ).val() != "" ? $( "#idLivro" ).val() : null;
+				livro.idLivro = $( "#livroIdLivro" ).val() != "" ? $( "#livroIdLivro" ).val() : null;
 				livro.ISBN = $( "#livroIsbn" ).val();
 				livro.titulo = $( "#titulo" ).val();
 				livro.autores = $( "#autores" ).val();
+				
+				console.log($( "#livroIdLivro" ).val());
 				
 				updateCapitulosToSend();
 				
@@ -338,12 +340,21 @@
 				statusCode: {
 					200: function(p) {
 						var arr = p.responseText.split(';');
-						$( "#msg" ).val(arr[1]);
+						var idLivro = arr[0];
+						var msg = arr[1];
+						var urlComplement = "";
+						
+						if (msg != "") {
+							$( "#msg" ).val(msg);
+						}
+						if(idLivro != null && idLivro != "0" && idLivro != "null") {
+							urlComplement = "&livroIdLivro=" + idLivro;
+						}
 						
 						$( "#saveLivro" ).prop("disabled", false);
 						$( "#saveLivro" ).val("Salvar");
 						
-						$( "form#formSaveLivro" ).attr("action", "main?acao=telaLivro&idLivro=" + arr[0]);
+						$( "form#formSaveLivro" ).attr("action", "main?acao=telaLivro" + urlComplement);
 						$( "form#formSaveLivro" ).submit();
 					}
 				}
