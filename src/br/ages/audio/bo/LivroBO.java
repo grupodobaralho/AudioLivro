@@ -31,6 +31,10 @@ public class LivroBO {
 
 		return 0;
 	}
+	
+	public boolean atualizarLivro(Livro livro) throws PersistenciaException, SQLException {
+		return livroDAO.atualizarLivro(livro);
+	}
 
 	private boolean validaLivro(Livro livro) {
 		if (livro.getISBN().length() > 0)

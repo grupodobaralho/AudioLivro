@@ -57,7 +57,43 @@ public class LivroDAO {
 
 		} finally {
 			conexao.close();
-		}		
+		}
+	}
+	
+	public boolean atualizarLivro(Livro livro) throws PersistenciaException, SQLException {
+		boolean returnUpdate = false;
+		Connection conexao = null;
+		try {
+			conexao = ConexaoUtil.getConexao();
+			// converte a data para data Juliana, data que o banco reconhece
+			java.util.Date utilDate = new java.util.Date();
+			java.sql.Date sysdate = new java.sql.Date(utilDate.getTime());
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("update tb_livro set ");
+			sql.append("Titulo = ?, ");
+			sql.append("ISBN = ?, ");
+			sql.append("Autores = ?, ");
+			sql.append("Data_alteracao = ?, ");
+			sql.append("where id_livro = ?");
+
+			PreparedStatement statement = conexao.prepareStatement(sql.toString());
+			statement.setString(1, livro.getTitulo());
+			statement.setString(2, livro.getISBN());
+			statement.setString(3, livro.getAutores());
+			statement.setDate(4, sysdate);
+			statement.setInt(5, livro.getIdLivro());
+			returnUpdate = statement.execute();
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new PersistenciaException(e);
+		} finally {
+			try {
+				conexao.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return returnUpdate;
 	}
 	
 	public Livro buscarLivro(int idLivro) throws PersistenciaException, SQLException {
