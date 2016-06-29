@@ -6,7 +6,7 @@ public class Bloco {
 	private String lcl_arq_audio;
 	private Status statusBloco;
 	
-	public Bloco(){}
+	
 	
 	
 	public Bloco(String lclC, String lclArq, Status x){
@@ -14,7 +14,7 @@ public class Bloco {
 		lcl_arq_audio = lclArq;
 		statusBloco = x;
 	}
-
+	
 	public Integer getId_bloco() {
 		return id_bloco;
 	}

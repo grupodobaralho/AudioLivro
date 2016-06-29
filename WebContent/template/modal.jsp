@@ -80,7 +80,7 @@ $( document ).ready(function() {
 	      		</div>
 	      		
 		      	<div class="modal-body">
-	        		<p id="modal-descricao"></p>
+  	        		<p id="modal-descricao"></p>
 		      	</div>
 		      	
 		      	<div class="modal-footer">

@@ -25,7 +25,7 @@ public class CapituloBlocoDAO {
 			java.sql.Date dataCadastro = new java.sql.Date(utilDate.getTime());
 			
 			sql.append("insert into audio_e.tb_capitulo_bloco (Data_criacao, data_alteracao, id_bloco, id_capitulo)");
-			sql.append("values (?, ?, ?, ?, ?, ?)");
+			sql.append("values (?, ?, ?, ?)");
 			
 
 			PreparedStatement statement = conexao.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);

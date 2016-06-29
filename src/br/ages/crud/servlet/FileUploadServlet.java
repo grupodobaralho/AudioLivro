@@ -14,8 +14,11 @@ import javax.servlet.http.Part;
 
 import org.apache.log4j.Logger;
 
+import br.ages.audio.bo.BlocoBO;
 import br.ages.crud.dao.BlocoDAO;
+import br.ages.crud.model.Bloco;
 import br.ages.crud.model.Projeto;
+import br.ages.crud.model.Status;
 import br.ages.crud.util.Constantes;
  
 /**
@@ -128,23 +131,33 @@ public class FileUploadServlet extends HttpServlet {
 			File fileSaveDir = new File(savePath);
 			
 			
+			
 			String isbn = request.getParameter("isbn");
-			//String idLivro = 
-			
-			//futuramente ira receber o id do capitulo para gerar nome do bloco
-			//String idCap = request.getParameter(");
-			
+			String idCap = request.getParameter("idCapitulo");
+			System.out.println(isbn);
 			
 			if (!fileSaveDir.exists())
 				fileSaveDir.mkdir();
 
 			Part part = request.getPart("file");
 			String fileName = extractFileName(part);
-			part.write(new File(savePath + File.separator + fileName).toString());
+			File file1 = new File(savePath + File.separator + fileName);
+			part.write(file1.toString());
 			
 			// caminho que será salvo no banco com o local onde o pdf está salvo
 			String caminho = savePath + fileName;
 			
+			Bloco bloco = new Bloco(caminho, "nao definido", Status.AGUARDANDO_REVISAO);
+			BlocoBO blocoBO = new BlocoBO();
+			int	idbloco = blocoBO.cadastraBloco(bloco, Integer.parseInt(idCap));
+			bloco.setId_bloco(idbloco);
+			
+			//novo caminho com o nome padrao do bloco
+			caminho = savePath + isbn+"_CAP"+idCap+"_B"+idbloco+".pdf";
+			
+			//altera o nome para o nome do bloco
+			alteraNome(file1, caminho);
+			blocoBO.alteraCaminho(idbloco, caminho);
 			
 			request.setAttribute("msgSucesso", "Upload feito com sucesso!");
 			
@@ -171,7 +184,10 @@ public class FileUploadServlet extends HttpServlet {
 		return "";
 	}
 	
-	
+	public void alteraNome(File file1, String caminho){
+		File file2 = new File(caminho);
+		file1.renameTo(file2);
+	}
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
