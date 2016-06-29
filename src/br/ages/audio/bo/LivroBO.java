@@ -7,6 +7,7 @@ import br.ages.crud.dao.LivroDAO;
 import br.ages.crud.exception.NegocioException;
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Livro;
+import br.ages.crud.util.MensagemContantes;
 
 public class LivroBO {
 
@@ -14,7 +15,7 @@ public class LivroBO {
 	
 	public LivroBO(){}
 	
-	public int cadastrarLivro(Livro livro) {
+	public int cadastrarLivro(Livro livro) throws PersistenciaException, NegocioException {
 		int idLivro = 0;
 		
 		try {
@@ -23,13 +24,9 @@ public class LivroBO {
 				return idLivro;
 			}
 			throw new NegocioException("O cadastro não pode ser efetuado");
-
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			throw new PersistenciaException(MensagemContantes.MSG_ERR_LIVRO_JA_EXISTENTE.replace("?", livro.getTitulo()));
 		}
-
-		return 0;
 	}
 	
 	public boolean atualizarLivro(Livro livro) throws PersistenciaException, SQLException {

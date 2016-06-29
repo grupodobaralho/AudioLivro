@@ -54,7 +54,6 @@ public class LivroDAO {
 			return idLivro;
 		} catch (ClassNotFoundException | SQLException e) {
 			throw new PersistenciaException(MensagemContantes.MSG_ERR_LIVRO_JA_EXISTENTE.replace("?", livro.getTitulo()));
-
 		} finally {
 			conexao.close();
 		}
@@ -74,7 +73,7 @@ public class LivroDAO {
 			sql.append("Titulo = ?, ");
 			sql.append("ISBN = ?, ");
 			sql.append("Autores = ?, ");
-			sql.append("Data_alteracao = ?, ");
+			sql.append("Data_alteracao = ? ");
 			sql.append("where id_livro = ?");
 
 			PreparedStatement statement = conexao.prepareStatement(sql.toString());
@@ -83,7 +82,8 @@ public class LivroDAO {
 			statement.setString(3, livro.getAutores());
 			statement.setDate(4, sysdate);
 			statement.setInt(5, livro.getIdLivro());
-			returnUpdate = statement.execute();
+			statement.execute();
+			returnUpdate = true;
 		} catch (ClassNotFoundException | SQLException e) {
 			throw new PersistenciaException(e);
 		} finally {

@@ -18,10 +18,9 @@ public class CapituloDAO {
 	
 	public CapituloDAO() {}
 	
-	public int cadastrarCapitulo(Capitulo capitulo) throws PersistenciaException, SQLException {
+	public boolean cadastrarCapitulo(Capitulo capitulo) throws PersistenciaException, SQLException {
 		Connection conexao = null;
 		try {
-			Integer idCapitulo = null;
 			conexao = ConexaoUtil.getConexao();
 			
 			StringBuilder sql = new StringBuilder();
@@ -44,16 +43,23 @@ public class CapituloDAO {
 			
 			ResultSet resultset = statement.getGeneratedKeys();
 			if(resultset.first()){
-				idCapitulo = resultset.getInt(1);
+				return true;
 			}
-			
-			return idCapitulo;
+			return false;
 		} catch (ClassNotFoundException | SQLException e) {
 			throw new PersistenciaException(MensagemContantes.MSG_ERR_LIVRO_JA_EXISTENTE.replace("?", ""));
 
 		} finally {
 			conexao.close();
-		}	
+		}
+	}
+	
+	public boolean atualizarCapitulo(Capitulo capitulo) throws PersistenciaException, SQLException {
+		return true;
+	}
+	
+	public boolean deletarCapitulo(Capitulo capitulo) throws PersistenciaException, SQLException {
+		return true;
 	}
 	
 	public ArrayList<Capitulo> buscarCapitulosDoLivro(Livro livro) throws PersistenciaException, SQLException {
