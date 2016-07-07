@@ -1,10 +1,10 @@
 # AudioLivro
-Sistema para doaÁ„o de ·dios para ¡udioLivro editados pela EDIPUCrs.
+Sistema para doa√ß√£o de √°dios para √ÅudioLivro editados pela EDIPUCrs.
 
 Projeto desenvolvido pelos alunos da AGES - FACIN - PUCRS
 
-Vers„o de Desenvolvimento Atual
+Vers√£o de Desenvolvimento Atual
 
-Lider Tecnico do Projeto
+Lider Tecnico do Projeto -
 
 
