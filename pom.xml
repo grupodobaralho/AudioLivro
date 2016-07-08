@@ -7,6 +7,9 @@
 	<packaging>war</packaging>
 	<name>FluxoAGES</name>
 	<description>Projeto Audio Livros para EDIPUC</description>
+	<properties>
+		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+	</properties>
 	<profiles>
 		<!-- Profile de desenvolvimento (padrao) -->
 		<profile>
@@ -64,6 +67,8 @@
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
 				</configuration>
 			</plugin>
 			<plugin>
