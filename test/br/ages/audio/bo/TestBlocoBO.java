@@ -5,10 +5,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import br.ages.crud.dao.BlocoDAO;
 import br.ages.crud.dao.LivroDAO;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestLivroBO {
+public class TestBlocoBO {
 	
 	@Mock
 	private BlocoDAO blocoMockDAO;
