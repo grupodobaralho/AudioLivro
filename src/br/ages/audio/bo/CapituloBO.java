@@ -2,6 +2,8 @@ package br.ages.audio.bo;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 import br.ages.crud.dao.CapituloDAO;
 import br.ages.crud.exception.PersistenciaException;
@@ -141,6 +143,7 @@ public class CapituloBO {
 	}
 	
 	private ArrayList<Capitulo> getLivrosToInsert(ArrayList<Capitulo> capitulos, Capitulo[] capitulosToUpsert) {
+		
 		ArrayList<Capitulo> capitulosReturn = new ArrayList<Capitulo>();
 		
 		for ( int i = 0; i < capitulos.size(); i++ ) {
