@@ -5,8 +5,6 @@ Projeto desenvolvido pelos alunos da AGES - FACIN - PUCRS
 
 Versão de Desenvolvimento Atual
 
-jjj
-
 Lider Tecnico do Projeto
 
 
