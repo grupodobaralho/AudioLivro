@@ -1,5 +1,5 @@
 # AudioLivro
-Sistema para doação de ádios para ÁudioLivro editados pela EDIPUCrs.
+Sistema para doação de áudios para ÁudioLivro editados pela EDIPUCrs.
 
 Projeto desenvolvido pelos alunos da AGES - FACIN - PUCRS
 
