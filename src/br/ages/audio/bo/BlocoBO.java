@@ -12,6 +12,7 @@ import br.ages.crud.util.MensagemContantes;
 public class BlocoBO {
 	BlocoDAO blocoDAO = null;
 	CapituloBlocoDAO capituloBlocoDAO = null;
+
 	public BlocoBO() {
 		blocoDAO = new BlocoDAO();
 		capituloBlocoDAO = new CapituloBlocoDAO();
