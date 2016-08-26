@@ -13,7 +13,7 @@ public class TestMail {
 			email.setHostName("smtp.gmail.com");
   
 			// Autenticação
-			email.setAuthenticator(new DefaultAuthenticator("cassiowt@gmail.com", "c978c978"));
+			email.setAuthenticator(new DefaultAuthenticator("email@gmail.com", "senha"));
 			email.setSSLOnConnect(true);
 			
 			// o servidor SMTP para envio do e-mail
