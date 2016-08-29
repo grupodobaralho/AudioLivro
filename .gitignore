@@ -6,4 +6,4 @@
 .project
 .tern-project
 /bin/
-/target/
+target/
