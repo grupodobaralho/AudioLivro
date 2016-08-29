@@ -3,5 +3,6 @@
 .jsdtscope
 .class
 .project
+.tern-project
 /bin/
 /target/
