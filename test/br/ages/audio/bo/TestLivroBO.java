@@ -65,6 +65,8 @@ public class TestLivroBO extends TestCase {
 	public void testValidaLivroIncorreto(){
 		boolean condition = livroBO.validaLivro(livroRuim);
 		assertFalse("OK", condition);
+		boolean teste =  livroBO.validaLivro(null);
+		assertFalse("OK", teste);
 	}
 	
 	
