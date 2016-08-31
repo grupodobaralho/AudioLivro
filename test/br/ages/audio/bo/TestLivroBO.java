@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import br.ages.crud.dao.LivroDAO;
+import br.ages.crud.exception.NegocioException;
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Livro;
 import junit.framework.Assert;
@@ -31,8 +32,24 @@ public class TestLivroBO extends TestCase {
 		livroBO.setLivroDAO(livroMock);
 		livro = new Livro();
 		livro.setISBN("123456789");
+		livro.setIdLivro(123);
 		livroRuim = new Livro();
 		
+		
+	}
+	
+	@Test
+	public void testCadastrarLivroCorreto() throws PersistenciaException, NegocioException, SQLException{		
+		Mockito.when(livroMock.cadastraLivro(livro)).thenReturn(123);
+		int condition = livroBO.cadastrarLivro(livro);
+		assertEquals(123, condition);		
+	}
+	
+	@Test
+	public void testCadastrarLivroErrado() throws PersistenciaException, NegocioException, SQLException{
+		Mockito.when(livroMock.cadastraLivro(null)).thenReturn(-1);
+		int condition = livroBO.cadastrarLivro(livro);
+		assertEquals(0, condition);	
 	}
 	
 	@Test
