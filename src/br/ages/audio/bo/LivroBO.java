@@ -13,10 +13,15 @@ public class LivroBO {
 
 	private LivroDAO livroDAO = new LivroDAO();
 	
+		
+	public void setLivroDAO(LivroDAO livroDAO) {
+		this.livroDAO = livroDAO;
+	}
+
 	public LivroBO(){}
 	
 	public int cadastrarLivro(Livro livro) throws PersistenciaException, NegocioException {
-		int idLivro = 0;
+		int idLivro = -1;
 		
 		try {
 			if (validaLivro(livro)) {
@@ -33,10 +38,12 @@ public class LivroBO {
 		return livroDAO.atualizarLivro(livro);
 	}
 
-	private boolean validaLivro(Livro livro) {
-		if (livro.getISBN().length() > 0)
+	public boolean validaLivro(Livro livro) {
+		if (livro==null)
+			return false;
+		if (livro.getISBN()!=null)
 			return true;
-		return false;
+		return false; 
 	}
 	
 	public Livro buscarLivro(int idLivro) throws PersistenciaException, SQLException {
