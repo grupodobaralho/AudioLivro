@@ -20,16 +20,19 @@ public class TestLivroBO extends TestCase {
 	
 	private LivroBO livroBO;
 	private Livro livro;
+	private Livro livroRuim;
 
 	@Mock
 	LivroDAO livroMock;
-	
+		
 	@Before
 	public void LivroBOTest(){
 		livroBO = new LivroBO();
 		livroBO.setLivroDAO(livroMock);
 		livro = new Livro();
 		livro.setISBN("123456789");
+		livroRuim = new Livro();
+		
 	}
 	
 	@Test
@@ -41,18 +44,40 @@ public class TestLivroBO extends TestCase {
 		boolean teste = livroBO.atualizarLivro(livro);
 		assertTrue(teste);
 	}
-		
-	@Test(expected=Exception.class)
-	public void testaExcecao() throws Exception{
-		/* teste que espera o disparo de uma exceção */
-		
+	
+	@Test
+	public void testAtualizarLivroIncorreto() throws PersistenciaException, SQLException {
+		Mockito.when(livroMock.atualizarLivro(null)).thenReturn(false);
+		boolean condition = livroBO.atualizarLivro(null);
+		assertFalse("OK", condition);
+		boolean teste = livroBO.atualizarLivro(null);
+		assertFalse(teste);
+	 
 	}
 		
+	@Test
+	public void testValidaLivroCorreto(){
+		boolean condition = livroBO.validaLivro(livro);
+		assertTrue("OK", condition);
+	}
 	
+	@Test
+	public void testValidaLivroIncorreto(){
+		boolean condition = livroBO.validaLivro(livroRuim);
+		assertFalse("OK", condition);
+	}
+	
+	
+	/*
+	 * @Test(expected=Exception.class)
+	 
+	public void testaExcecao() throws Exception{
+		teste que espera o disparo de uma exceção
 	
 		
+	}
+	*/	
 	
-
 	@Test
 	public void testBuscarLivro() {
 		
