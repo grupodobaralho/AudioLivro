@@ -1,14 +1,14 @@
 package br.ages.audio.bo;
 
 import java.sql.SQLException;
-
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-
 import br.ages.crud.dao.LivroDAO;
 import br.ages.crud.exception.NegocioException;
 import br.ages.crud.exception.PersistenciaException;
@@ -48,8 +48,8 @@ public class TestLivroBO extends TestCase {
 	@Test
 	public void testCadastrarLivroErrado() throws PersistenciaException, NegocioException, SQLException{
 		Mockito.when(livroMock.cadastraLivro(null)).thenReturn(-1);
-		int condition = livroBO.cadastrarLivro(livro);
-		assertEquals(0, condition);	
+		int condition = livroBO.cadastrarLivro(null);
+		assertEquals(-1, condition);	
 	}
 	
 	@Test
@@ -84,8 +84,7 @@ public class TestLivroBO extends TestCase {
 		assertFalse("OK", condition);
 		boolean teste =  livroBO.validaLivro(null);
 		assertFalse("OK", teste);
-	}
-	
+	}	
 	
 	/*
 	 * @Test(expected=Exception.class)
@@ -98,13 +97,26 @@ public class TestLivroBO extends TestCase {
 	*/	
 	
 	@Test
-	public void testBuscarLivro() {
-		
+	public void testBuscarLivroCorreto() throws PersistenciaException, SQLException {
+		Mockito.when(livroMock.buscarLivro(123)).thenReturn(livro);	
+		Livro umLivro = livroBO.buscarLivro(123);
+		assertEquals(livro, umLivro);		
 	}
-
+	
 	@Test
-	public void testListarLivros() {
-		fail("Not yet implemented");
+	public void testBuscarLivroIncorreto() throws PersistenciaException, SQLException {
+		Mockito.when(livroMock.buscarLivro(-1)).thenReturn(null);	
+		Livro umLivro = livroBO.buscarLivro(-1);
+		assertEquals(null, umLivro);			
 	}
-
+	
+	
+	
+	@Test
+	public void testListarLivros() throws PersistenciaException, SQLException, NegocioException {
+		ArrayList<Livro> listarLivros = new ArrayList<>();
+		Mockito.when(livroMock.listarLivros()).thenReturn(listarLivros);
+		List<Livro> condition = livroBO.listarLivros();
+		assertEquals(condition,listarLivros);
+	}
 }
