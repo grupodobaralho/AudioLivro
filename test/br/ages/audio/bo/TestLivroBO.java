@@ -46,7 +46,7 @@ public class TestLivroBO extends TestCase {
 	}
 	
 	@Test
-	public void testCadastrarLivroErrado() throws PersistenciaException, NegocioException, SQLException{
+	public void testCadastrarLivroIncorreto() throws PersistenciaException, NegocioException, SQLException{
 		Mockito.when(livroMock.cadastraLivro(null)).thenReturn(-1);
 		int condition = livroBO.cadastrarLivro(null);
 		assertEquals(-1, condition);	
