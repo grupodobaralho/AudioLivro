@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import br.ages.crud.dao.LivroDAO;
 import br.ages.crud.dao.UsuarioDAO;
 import br.ages.crud.exception.NegocioException;
 import br.ages.crud.exception.PersistenciaException;
@@ -23,11 +24,13 @@ import br.ages.crud.validator.SenhaValidator;
  * 
  */
 public class UsuarioBO {
-	UsuarioDAO usuarioDAO = null;
-
-	public UsuarioBO() {
-		usuarioDAO = new UsuarioDAO();
+	UsuarioDAO usuarioDAO = new UsuarioDAO();
+	
+	public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
+		this.usuarioDAO = usuarioDAO;
 	}
+
+	public UsuarioBO() {}
 
 	/**
 	 * Valida se a senha do Responsavel pelo ponto esta correta. Estando correta
