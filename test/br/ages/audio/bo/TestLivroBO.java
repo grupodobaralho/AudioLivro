@@ -27,7 +27,7 @@ public class TestLivroBO extends TestCase {
 	LivroDAO livroMock;
 		
 	@Before
-	public void LivroBOTest(){
+	public void init(){
 		livroBO = new LivroBO();
 		livroBO.setLivroDAO(livroMock);
 		livro = new Livro();
