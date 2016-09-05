@@ -21,11 +21,10 @@ public class LivroBO {
 	public LivroBO(){}
 	
 	public int cadastrarLivro(Livro livro) throws PersistenciaException, NegocioException {
-		int idLivro = -1;
-		
+				
 		try {
 			if (validaLivro(livro)) {
-				idLivro = livroDAO.cadastraLivro(livro);
+				int idLivro = livroDAO.cadastraLivro(livro);
 				return idLivro;
 			}
 			throw new NegocioException("O cadastro não pode ser efetuado");

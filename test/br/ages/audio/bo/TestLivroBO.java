@@ -13,7 +13,6 @@ import br.ages.crud.dao.LivroDAO;
 import br.ages.crud.exception.NegocioException;
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Livro;
-import junit.framework.Assert;
 import junit.framework.TestCase;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -33,24 +32,23 @@ public class TestLivroBO extends TestCase {
 		livro = new Livro();
 		livro.setISBN("123456789");
 		livro.setIdLivro(123);
-		livroRuim = new Livro();
-		
-		
+		livroRuim = new Livro(); //ruim == atributo ISBN não inicializado		
 	}
 	
 	@Test
 	public void testCadastrarLivroCorreto() throws PersistenciaException, NegocioException, SQLException{		
 		Mockito.when(livroMock.cadastraLivro(livro)).thenReturn(123);
 		int condition = livroBO.cadastrarLivro(livro);
-		assertEquals(123, condition);		
+		assertEquals(123,condition);			
 	}
 	
-	@Test
-	public void testCadastrarLivroIncorreto() throws PersistenciaException, NegocioException, SQLException{
-		Mockito.when(livroMock.cadastraLivro(null)).thenReturn(-1);
+	@Test(expected=Exception.class)
+	public void testCadastrarLivroIncorretoExcecao() throws Exception{
 		int condition = livroBO.cadastrarLivro(null);
-		assertEquals(-1, condition);	
+			
 	}
+	
+	
 	
 	@Test
 	public void testAtualizarLivroCorreto() throws PersistenciaException, SQLException {
@@ -85,16 +83,6 @@ public class TestLivroBO extends TestCase {
 		boolean teste =  livroBO.validaLivro(null);
 		assertFalse("OK", teste);
 	}	
-	
-	/*
-	 * @Test(expected=Exception.class)
-	 
-	public void testaExcecao() throws Exception{
-		teste que espera o disparo de uma exceção
-	
-		
-	}
-	*/	
 	
 	@Test
 	public void testBuscarLivroCorreto() throws PersistenciaException, SQLException {
