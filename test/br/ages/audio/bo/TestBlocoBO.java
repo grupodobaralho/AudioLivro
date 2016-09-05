@@ -31,22 +31,19 @@ public class TestBlocoBO {
 
 	@Before
 	public void TestBlocoBOTest() {
+
 		blocoBO = new BlocoBO();
-		blocoDAOMock = new BlocoDAO();
-		capituloBlocoDAOMock = new CapituloBlocoDAO();
+
 		blocoBO.setBlocoDAO(blocoDAOMock);
 		blocoBO.setCapituloBlocoDAO(capituloBlocoDAOMock);
+
 		bloco = new Bloco("conteudo", "audio", Status.APROVADO);
 	}
 
 	@Test
 	public void testCadastraBloco() throws PersistenciaException, NegocioException, SQLException {
 		Mockito.when(blocoDAOMock.cadastraBloco(bloco)).thenReturn(20);
-		Mockito.when(capituloBlocoDAOMock.cadastraCapituloBloco(bloco.getId_bloco(), 30)).thenReturn(20); // int
-																											// conditions
-																											// =
-																											// capituloDAO.cadastraCapituloBloco(20,
-																											// 5);
+		
 		int condition = blocoBO.cadastraBloco(bloco, 30);
 		assertEquals(20, condition);
 	}
