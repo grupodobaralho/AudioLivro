@@ -10,14 +10,22 @@ import br.ages.crud.model.Bloco;
 import br.ages.crud.util.MensagemContantes;
 
 public class BlocoBO {
-	BlocoDAO blocoDAO = null;
-	CapituloBlocoDAO capituloBlocoDAO = null;
+	BlocoDAO blocoDAO;
+	CapituloBlocoDAO capituloBlocoDAO;
 
 	public BlocoBO() {
 		blocoDAO = new BlocoDAO();
 		capituloBlocoDAO = new CapituloBlocoDAO();
 	}
 
+	public void setBlocoDAO(BlocoDAO blocoDAO) {
+		this.blocoDAO = blocoDAO;
+	}
+
+	public void setCapituloBlocoDAO(CapituloBlocoDAO capituloBlocoDAO) {
+		this.capituloBlocoDAO = capituloBlocoDAO;
+	}
+	
 	public int cadastraBloco(Bloco bloco,Integer idCapitulo) throws NegocioException {
 		try {
 			Integer idBloco = blocoDAO.cadastraBloco(bloco);
@@ -36,5 +44,6 @@ public class BlocoBO {
 		}
 		
 	}
+
 	
 }
