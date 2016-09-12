@@ -29,9 +29,11 @@ public class TestCapituloBO {
 	
 	@Before
 	public void init(){
+		
 		capituloBO = new CapituloBO();
 		livro = new Livro();
 		capitulo = new Capitulo();
+		capituloBO.setCapituloDAO(capituloMock);
 		livro.setIdLivro(1);
 	}	
 	@Test
