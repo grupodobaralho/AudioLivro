@@ -43,8 +43,7 @@ public class TestUsuarioBO extends TestCase{
 		Mockito.when(usuarioMock.validarUsuario(usuario)).thenReturn(null);
 		boolean condition = usuarioBO.validaUsuarioResponsavel("Test","123abc");
 		assertFalse(condition);	
-	}	
-	
+	}
 
 	@Test
 	public void testValidaUsuarioResponsavel() {

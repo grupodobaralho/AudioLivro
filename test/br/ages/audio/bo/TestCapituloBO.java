@@ -22,29 +22,35 @@ public class TestCapituloBO {
 	private CapituloBO capituloBO;
 	private Capitulo capitulo;
 	private Livro livro;
-	
-		
+
 	@Mock
 	CapituloDAO capituloMock;
-	
+
 	@Before
-	public void init(){
-		
+	public void init() {
+
 		capituloBO = new CapituloBO();
 		livro = new Livro();
 		capitulo = new Capitulo();
 		capituloBO.setCapituloDAO(capituloMock);
 		livro.setIdLivro(1);
-	}	
+	}
+
 	@Test
-	public void testBuscarCapitulosDoLivroCorreto() throws PersistenciaException, SQLException{
-		ArrayList<Capitulo> capitulos = new ArrayList<>();	
+	public void testBuscarCapitulosDoLivroCorreto() throws PersistenciaException, SQLException {
+		ArrayList<Capitulo> capitulos = new ArrayList<>();
 		Mockito.when(capituloMock.buscarCapitulosDoLivro(livro)).thenReturn(capitulos);
 		ArrayList<Capitulo> condition = capituloBO.buscarCapitulosDoLivro(livro);
-		assertEquals(condition,capitulos);
+		assertEquals(condition, capitulos);
 	}
 	
+	@Test
+	public void testBuscarCapitulosDoLivroErrado() throws PersistenciaException, SQLException {
+		ArrayList<Capitulo> capitulos = new ArrayList<>();
+		Mockito.when(capituloMock.buscarCapitulosDoLivro(null)).thenReturn(capitulos);
+		ArrayList<Capitulo> condition = capituloBO.buscarCapitulosDoLivro(null);
+		assertEquals(condition, capitulos);
 	}
-	
 
 
+}
