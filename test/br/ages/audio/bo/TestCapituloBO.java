@@ -1,6 +1,6 @@
 package br.ages.audio.bo;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,6 +34,9 @@ public class TestCapituloBO {
 		capitulo = new Capitulo();
 		capituloBO.setCapituloDAO(capituloMock);
 		livro.setIdLivro(1);
+		capitulo.setIdCapitulo(10);
+		capitulo.setLivro(livro);
+
 	}
 
 	@Test
@@ -52,5 +55,35 @@ public class TestCapituloBO {
 		assertEquals(condition, capitulos);
 	}
 
+	@Test
+	public void testCadastrarCapitulosCorreto() throws PersistenciaException, SQLException {
+		Capitulo[] capitulosVet = new Capitulo[1];
+		capitulosVet[0] = capitulo;
+		boolean retorno = true;
+		Mockito.when(capituloMock.cadastrarCapitulo(capitulo)).thenReturn(true);
+		boolean condition = capituloBO.cadastrarCapitulos(capitulosVet, livro);
+		assertEquals(condition, retorno);
 
+	}
+
+	@Test
+	public void testAtualizarCadastrarCapitulosCorreto() throws PersistenciaException, SQLException {
+		Capitulo[] capitulosVet = new Capitulo[1];
+		capitulosVet[0] = capitulo;
+		boolean retorno = true;
+		Mockito.when(capituloMock.atualizarCapitulo(capitulo)).thenReturn(true);
+		boolean condition = capituloBO.atualizarCapitulos(capitulosVet, livro);
+		assertEquals(condition, retorno);
+	}
+	
+	@Test
+	public void testDeletarCapitulosCorreto() throws PersistenciaException, SQLException {
+		Capitulo[] capitulosVet = new Capitulo[1];
+		capitulosVet[0] = capitulo;
+		boolean retorno = true;
+		Mockito.when(capituloMock.deletarCapitulo(capitulo)).thenReturn(true);
+		boolean condition = capituloBO.deletarCapitulos(capitulosVet, livro);
+		assertEquals(condition, retorno);
+
+	}
 }
