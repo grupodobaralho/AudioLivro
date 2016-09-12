@@ -17,6 +17,9 @@ public class CapituloBO {
 	public CapituloBO() {
 		capituloDAO = new CapituloDAO();
 	}
+	public void setCapituloDAO(CapituloDAO capituloDAO){
+		this.capituloDAO=capituloDAO;
+	}
 	
 	private boolean crudCapitulos(Capitulo[] capitulos, Livro livro, int operation) {
 		boolean crudReturn = true;
@@ -167,5 +170,6 @@ public class CapituloBO {
 	
 	public ArrayList<Capitulo> buscarCapitulosDoLivro(Livro livro) throws PersistenciaException, SQLException {
 		return capituloDAO.buscarCapitulosDoLivro(livro);
+		//TODO verificar se o array é vazio; e se retornar outra coisa??
 	}
 }

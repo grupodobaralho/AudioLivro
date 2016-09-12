@@ -34,25 +34,24 @@ public class TestUsuarioBO extends TestCase{
 	public void  init(){
 		usuarioBO = new UsuarioBO();
 		usuarioBO.setUsuarioDAO(usuarioMock);
-		usuario = new Usuario("Test","123abc");
-		
-		
+		usuario = new Usuario();
 	}
 
 	@Test
 	public void testUsuarioBOCorreto() throws PersistenciaException {
+		usuario.setUsuario("Test");
+		usuario.setSenha("123abc");
 		Mockito.when(usuarioMock.validarUsuario(usuario)).thenReturn(usuario);
 		boolean condition = usuarioBO.validaUsuarioResponsavel("Test","123abc");
 		assertTrue(condition);	
 	}
 	
 	@Test
-	public void testUsuarioBOIncorreto() throws PersistenciaException {
+	public void testUsuarioBOIncorreto() throws PersistenciaException {		
 		Mockito.when(usuarioMock.validarUsuario(usuario)).thenReturn(null);
 		boolean condition = usuarioBO.validaUsuarioResponsavel("Test","123abc");
 		assertFalse(condition);	
-	}	
-	
+	}
 
 	@Test
 	public void testValidaUsuarioResponsavel() {
