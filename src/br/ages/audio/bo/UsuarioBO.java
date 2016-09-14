@@ -175,10 +175,12 @@ public class UsuarioBO {
 	 * @throws SQLException
 	 * @throws ParseException
 	 */
-	public void cadastraUsuario(Usuario usuario) throws NegocioException, SQLException, ParseException {
+	//Continuar isso ISRAEL-
+	public int cadastraUsuario(Usuario usuario) throws NegocioException, SQLException, ParseException {
 
 		try {
-			usuarioDAO.cadastrarUsuario(usuario);
+			Integer result = usuarioDAO.cadastrarUsuario(usuario);
+			return result;			
 		} catch (PersistenciaException e) {
 			e.printStackTrace();
 			throw new NegocioException(e);

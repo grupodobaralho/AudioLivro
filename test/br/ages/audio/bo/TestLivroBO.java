@@ -44,7 +44,7 @@ public class TestLivroBO extends TestCase {
 	
 	@Test(expected=Exception.class)
 	public void testCadastrarLivroIncorretoExcecao() throws Exception{
-		int condition = livroBO.cadastrarLivro(null);
+		livroBO.cadastrarLivro(null);
 			
 	}
 	

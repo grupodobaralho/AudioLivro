@@ -2,6 +2,10 @@ package br.ages.audio.bo;
 
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import br.ages.crud.dao.UsuarioDAO;
+import br.ages.crud.exception.NegocioException;
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Livro;
 import br.ages.crud.model.Usuario;
@@ -20,6 +25,7 @@ public class TestUsuarioBO extends TestCase{
 	
 	private UsuarioBO usuarioBO;
 	private Usuario usuario;
+	
 	
 	@Mock
 	UsuarioDAO usuarioMock;
@@ -59,12 +65,12 @@ public class TestUsuarioBO extends TestCase{
 
 	@Test
 	public void testValidaUsuarioA() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testCadastraUsuario() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
@@ -73,9 +79,12 @@ public class TestUsuarioBO extends TestCase{
 	}
 
 	@Test
-	public void testListarUsuario() {
-		fail("Not yet implemented");
-	}
+	public void testListarUsuario() throws NegocioException, PersistenciaException, SQLException{
+		List<Usuario> listUser = null;	
+		Mockito.when(usuarioMock.listarUsuarios()).thenReturn(listUser);
+		List<Usuario> condition = usuarioBO.listarUsuario();
+		assertEquals(condition,listUser);
+	}	
 
 	@Test
 	public void testRemoverUsuario() {
