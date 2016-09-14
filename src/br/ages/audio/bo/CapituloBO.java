@@ -170,5 +170,6 @@ public class CapituloBO {
 	
 	public ArrayList<Capitulo> buscarCapitulosDoLivro(Livro livro) throws PersistenciaException, SQLException {
 		return capituloDAO.buscarCapitulosDoLivro(livro);
+		//TODO verificar se o array é vazio; e se retornar outra coisa??
 	}
 }
