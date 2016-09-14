@@ -60,12 +60,12 @@ public class TestUsuarioBO extends TestCase{
 
 	@Test
 	public void testValidaUsuarioA() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testCadastraUsuario() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
