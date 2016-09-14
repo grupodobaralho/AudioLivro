@@ -46,7 +46,7 @@ public class TestCapituloBO {
 		ArrayList<Capitulo> condition = capituloBO.buscarCapitulosDoLivro(livro);
 		assertEquals(condition, capitulos);
 	}
-	
+
 	@Test
 	public void testBuscarCapitulosDoLivroErrado() throws PersistenciaException, SQLException {
 		ArrayList<Capitulo> capitulos = new ArrayList<>();
@@ -75,7 +75,7 @@ public class TestCapituloBO {
 		boolean condition = capituloBO.atualizarCapitulos(capitulosVet, livro);
 		assertEquals(condition, retorno);
 	}
-	
+
 	@Test
 	public void testDeletarCapitulosCorreto() throws PersistenciaException, SQLException {
 		Capitulo[] capitulosVet = new Capitulo[1];
