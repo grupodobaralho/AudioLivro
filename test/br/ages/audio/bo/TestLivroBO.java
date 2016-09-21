@@ -24,6 +24,7 @@ public class TestLivroBO extends TestCase {
 
 	@Mock
 	LivroDAO livroMock;
+	List<Livro> listaMock;
 		
 	@Before
 	public void init(){
@@ -48,25 +49,20 @@ public class TestLivroBO extends TestCase {
 			
 	}
 	
-	
-	
 	@Test
 	public void testAtualizarLivroCorreto() throws PersistenciaException, SQLException {
 		
 		Mockito.when(livroMock.atualizarLivro(livro)).thenReturn(true);
 		boolean condition = livroBO.atualizarLivro(livro);
-		assertTrue("OK", condition);
-		boolean teste = livroBO.atualizarLivro(livro);
-		assertTrue(teste);
+		assertTrue(condition);
+	
 	}
 	
 	@Test
 	public void testAtualizarLivroIncorreto() throws PersistenciaException, SQLException {
 		Mockito.when(livroMock.atualizarLivro(null)).thenReturn(false);
 		boolean condition = livroBO.atualizarLivro(null);
-		assertFalse("OK", condition);
-		boolean teste = livroBO.atualizarLivro(null);
-		assertFalse(teste);
+		assertFalse(condition);		
 	 
 	}
 		
@@ -79,9 +75,9 @@ public class TestLivroBO extends TestCase {
 	@Test
 	public void testValidaLivroIncorreto(){
 		boolean condition = livroBO.validaLivro(livroRuim);
-		assertFalse("OK", condition);
-		boolean teste =  livroBO.validaLivro(null);
-		assertFalse("OK", teste);
+		assertFalse(condition);
+		condition =  livroBO.validaLivro(null);
+		assertFalse(condition);
 	}	
 	
 	@Test
@@ -96,15 +92,13 @@ public class TestLivroBO extends TestCase {
 		Mockito.when(livroMock.buscarLivro(-1)).thenReturn(null);	
 		Livro umLivro = livroBO.buscarLivro(-1);
 		assertEquals(null, umLivro);			
-	}
-	
+	}	
 	
 	
 	@Test
 	public void testListarLivros() throws PersistenciaException, SQLException, NegocioException {
-		ArrayList<Livro> listarLivros = new ArrayList<>();
-		Mockito.when(livroMock.listarLivros()).thenReturn(listarLivros);
+		Mockito.when(livroMock.listarLivros()).thenReturn(listaMock);
 		List<Livro> condition = livroBO.listarLivros();
-		assertEquals(condition,listarLivros);
+		assertEquals(condition,listaMock);
 	}
 }
