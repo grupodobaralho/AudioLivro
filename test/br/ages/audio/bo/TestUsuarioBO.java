@@ -3,6 +3,7 @@ package br.ages.audio.bo;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +70,11 @@ public class TestUsuarioBO extends TestCase{
 	}
 
 	@Test
-	public void testCadastraUsuario() {
+	public void testCadastraUsuarioCorreto() throws NegocioException, SQLException, ParseException, PersistenciaException {
+		usuario.setIdUsuario(1234567);
+		Mockito.when(usuarioMock.cadastrarUsuario(usuario)).thenReturn(1234567);
+		int result = usuarioBO.cadastraUsuario(usuario);
+		assertEquals(result, 1234567);
 		
 	}
 

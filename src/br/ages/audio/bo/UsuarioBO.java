@@ -175,7 +175,7 @@ public class UsuarioBO {
 	 * @throws SQLException
 	 * @throws ParseException
 	 */
-	//Continuar isso ISRAEL-
+	
 	public int cadastraUsuario(Usuario usuario) throws NegocioException, SQLException, ParseException {
 
 		try {
