@@ -33,17 +33,14 @@ public class TestBlocoBO {
 	public void TestBlocoBOTest() {
 
 		blocoBO = new BlocoBO();
-
 		blocoBO.setBlocoDAO(blocoDAOMock);
 		blocoBO.setCapituloBlocoDAO(capituloBlocoDAOMock);
-
 		bloco = new Bloco("conteudo", "audio", Status.APROVADO);
 	}
 
 	@Test
-	public void testCadastraBloco() throws PersistenciaException, NegocioException, SQLException {
-		Mockito.when(blocoDAOMock.cadastraBloco(bloco)).thenReturn(20);
-		
+	public void testCadastraBlocoCorreto() throws PersistenciaException, NegocioException, SQLException { 
+		Mockito.when(blocoDAOMock.cadastraBloco(bloco)).thenReturn(20);		
 		int condition = blocoBO.cadastraBloco(bloco, 30);
 		assertEquals(20, condition);
 	}

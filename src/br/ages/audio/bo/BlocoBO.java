@@ -26,14 +26,6 @@ public class BlocoBO {
 		this.capituloBlocoDAO = capituloBlocoDAO;
 	}
 	
-	public BlocoDAO getBlocoDAO(){
-		return blocoDAO;
-	}
-	
-	public CapituloBlocoDAO getCapituloBlocoDAO(){
-		return capituloBlocoDAO;
-	}
-	
 	public int cadastraBloco(Bloco bloco,Integer idCapitulo) throws NegocioException {
 		try {
 			Integer idBloco = blocoDAO.cadastraBloco(bloco);
@@ -52,6 +44,4 @@ public class BlocoBO {
 		}
 		
 	}
-
-	
 }
