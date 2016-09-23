@@ -50,12 +50,18 @@ public class TestLivroBO extends TestCase {
 	}
 	
 	@Test
-	public void testAtualizarLivroCorreto() throws PersistenciaException, SQLException {
-		
-		Mockito.when(livroMock.atualizarLivro(livro)).thenReturn(true);
-		boolean condition = livroBO.atualizarLivro(livro);
+	public void testAtualizarLivroCorreto() throws PersistenciaException, SQLException, NegocioException {
+		Livro livroDois = new Livro();
+		livroDois.setIdLivro(123);
+		livroDois.setISBN("987654321");
+		Mockito.when(livroMock.cadastraLivro(livro)).thenReturn(123);
+		Mockito.when(livroMock.atualizarLivro(livroDois)).thenReturn(true);
+		Mockito.when(livroMock.buscarLivro(123)).thenReturn(livroDois);
+		int idDoLivro = livroBO.cadastrarLivro(livro);		
+		boolean condition = livroBO.atualizarLivro(livroDois);
+		Livro retorno = livroBO.buscarLivro(idDoLivro);
 		assertTrue(condition);
-	
+		assertEquals(retorno.getISBN(),"987654321");		
 	}
 	
 	@Test
