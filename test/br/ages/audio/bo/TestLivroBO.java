@@ -50,12 +50,8 @@ public class TestLivroBO extends TestCase {
 	}
 	
 	@Test
-	public void testAtualizarLivroCorreto() throws PersistenciaException, SQLException {
+	public void testAtualizarLivroCorreto() throws PersistenciaException, SQLException, NegocioException {
 		
-		Mockito.when(livroMock.atualizarLivro(livro)).thenReturn(true);
-		boolean condition = livroBO.atualizarLivro(livro);
-		assertTrue(condition);
-	
 	}
 	
 	@Test
