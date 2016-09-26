@@ -40,7 +40,7 @@ public class TestBlocoBO {
 
 	@Test
 	public void testCadastraBlocoCorreto() throws PersistenciaException, NegocioException, SQLException { 
-		Mockito.when(blocoDAOMock.cadastraBloco(bloco)).thenReturn(20);		
+		Mockito.when(blocoDAOMock.cadastraBloco(bloco)).thenReturn(30);		
 		int condition = blocoBO.cadastraBloco(bloco, 30);
 		assertEquals(20, condition);
 	}
