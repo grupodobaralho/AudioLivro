@@ -374,10 +374,10 @@ public class UsuarioDAO {
 			conexao = ConexaoUtil.getConexao();
 
 			StringBuilder sql = new StringBuilder();
-			sql.append("select * from ages_e.tb_tipo_usuario where id_tipo_usuario = ?;");
+			sql.append("select * from tb_tipo_usuario where id_tipo_usuario = ?;");
 
 			PreparedStatement statement = conexao.prepareStatement(sql.toString());
-			statement.setString(1, idTipoUsuario);
+			statement.setInt(1, Integer.parseInt(idTipoUsuario));
 			ResultSet resultset = statement.executeQuery();
 			while (resultset.next()) {
 				tipoUsuario.setIdTipoUsuario(resultset.getInt("ID_TIPO_USUARIO"));
