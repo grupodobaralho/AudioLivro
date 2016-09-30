@@ -13,7 +13,7 @@ import br.ages.crud.model.Livro;
 public class CapituloBO {
 	
 	private CapituloDAO capituloDAO;
-
+	
 	public CapituloBO() {
 		capituloDAO = new CapituloDAO();
 	}
@@ -99,7 +99,7 @@ public class CapituloBO {
 		return updateReturn;
 	}
 	
-	private ArrayList<Capitulo> getLivrosToDelete(ArrayList<Capitulo> capitulos, Capitulo[] capitulosToUpsert) {
+	public ArrayList<Capitulo> getLivrosToDelete(ArrayList<Capitulo> capitulos, Capitulo[] capitulosToUpsert) {
 		ArrayList<Capitulo> capitulosReturn = new ArrayList<Capitulo>();
 		
 		for ( int i = 0; i < capitulos.size(); i++ ) {
@@ -121,7 +121,7 @@ public class CapituloBO {
 		return capitulosReturn;
 	}
 	
-	private ArrayList<Capitulo> getLivrosToUpdate(ArrayList<Capitulo> capitulos, Capitulo[] capitulosToUpsert) {
+	public ArrayList<Capitulo> getLivrosToUpdate(ArrayList<Capitulo> capitulos, Capitulo[] capitulosToUpsert) {
 		ArrayList<Capitulo> capitulosReturn = new ArrayList<Capitulo>();
 		
 		if (capitulosToUpsert.length > 0) {
@@ -145,7 +145,7 @@ public class CapituloBO {
 		return capitulosReturn;
 	}
 	
-	private ArrayList<Capitulo> getLivrosToInsert(ArrayList<Capitulo> capitulos, Capitulo[] capitulosToUpsert) {
+	public ArrayList<Capitulo> getLivrosToInsert(ArrayList<Capitulo> capitulos, Capitulo[] capitulosToUpsert) {
 		
 		ArrayList<Capitulo> capitulosReturn = new ArrayList<Capitulo>();
 		
