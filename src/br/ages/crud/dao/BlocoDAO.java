@@ -60,8 +60,10 @@ public BlocoDAO(){
 		conexao.close();
 	}	
 }
-	public void alteraCaminhoPdf(String caminhoPdf, int idBloco) throws SQLException{
+	public boolean alteraCaminhoPdf(String caminhoPdf, int idBloco) throws SQLException{
 		Connection conexao = null;
+		boolean alterado=false;
+		
 		try {
 			
 			conexao = ConexaoUtil.getConexao();
@@ -81,13 +83,16 @@ public BlocoDAO(){
 	
 		
 			statement.executeUpdate();
+			
+			alterado=true;
+			return alterado;
 		
 			
 	}catch (ClassNotFoundException | SQLException e) {
 		e.printStackTrace();
 		throw new SQLException(e);
 	}finally {
-		conexao.close();
+		conexao.close();		
 	}	
 	}
 	

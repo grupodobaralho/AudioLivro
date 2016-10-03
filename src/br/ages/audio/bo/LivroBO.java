@@ -62,5 +62,9 @@ public class LivroBO {
 
 		return listLivros;
 	}
+	
+	public boolean excluirLivro(int idLivro){
+		return livroDAO.excluirLivro(idLivro);		
+	}
 
 }

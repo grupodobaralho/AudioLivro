@@ -156,4 +156,9 @@ public class LivroDAO {
 		}
 		return listarLivros;
 	}
+
+	public boolean excluirLivro(int idLivro) {
+		
+		return false;
+	}
 }
