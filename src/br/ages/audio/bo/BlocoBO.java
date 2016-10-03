@@ -42,6 +42,19 @@ public class BlocoBO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+		
+	public int excluiBloco(Integer idBloco) throws NegocioException {
+		try{
+			Integer idBlocoExcluido = blocoDAO.excluiBloco(idBloco);
+			return idBlocoExcluido;
+		}	catch (Exception e){
+				throw new NegocioException(MensagemContantes.MSG_ERR_EXCLUIR_BLOCO_INEXISTENTE); 
+		}
 		
 	}
+		
+	
+		
+	
 }
