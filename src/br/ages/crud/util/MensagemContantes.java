@@ -68,6 +68,8 @@ public class MensagemContantes {
 	
 	public static final String MSG_ERR_LIVRO_DADOS_INVALIDOS = "Dados do Livro inv√°lidos ou inconsistentes!";
 	
+	public static final String MSG_ERR_EXCLUIR_BLOCO_INEXISTENTE = "Bloco informado para exclus„o n„o foi encontrado na base de dados!";
+	
 	
 
 	//msgs de projeto

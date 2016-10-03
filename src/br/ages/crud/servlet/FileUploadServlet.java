@@ -157,7 +157,7 @@ public class FileUploadServlet extends HttpServlet {
 			
 			//altera o nome para o nome do bloco
 			alteraNome(file1, caminho);
-			blocoBO.alteraCaminho(idbloco, caminho);
+			blocoBO.alteraCaminho(caminho, idbloco);
 			
 			request.setAttribute("msgSucesso", "Upload feito com sucesso!");
 			

@@ -60,8 +60,10 @@ public BlocoDAO(){
 		conexao.close();
 	}	
 }
-	public void alteraCaminhoPdf(String caminhoPdf, int idBloco) throws SQLException{
+	public boolean alteraCaminhoPdf(String caminhoPdf, int idBloco) throws SQLException{
 		Connection conexao = null;
+		boolean alterado=false;
+		
 		try {
 			
 			conexao = ConexaoUtil.getConexao();
@@ -81,14 +83,46 @@ public BlocoDAO(){
 	
 		
 			statement.executeUpdate();
+			
+			alterado=true;
+			return alterado;
 		
 			
 	}catch (ClassNotFoundException | SQLException e) {
 		e.printStackTrace();
 		throw new SQLException(e);
 	}finally {
-		conexao.close();
+		conexao.close();		
 	}	
 	}
+	
+	public int excluiBloco(int idBloco) throws SQLException{
+		Connection conexao = null;
+		try {
+			
+			conexao = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			
+			sql.append("UPDATE TB_BLOCO SET STATUS_BLOCO = 'EXCLUIDO' WHERE ID_BLOCO = ?");
+			
+			PreparedStatement statment = conexao.prepareStatement(sql.toString());
+			
+			statment.setInt(1, idBloco);
+			
+			statment.executeUpdate();
+			
+			return idBloco;
+				
+			}catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+				throw new SQLException(e);
+				
+			}finally {
+				conexao.close();
+				
+			}
+		
+	}
+	
 }
 	

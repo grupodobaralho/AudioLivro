@@ -36,12 +36,29 @@ public class BlocoBO {
 		}
 	}
 	
-	public void alteraCaminho(int idBloco, String caminhoPdf){
+	public boolean alteraCaminho(String caminhoPdf, int idBloco){
+		boolean alterado = false;
 		try {
 			blocoDAO.alteraCaminhoPdf(caminhoPdf, idBloco);
+			alterado = true;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return alterado;		
+	}
+		
+	public int excluiBloco(Integer idBloco) throws NegocioException {
+		try{
+			Integer idBlocoExcluido = blocoDAO.excluiBloco(idBloco);
+			return idBlocoExcluido;
+		}	catch (Exception e){
+				throw new NegocioException(MensagemContantes.MSG_ERR_EXCLUIR_BLOCO_INEXISTENTE); 
+		}
 		
 	}
+		
+	
+		
+	
 }
