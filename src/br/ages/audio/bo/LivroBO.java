@@ -7,6 +7,7 @@ import br.ages.crud.dao.LivroDAO;
 import br.ages.crud.exception.NegocioException;
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Livro;
+import br.ages.crud.model.Status;
 import br.ages.crud.util.MensagemContantes;
 
 public class LivroBO {
@@ -63,8 +64,17 @@ public class LivroBO {
 		return listLivros;
 	}
 	
-	public boolean excluirLivro(int idLivro){
-		return livroDAO.excluirLivro(idLivro);		
+	public List<Livro> listarLivros(Status status){
+		List<Livro> listLivros = null;
+		
+		try {
+			listLivros = livroDAO.listarLivros(status);
+		} catch (PersistenciaException | SQLException e) {
+			e.printStackTrace();
+			throw new NegocioException(e);
+		}
+
+		return listLivros;
 	}
 
 }

@@ -33,7 +33,6 @@ public BlocoDAO(){
 			sql.append("insert into audio_e.tb_bloco (Local_conteudo, Data_criacao, data_alteracao, local_arquivo_audio, status_bloco)");
 			sql.append("values (?, ?, ?, ?, ?)");
 		
-
 			PreparedStatement statement = conexao.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 		
 			statement.setString(1, bloco.getLcl_conteudo());
@@ -41,8 +40,7 @@ public BlocoDAO(){
 			statement.setDate(3,dataCadastro);
 			statement.setString(4,bloco.getLcl_arq_audio());
 			statement.setString(5,  bloco.getStatusBloco().toString());
-	
-		
+			
 			statement.executeUpdate();
 		
 			ResultSet resultset = statement.getGeneratedKeys();
@@ -96,31 +94,38 @@ public BlocoDAO(){
 	}	
 	}
 	
-	public int excluiBloco(int idBloco) throws SQLException{
+	public boolean excluirBloco(int idBloco) throws SQLException{
 		Connection conexao = null;
-		try {
+		boolean excluido=false;
+		
+		try{
 			
 			conexao = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			
 			sql.append("UPDATE TB_BLOCO SET STATUS_BLOCO = 'EXCLUIDO' WHERE ID_BLOCO = ?");
 			
-			PreparedStatement statment = conexao.prepareStatement(sql.toString());
+			PreparedStatement statement = conexao.prepareStatement(sql.toString());
 			
-			statment.setInt(1, idBloco);
+			statement.setInt(1, idBloco);
 			
-			statment.executeUpdate();
+			statement.executeUpdate();			
 			
-			return idBloco;
+			excluido=true;
+			return excluido;
 				
-			}catch (ClassNotFoundException | SQLException e) {
+			}
+		
+		catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 				throw new SQLException(e);
 				
-			}finally {
+		}
+		
+		finally{
 				conexao.close();
 				
-			}
+		}
 		
 	}
 	

@@ -48,11 +48,15 @@ public class BlocoBO {
 		return alterado;		
 	}
 		
-	public int excluiBloco(Integer idBloco) throws NegocioException {
+	public boolean excluirBloco(int idBloco) throws NegocioException {
+			
 		try{
-			Integer idBlocoExcluido = blocoDAO.excluiBloco(idBloco);
+			
+			boolean idBlocoExcluido = blocoDAO.excluirBloco(idBloco);
 			return idBlocoExcluido;
-		}	catch (Exception e){
+		}	
+		
+		catch (Exception e){
 				throw new NegocioException(MensagemContantes.MSG_ERR_EXCLUIR_BLOCO_INEXISTENTE); 
 		}
 		
