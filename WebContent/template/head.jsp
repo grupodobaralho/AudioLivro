@@ -54,7 +54,7 @@
 				<div class="container-fluid">
 				
 		    		<div class="navbar-header">
-			      		<a class="navbar-brand" href="main?acao=listaProjetos">
+			      		<a class="navbar-brand" href="index.jsp">
 			        		<img class="logoNavBar" src="./img/logo-ages.png" alt="AGES">
 			      		</a>
 			    	</div>
