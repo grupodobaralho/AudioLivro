@@ -67,6 +67,16 @@ public class TestCapituloBO {
 		assertEquals(condition, true);
 
 	}
+	
+	@Test(expected=NullPointerException.class)
+	public void testCadastrarCapitulosErrado() throws PersistenciaException, SQLException {
+		Capitulo[] capitulosVet = new Capitulo[1];
+		capitulosVet[0] = capitulo;
+		Mockito.when(capituloMock.cadastrarCapitulo(null)).thenReturn(true);
+		boolean condition = capituloBO.cadastrarCapitulos(null, livro);
+		assertEquals(condition, true);
+
+	}
 
 	@Test
 	public void testAtualizarCadastrarCapitulosCorreto() throws PersistenciaException, SQLException {
@@ -74,6 +84,15 @@ public class TestCapituloBO {
 		capitulosVet[0] = capitulo;
 		Mockito.when(capituloMock.atualizarCapitulo(capitulo)).thenReturn(true);
 		boolean condition = capituloBO.atualizarCapitulos(capitulosVet, livro);
+		assertEquals(condition, true);
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void testAtualizarCadastrarCapitulosErrado() throws PersistenciaException, SQLException {
+		Capitulo[] capitulosVet = new Capitulo[1];
+		capitulosVet[0] = capitulo;
+		Mockito.when(capituloMock.atualizarCapitulo(null)).thenReturn(true);
+		boolean condition = capituloBO.atualizarCapitulos(null, livro);
 		assertEquals(condition, true);
 	}
 	
@@ -88,11 +107,30 @@ public class TestCapituloBO {
 		assertEquals(condition,true);
 
 	}
+	
+	@Test(expected=NullPointerException.class)
+	public void testDeletarCapitulosErrado() throws PersistenciaException, SQLException {
+		Capitulo[] capitulosVet = new Capitulo[1];
+		//List capituloLis = new List();
+		//livro.setCapitulos(capituloLis);
+		capitulosVet[0] = capitulo;
+		Mockito.when(capituloMock.deletarCapitulo(null)).thenReturn(true);
+		boolean condition = capituloBO.deletarCapitulos(null, livro);
+		assertEquals(condition,true);
+
+	}
 
 	@Test
 	public void testProcessarCapitulosCorreto() throws PersistenciaException, SQLException {
 		Capitulo[] capitulosVet = new Capitulo[1];
 		boolean condition = capituloBO.processarCapitulos(capitulosVet, livro);
+		assertEquals(condition,false);
+	}
+	
+	@Test
+	public void testProcessarCapitulosIncorreto() throws PersistenciaException, SQLException {
+		Capitulo[] capitulosVet = new Capitulo[1];
+		boolean condition = capituloBO.processarCapitulos(capitulosVet, null);
 		assertEquals(condition,false);
 	}
 	
@@ -108,7 +146,7 @@ public class TestCapituloBO {
 		ArrayList<Capitulo> capitulosLis2 = new ArrayList<>();
 		ArrayList<Capitulo> condition = capituloBO.getLivrosToDelete(capitulosLis, capitulosVet);
 		assertEquals(condition,capitulosLis2);
-		}
+	}
 	
 	@Test
 	public void testGetLivrosToUpdateCorreto() throws PersistenciaException, SQLException {
@@ -117,7 +155,7 @@ public class TestCapituloBO {
 		ArrayList<Capitulo> capitulosLis2 = new ArrayList<>();
 		ArrayList<Capitulo> condition = capituloBO.getLivrosToUpdate(capitulosLis, capitulosVet);
 		assertEquals(condition,capitulosLis2);
-		}
+	}
 	
 	@Test
 	public void testGetLivrosToInsertCorreto() throws PersistenciaException, SQLException {
@@ -126,5 +164,5 @@ public class TestCapituloBO {
 		ArrayList<Capitulo> capitulosLis2 = new ArrayList<>(); 
 		ArrayList<Capitulo> condition = capituloBO.getLivrosToInsert(capitulosLis, capitulosVet);
 		assertEquals(condition,capitulosLis2);
-		}
+	}
 }
