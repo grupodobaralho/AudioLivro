@@ -20,7 +20,7 @@
 			<properties>
 				<sgbd.url>jdbc:mysql://localhost:3306/audio_e</sgbd.url>
 				<sgbd.user>root</sgbd.user>
-				<sgbd.password>admin</sgbd.password>
+				<sgbd.password>senha</sgbd.password>
 				<upload.path>c:\\uploadProjetos</upload.path>
 				<log.path>c:\\cawt\\</log.path>
 			</properties>
