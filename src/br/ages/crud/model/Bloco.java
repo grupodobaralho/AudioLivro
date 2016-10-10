@@ -13,6 +13,10 @@ public class Bloco {
 		statusBloco = x;
 	}
 	
+	public Bloco() {
+		
+	}
+
 	public Integer getId_bloco() {
 		return id_bloco;
 	}

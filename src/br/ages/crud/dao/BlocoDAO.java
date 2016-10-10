@@ -10,7 +10,9 @@ import com.mysql.jdbc.Statement;
 import br.ages.crud.exception.NegocioException;
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Bloco;
+import br.ages.crud.model.Livro;
 import br.ages.crud.model.PerfilAcesso;
+import br.ages.crud.model.Status;
 import br.ages.crud.util.ConexaoUtil;
 import br.ages.crud.util.MensagemContantes;
 
@@ -51,13 +53,14 @@ public BlocoDAO(){
 				return idBloco;
 		
 		
-	}catch (ClassNotFoundException | SQLException e) {
-		e.printStackTrace();
-		throw new NegocioException(e);
-	}finally {
-		conexao.close();
-	}	
-}
+		}catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new NegocioException(e);
+		}finally {
+			conexao.close();
+		}	
+	}
+	
 	public boolean alteraCaminhoPdf(String caminhoPdf, int idBloco) throws SQLException{
 		Connection conexao = null;
 		boolean alterado=false;
@@ -86,17 +89,18 @@ public BlocoDAO(){
 			return alterado;
 		
 			
-	}catch (ClassNotFoundException | SQLException e) {
-		e.printStackTrace();
-		throw new SQLException(e);
-	}finally {
-		conexao.close();		
-	}	
+		}catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new SQLException(e);
+		}finally {
+			conexao.close();		
+		}	
 	}
 	
 	public boolean excluirBloco(int idBloco) throws SQLException{
 		Connection conexao = null;
 		boolean excluido=false;
+		
 		
 		try{
 			
@@ -127,6 +131,41 @@ public BlocoDAO(){
 				
 		}
 		
+	}
+	
+	public Bloco buscarBloco(int idBloco) throws PersistenciaException, SQLException {
+		Bloco bloco = null;
+		
+		Connection conexao = null;
+		try {
+			conexao = ConexaoUtil.getConexao();
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT ID_BLOCO FROM TB_BLOCO ");
+			sql.append("WHERE ID_BLOCO = ?");
+			
+			PreparedStatement statement = conexao.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+			statement.setInt(1, idBloco);
+			
+			ResultSet resultset = statement.executeQuery();
+			
+			if(resultset.next()){
+				
+				bloco = new Bloco();
+				bloco.setId_bloco(resultset.getInt("ID_BLOCO"));	
+				bloco.setLcl_conteudo(resultset.getString("LCL_CONTEUDO"));
+				bloco.setLcl_arq_audio(resultset.getString("LCL_ARQ_AUDIO"));
+				bloco.setStatusBloco(Status.valueOf(resultset.getString("STATUS_BLOCO")));
+								
+				
+			}
+			return bloco;
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new PersistenciaException("Error");
+
+		} finally {
+			conexao.close();
+		}
 	}
 	
 }

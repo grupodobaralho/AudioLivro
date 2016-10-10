@@ -6,7 +6,7 @@ import br.ages.crud.dao.BlocoDAO;
 import br.ages.crud.dao.CapituloBlocoDAO;
 import br.ages.crud.exception.NegocioException;
 import br.ages.crud.model.Bloco;
-
+import br.ages.crud.model.Status;
 import br.ages.crud.util.MensagemContantes;
 
 public class BlocoBO {
@@ -49,10 +49,12 @@ public class BlocoBO {
 	}
 		
 	public boolean excluirBloco(int idBloco) throws NegocioException {
-			
+		boolean idBlocoExcluido = false;	
 		try{
-			
-			boolean idBlocoExcluido = blocoDAO.excluirBloco(idBloco);
+			if (blocoDAO.buscarBloco(idBloco).getStatusBloco() != Status.EM_GRAVACAO)
+			{
+				idBlocoExcluido = blocoDAO.excluirBloco(idBloco);				
+			}
 			return idBlocoExcluido;
 		}	
 		
@@ -66,3 +68,4 @@ public class BlocoBO {
 		
 	
 }
+	

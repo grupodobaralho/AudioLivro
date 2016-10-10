@@ -53,4 +53,11 @@ public class TestBlocoBO {
 	 	
 	 }
 	 
+	 @Test
+	 public void testExcluirBlocoCorreto() throws SQLException, NegocioException, SQLException{
+		 Mockito.when(blocoDAOMock.excluirBloco(10)).thenReturn(true);
+		 boolean condition = blocoBO.excluirBloco(10);
+		 assertTrue(condition);		 
+	 }
+	 
 }
