@@ -8,6 +8,7 @@ public class Livro {
 	private String ISBN;
 	private String autores;
 	private List<Capitulo> capitulos;
+	private Status statusLivro;
 	
 	public Livro(){}
 
@@ -54,5 +55,13 @@ public class Livro {
 	public void setIdLivro(Integer idLivro) {
 		this.idLivro = idLivro;
 	}
+	
+	public Status getStatus(){
+		return statusLivro;
+	}
+	
+	public void setStatus(Status status){
+		statusLivro = status;
+	}	
 	
 }

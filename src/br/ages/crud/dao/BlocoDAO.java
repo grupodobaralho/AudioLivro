@@ -33,7 +33,6 @@ public BlocoDAO(){
 			sql.append("insert into audio_e.tb_bloco (Local_conteudo, Data_criacao, data_alteracao, local_arquivo_audio, status_bloco)");
 			sql.append("values (?, ?, ?, ?, ?)");
 		
-
 			PreparedStatement statement = conexao.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 		
 			statement.setString(1, bloco.getLcl_conteudo());
@@ -41,8 +40,7 @@ public BlocoDAO(){
 			statement.setDate(3,dataCadastro);
 			statement.setString(4,bloco.getLcl_arq_audio());
 			statement.setString(5,  bloco.getStatusBloco().toString());
-	
-		
+			
 			statement.executeUpdate();
 		
 			ResultSet resultset = statement.getGeneratedKeys();
@@ -60,8 +58,10 @@ public BlocoDAO(){
 		conexao.close();
 	}	
 }
-	public void alteraCaminhoPdf(String caminhoPdf, int idBloco) throws SQLException{
+	public boolean alteraCaminhoPdf(String caminhoPdf, int idBloco) throws SQLException{
 		Connection conexao = null;
+		boolean alterado=false;
+		
 		try {
 			
 			conexao = ConexaoUtil.getConexao();
@@ -81,14 +81,53 @@ public BlocoDAO(){
 	
 		
 			statement.executeUpdate();
+			
+			alterado=true;
+			return alterado;
 		
 			
 	}catch (ClassNotFoundException | SQLException e) {
 		e.printStackTrace();
 		throw new SQLException(e);
 	}finally {
-		conexao.close();
+		conexao.close();		
 	}	
 	}
+	
+	public boolean excluirBloco(int idBloco) throws SQLException{
+		Connection conexao = null;
+		boolean excluido=false;
+		
+		try{
+			
+			conexao = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			
+			sql.append("UPDATE TB_BLOCO SET STATUS_BLOCO = 'EXCLUIDO' WHERE ID_BLOCO = ?");
+			
+			PreparedStatement statement = conexao.prepareStatement(sql.toString());
+			
+			statement.setInt(1, idBloco);
+			
+			statement.executeUpdate();			
+			
+			excluido=true;
+			return excluido;
+				
+			}
+		
+		catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+				throw new SQLException(e);
+				
+		}
+		
+		finally{
+				conexao.close();
+				
+		}
+		
+	}
+	
 }
 	

@@ -54,7 +54,7 @@
 				<div class="container-fluid">
 				
 		    		<div class="navbar-header">
-			      		<a class="navbar-brand" href="main?acao=listaProjetos">
+			      		<a class="navbar-brand" href="index.jsp">
 			        		<img class="logoNavBar" src="./img/logo-ages.png" alt="AGES">
 			      		</a>
 			    	</div>
@@ -85,9 +85,9 @@
 
 					<ul class="nav navbar-nav navbar-right">
         				<li class="dropdown">
-        					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        					<a class="dropdown-toggle" data-toggle="dropdown">
         						<span class="glyphicon glyphicon-user"></span>
-        						Olá, <%=usuarioSessao.getNome() + usuarioSessao.getStatusUsuario()%>!
+        						Olá, <%=usuarioSessao.getNome()%>!
         						<span class="caret"></span>
         					</a>
                            

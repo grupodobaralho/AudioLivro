@@ -3,6 +3,7 @@ package br.ages.audio.bo;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,12 +30,14 @@ public class TestUsuarioBO extends TestCase{
 	
 	@Mock
 	UsuarioDAO usuarioMock;
+	List<Usuario> listaMock;
 	
 	@Before
 	public void  init(){
 		usuarioBO = new UsuarioBO();
 		usuarioBO.setUsuarioDAO(usuarioMock);
 		usuario = new Usuario();
+		
 	}
 
 	@Test
@@ -69,7 +72,11 @@ public class TestUsuarioBO extends TestCase{
 	}
 
 	@Test
-	public void testCadastraUsuario() {
+	public void testCadastraUsuarioCorreto() throws NegocioException, SQLException, ParseException, PersistenciaException {
+		usuario.setIdUsuario(1234567);
+		Mockito.when(usuarioMock.cadastrarUsuario(usuario)).thenReturn(1234567);
+		int result = usuarioBO.cadastraUsuario(usuario);
+		assertEquals(result, 1234567);
 		
 	}
 
@@ -79,16 +86,16 @@ public class TestUsuarioBO extends TestCase{
 	}
 
 	@Test
-	public void testListarUsuario() throws NegocioException, PersistenciaException, SQLException{
-		List<Usuario> listUser = null;	
-		Mockito.when(usuarioMock.listarUsuarios()).thenReturn(listUser);
-		List<Usuario> condition = usuarioBO.listarUsuario();
-		assertEquals(condition,listUser);
-	}	
-
+	public void testListarUsuarioCorreto() throws NegocioException, PersistenciaException, SQLException{
+		Mockito.when(usuarioMock.listarUsuarios()).thenReturn(listaMock);
+		List<Usuario> condition = usuarioMock.listarUsuarios();
+		assertEquals(condition, listaMock);
+	}
+	
+	
 	@Test
 	public void testRemoverUsuario() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test

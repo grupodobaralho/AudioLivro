@@ -96,8 +96,8 @@ public class CapituloDAO {
 			conexao = ConexaoUtil.getConexao();
 			
 			StringBuilder sql = new StringBuilder();
-			sql.append("delete from tb_Capitulo ");
-			sql.append("where id_capitulo = ?");
+			sql.append("DELETE FROM TB_CAPITULO ");
+			sql.append("WHERE ID_CAPITULO = ?");
 
 			PreparedStatement statement = conexao.prepareStatement(sql.toString());
 			statement.setInt(1, capitulo.getIdCapitulo());

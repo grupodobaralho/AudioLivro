@@ -33,26 +33,24 @@ public class TestBlocoBO {
 	public void TestBlocoBOTest() {
 
 		blocoBO = new BlocoBO();
-
 		blocoBO.setBlocoDAO(blocoDAOMock);
 		blocoBO.setCapituloBlocoDAO(capituloBlocoDAOMock);
-
 		bloco = new Bloco("conteudo", "audio", Status.APROVADO);
 	}
 
 	@Test
-	public void testCadastraBloco() throws PersistenciaException, NegocioException, SQLException {
-		Mockito.when(blocoDAOMock.cadastraBloco(bloco)).thenReturn(20);
-		
-		int condition = blocoBO.cadastraBloco(bloco, 30);
-		assertEquals(20, condition);
+	public void testCadastraBlocoCorreto() throws PersistenciaException, NegocioException, SQLException { 
+		Mockito.when(blocoDAOMock.cadastraBloco(bloco)).thenReturn(30);		
+		int condition = blocoBO.cadastraBloco(bloco, 1);
+		assertEquals(30, condition);
 	}
 
-	/*
-	 * @Test public void testAlteraCaminho() throws PersistenciaException,
-	 * NegocioException, SQLException {
-	 * Mockito.when(blocoDAO.alteraCaminhoPdf("caminho", 20)).
-	 * 
-	 * }
-	 */
+	 @Test 
+	 public void testAlteraCaminho() throws PersistenciaException, NegocioException, SQLException {
+		Mockito.when(blocoDAOMock.alteraCaminhoPdf("caminho", 20)).thenReturn(true);
+		boolean condition = blocoBO.alteraCaminho("caminho", 20);
+		assertTrue(condition);
+	 	
+	 }
+	 
 }

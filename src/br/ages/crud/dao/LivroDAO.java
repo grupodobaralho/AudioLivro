@@ -11,6 +11,7 @@ import com.mysql.jdbc.Statement;
 
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Livro;
+import br.ages.crud.model.Status;
 import br.ages.crud.util.ConexaoUtil;
 import br.ages.crud.util.MensagemContantes;
 
@@ -156,4 +157,40 @@ public class LivroDAO {
 		}
 		return listarLivros;
 	}
+
+	public List<Livro> listarLivros(Status status) throws PersistenciaException, SQLException {
+			Connection conexao = null;
+			// tentativa de readaptação do listarUsuarios()
+			try {
+				conexao = ConexaoUtil.getConexao();
+
+				StringBuilder sql = new StringBuilder();
+				sql.append("select ID_LIVRO, ISBN, TITULO, AUTORES ");
+				sql.append("from audio_e.tb_livro");
+				sql.append("where STATUS =?");
+
+				PreparedStatement statement = conexao.prepareStatement(sql.toString());
+				
+				ResultSet resultset = statement.executeQuery();
+				
+				while (resultset.next()) {
+					Livro livro = new Livro();
+					livro.setIdLivro(resultset.getInt("ID_LIVRO"));
+					livro.setISBN(resultset.getString("ISBN"));
+					livro.setTitulo(resultset.getString("TITULO"));
+					livro.setAutores(resultset.getString("AUTORES"));
+					
+					listarLivros.add(livro);
+				}
+
+			} catch (ClassNotFoundException | SQLException e) {
+				throw new PersistenciaException(e);
+			} finally {
+				conexao.close();
+			}
+			return listarLivros;
+
+		
+	}
+	
 }
