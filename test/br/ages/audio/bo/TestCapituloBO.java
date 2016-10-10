@@ -39,7 +39,6 @@ public class TestCapituloBO {
 		capitulo.setIdCapitulo(10);
 		capitulo.setLivro(livro);
 		capituloBOMock = new CapituloBO();
-
 	}
 
 	@Test
@@ -49,7 +48,7 @@ public class TestCapituloBO {
 		ArrayList<Capitulo> condition = capituloBO.buscarCapitulosDoLivro(livro);
 		assertEquals(condition, capitulos);
 	}
-	
+
 	@Test
 	public void testBuscarCapitulosDoLivroErrado() throws PersistenciaException, SQLException {
 		ArrayList<Capitulo> capitulos = new ArrayList<>();
@@ -95,7 +94,7 @@ public class TestCapituloBO {
 		boolean condition = capituloBO.atualizarCapitulos(null, livro);
 		assertEquals(condition, true);
 	}
-	
+
 	@Test
 	public void testDeletarCapitulosCorreto() throws PersistenciaException, SQLException {
 		Capitulo[] capitulosVet = new Capitulo[1];
@@ -141,6 +140,15 @@ public class TestCapituloBO {
 	//COMO NESTES CASOS NÃO EXISTE DIFERENÇA então nada é feito e ele retorna um array vazio.
 	@Test
 	public void testGetLivrosToDeleteCorreto() throws PersistenciaException, SQLException {
+		Capitulo[] capitulosVet = new Capitulo[1];
+		ArrayList<Capitulo> capitulosLis = new ArrayList<>();
+		ArrayList<Capitulo> capitulosLis2 = new ArrayList<>();
+		ArrayList<Capitulo> condition = capituloBO.getLivrosToDelete(capitulosLis, capitulosVet);
+		assertEquals(condition,capitulosLis2);
+	}
+	
+	@Test
+	public void testGetLivrosToDeleteErrado() throws PersistenciaException, SQLException {
 		Capitulo[] capitulosVet = new Capitulo[1];
 		ArrayList<Capitulo> capitulosLis = new ArrayList<>();
 		ArrayList<Capitulo> capitulosLis2 = new ArrayList<>();
