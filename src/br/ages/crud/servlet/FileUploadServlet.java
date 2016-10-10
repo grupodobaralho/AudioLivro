@@ -147,7 +147,7 @@ public class FileUploadServlet extends HttpServlet {
 			// caminho que será salvo no banco com o local onde o pdf está salvo
 			String caminho = savePath + fileName;
 			
-			Bloco bloco = new Bloco(caminho, "nao definido", Status.AGUARDANDO_REVISAO);
+			Bloco bloco = new Bloco(caminho, "nao definido", Status.DISPONIVEL_PARA_GRAVACAO);
 			BlocoBO blocoBO = new BlocoBO();
 			int	idbloco = blocoBO.cadastraBloco(bloco, Integer.parseInt(idCap));
 			bloco.setId_bloco(idbloco);

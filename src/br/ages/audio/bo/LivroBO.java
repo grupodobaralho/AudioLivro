@@ -62,19 +62,6 @@ public class LivroBO {
 		}
 
 		return listLivros;
-	}
-	
-	public List<Livro> listarLivros(Status status){
-		List<Livro> listLivros = null;
-		
-		try {
-			listLivros = livroDAO.listarLivros(status);
-		} catch (PersistenciaException | SQLException e) {
-			e.printStackTrace();
-			throw new NegocioException(e);
-		}
-
-		return listLivros;
-	}
+	}	
 
 }

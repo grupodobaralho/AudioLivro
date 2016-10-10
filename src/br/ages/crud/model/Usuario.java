@@ -102,7 +102,7 @@ public class Usuario implements Serializable, Comparable<Usuario> {
 	public String getNome() {
 		return nome;
 	}
-
+	
 	public void setNome(String value) {
 		nome = value;
 	}
