@@ -4,12 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mysql.jdbc.Statement;
 
 import br.ages.crud.exception.NegocioException;
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Bloco;
+import br.ages.crud.model.Capitulo;
 import br.ages.crud.model.Livro;
 import br.ages.crud.model.PerfilAcesso;
 import br.ages.crud.model.Status;
@@ -133,7 +136,8 @@ public BlocoDAO(){
 		
 	}
 	
-	public Bloco buscarBloco(int idBloco) throws PersistenciaException, SQLException {
+	
+	public Bloco buscarBlocoID(int idBloco) throws PersistenciaException, SQLException {
 		Bloco bloco = null;
 		
 		Connection conexao = null;
@@ -141,7 +145,7 @@ public BlocoDAO(){
 			conexao = ConexaoUtil.getConexao();
 			
 			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT ID_BLOCO FROM TB_BLOCO ");
+			sql.append("SELECT ID_BLOCO, LCL_CONTEUDO, LCL_ARQ_AUDIO, _STATUS_BLOCO");
 			sql.append("WHERE ID_BLOCO = ?");
 			
 			PreparedStatement statement = conexao.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
@@ -166,6 +170,47 @@ public BlocoDAO(){
 		} finally {
 			conexao.close();
 		}
+	}
+	
+	//Recebe por parâmetro um capítulo e retorna uma lista com todos os blocos que pertencem a ele
+	public List<Bloco> buscarBlocosDoCapitulo(Capitulo capitulo) throws PersistenciaException, SQLException{
+		List<Bloco> blocos; 
+		Connection conexao = null;
+	
+		try {
+			conexao = ConexaoUtil.getConexao();
+
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT ID_BLOCO, LCL_CONTEUDO, LCL_ARQ_AUDIO, _STATUS_BLOCO");
+			sql.append("FROM (TB_CAPITULO CAP INNER JOIN TB_CAPITULO_BLOCO CPB");
+			sql.append("ON CAP.ID_CAPITULO = CPB.ID_CAPITULO)");
+			sql.append("INNER JOIN TB_BLOCO BL");
+			sql.append("ON CPB.ID_BLOCO = BL.ID_BLOCO");
+			sql.append("WHERE ID_CAPITULO = ?");
+
+			PreparedStatement statement = conexao.prepareStatement(sql.toString());
+			statement.setInt(1, capitulo.getIdCapitulo());
+			
+			ResultSet resultset = statement.executeQuery();
+			
+			blocos = new ArrayList<Bloco>();
+			
+			while (resultset.next()) {
+				Bloco bloco = new Bloco();
+				bloco.setId_bloco(resultset.getInt("ID_BLOCO"));	
+				bloco.setLcl_conteudo(resultset.getString("LCL_CONTEUDO"));
+				bloco.setLcl_arq_audio(resultset.getString("LCL_ARQ_AUDIO"));
+				bloco.setStatusBloco(Status.valueOf(resultset.getString("STATUS_BLOCO")));
+				
+				blocos.add(bloco);
+			}			
+
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new PersistenciaException(e);
+		} finally {
+			conexao.close();
+		}
+		return blocos;		
 	}
 	
 }

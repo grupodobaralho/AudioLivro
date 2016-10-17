@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import br.ages.crud.dao.BlocoDAO;
 import br.ages.crud.dao.CapituloBlocoDAO;
 import br.ages.crud.exception.NegocioException;
+import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Bloco;
 import br.ages.crud.model.Status;
 import br.ages.crud.util.MensagemContantes;
@@ -51,7 +52,7 @@ public class BlocoBO {
 	public boolean excluirBloco(int idBloco) throws NegocioException {
 		boolean idBlocoExcluido = false;	
 		try{
-			if (blocoDAO.buscarBloco(idBloco).getStatusBloco() != Status.EM_GRAVACAO)
+			if (blocoDAO.buscarBlocoID(idBloco).getStatusBloco() != Status.EM_GRAVACAO)
 			{
 				idBlocoExcluido = blocoDAO.excluirBloco(idBloco);				
 			}
@@ -64,6 +65,11 @@ public class BlocoBO {
 		
 	}
 		
+	public Bloco buscarBlocoID (int idBloco) throws PersistenciaException, SQLException{
+		 
+		return blocoDAO.buscarBlocoID(idBloco);
+		
+	}
 	
 		
 	

@@ -5,12 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.mysql.jdbc.Statement;
 
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Capitulo;
 import br.ages.crud.model.Livro;
+import br.ages.crud.model.Status;
 import br.ages.crud.util.ConexaoUtil;
 import br.ages.crud.util.MensagemContantes;
 
@@ -24,8 +26,8 @@ public class CapituloDAO {
 			conexao = ConexaoUtil.getConexao();
 			
 			StringBuilder sql = new StringBuilder();
-			sql.append("insert into tb_Capitulo (id_livro, nome, numero, Data_criacao, Data_alteracao)");
-			sql.append("values (?,?,?,?,?)");
+			sql.append("insert into tb_Capitulo (id_livro, nome, numero, Data_criacao, Data_alteracao, status_capitulo)");
+			sql.append("values (?,?,?,?,?,?)");
 			
 			// converte a data para data que o banco reconhece
 			java.util.Date utilDate = new java.util.Date();
@@ -38,6 +40,7 @@ public class CapituloDAO {
 			statement.setInt(3, capitulo.getNumero());
 			statement.setDate(4, dataCadastro);
 			statement.setDate(5, dataCadastro);
+			statement.setString(6, capitulo.getStatusCapitulo().toString());
 			
 			statement.executeUpdate();
 			
@@ -91,8 +94,9 @@ public class CapituloDAO {
 	
 	public boolean deletarCapitulo(Capitulo capitulo) throws PersistenciaException, SQLException {
 		boolean returnDelete = false;
-		Connection conexao = null;
-		try {
+		Connection conexao = null;			
+		try {			
+			
 			conexao = ConexaoUtil.getConexao();
 			
 			StringBuilder sql = new StringBuilder();
