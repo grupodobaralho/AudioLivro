@@ -21,6 +21,10 @@ public class CapituloBO {
 		this.capituloDAO=capituloDAO;
 	}
 	
+	/**
+	 *Create, Read, Update, Delete 
+	 *
+	 */
 	private boolean crudCapitulos(Capitulo[] capitulos, Livro livro, int operation) {
 		boolean crudReturn = true;
 		for (int i = 0; i < capitulos.length; i++) {
