@@ -9,14 +9,16 @@ public class Capitulo {
 	private int numero;
 	private Livro livro;
 	private List<Bloco> blocos;
+	private Status statusCapitulo;
 	
 	public Capitulo() {}
 	
-	public Capitulo(String nome, int numero, Livro livro){
+	public Capitulo(String nome, int numero, Livro livro, Status s){
 		this.nome = nome;
 		this.numero = numero;
 		this.setLivro(livro);
 		blocos = new ArrayList<Bloco>();
+		statusCapitulo = s;
 	}
 
 	public String getNome() {
@@ -43,10 +45,6 @@ public class Capitulo {
 		this.blocos = blocos;
 	}
 
-	public String toString() {
-		return "== Informaï¿½ï¿½es do Capï¿½tulo ==\nNome: " + nome + "\nNï¿½mero: " + numero;
-	}
-
 	public Livro getLivro() {
 		return livro;
 	}
@@ -63,5 +61,16 @@ public class Capitulo {
 		this.idCapitulo = idCapitulo;
 	}
 	
+	public Status getStatusCapitulo(){
+		return statusCapitulo;
+	}
 	
+	public void setStatusCapitulo(Status s){
+		this.statusCapitulo = s;		
+	}
+	
+	public String toString() {
+		return "== Informações do capítulo ==\nNome: " + nome + "\nNúmero: " + numero +
+				"\nStatus do Capítulo: " + statusCapitulo;
+	}	
 }
