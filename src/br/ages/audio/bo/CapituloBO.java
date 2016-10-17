@@ -4,15 +4,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import br.ages.crud.dao.CapituloDAO;
 import br.ages.crud.exception.PersistenciaException;
+import br.ages.crud.model.Bloco;
 import br.ages.crud.model.Capitulo;
 import br.ages.crud.model.Livro;
+import br.ages.crud.model.Status;
 
 public class CapituloBO {
 	
 	private CapituloDAO capituloDAO;
+	private BlocoBO blocoBO;
 	
 	public CapituloBO() {
 		capituloDAO = new CapituloDAO();
@@ -25,11 +29,10 @@ public class CapituloBO {
 	 *Create, Read, Update, Delete 
 	 *
 	 */
-	private boolean crudCapitulos(Capitulo[] capitulos, Livro livro, int operation) {
+	private boolean crudCapitulos(ArrayList<Capitulo> capitulos, Livro livro, int operation) {
 		boolean crudReturn = true;
-		for (int i = 0; i < capitulos.length; i++) {
-			Capitulo capitulo = capitulos[i];
-			capitulo.setLivro(livro);
+		for (Capitulo capitulo : capitulos) {			
+			capitulo.setLivro(livro);		
 			
 			try {
 				switch (operation) {
@@ -44,7 +47,8 @@ public class CapituloBO {
 					break;
 				default:
 					break;
-				}
+			}
+			
 			} catch (PersistenciaException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -60,19 +64,37 @@ public class CapituloBO {
 		return crudReturn;
 	}
 	
-	public boolean cadastrarCapitulos(Capitulo[] capitulosToInsert, Livro livro) {
+	public boolean cadastrarCapitulos(ArrayList<Capitulo> capitulosToInsert, Livro livro) {
 		return crudCapitulos(capitulosToInsert, livro, 1);
 	}
 	
-	public boolean atualizarCapitulos(Capitulo[] capitulosToUpdate, Livro livro) {
+	public boolean atualizarCapitulos(ArrayList<Capitulo> capitulosToUpdate, Livro livro) {
 		return crudCapitulos(capitulosToUpdate, livro, 2);
 	}
 	
-	public boolean deletarCapitulos(Capitulo[] capitulosToDelete, Livro livro) {
-		return crudCapitulos(capitulosToDelete, livro, 3);
+	public boolean deletarCapitulos(ArrayList<Capitulo> capitulosToDelete, Livro livro) {		
+		ArrayList<Bloco> blocos;
+		
+		for (Capitulo capitulo : capitulosToDelete){
+			
+			blocos = capitulo.getBlocos();
+			boolean blocoEmGravacao = false;
+			
+			for(int i = 0; i < blocos.size() && blocoEmGravacao == false; i++){
+				
+				if (blocos.get(i).getStatusBloco() == Status.EM_GRAVACAO){
+					blocoEmGravacao = true;
+				}
+			}
+			if(blocoEmGravacao==true)
+				capitulosToDelete.remove(capitulo);
+		}			
+	
+		if (capitulosToDelete.size() == 0) return false;
+		else return crudCapitulos(capitulosToDelete, livro, 3);
 	}
 	
-	public boolean processarCapitulos(Capitulo[] capitulosToUpsert, Livro livro) {
+	public boolean processarCapitulos(ArrayList<Capitulo> capitulosToUpsert, Livro livro) {
 		boolean updateReturn = false;
 		try {
 			// Busca todos capítulos do livro para efetuar as comparações
@@ -81,13 +103,13 @@ public class CapituloBO {
 			// Processa o que é para deletar e deleta
 			ArrayList<Capitulo> capitulosToDelete = getLivrosToDelete(capitulos, capitulosToUpsert);
 			if ( capitulosToDelete.size() > 0 ) {
-				updateReturn = deletarCapitulos(capitulosToDelete.toArray(new Capitulo[capitulosToDelete.size()]), livro);
+				updateReturn = deletarCapitulos(capitulosToDelete, livro);
 			}
 			
 			// Processa o que é para atualizar e atualiza
 			ArrayList<Capitulo> capitulosToUpdate = getLivrosToUpdate(capitulos, capitulosToUpsert);
 			if ( capitulosToUpdate.size() > 0 ) {
-				updateReturn = atualizarCapitulos(capitulosToUpdate.toArray(new Capitulo[capitulosToUpdate.size()]), livro);
+				updateReturn = atualizarCapitulos(capitulosToUpdate, livro);
 			}
 			
 			// Processa o que é para inserir e insere
@@ -103,7 +125,7 @@ public class CapituloBO {
 		return updateReturn;
 	}
 	
-	public ArrayList<Capitulo> getLivrosToDelete(ArrayList<Capitulo> capitulos, Capitulo[] capitulosToUpsert) {
+	public ArrayList<Capitulo> getLivrosToDelete(ArrayList<Capitulo> capitulos, List<Capitulo> capitulosToUpsert) {
 		ArrayList<Capitulo> capitulosReturn = new ArrayList<Capitulo>();
 		
 		for ( int i = 0; i < capitulos.size(); i++ ) {
