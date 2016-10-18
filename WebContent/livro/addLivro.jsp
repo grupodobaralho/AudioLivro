@@ -149,8 +149,6 @@
 				
 				console.log($( "#livroIdLivro" ).val());
 				
-				updateCapitulosToSend();
-				
 				sendDataToBackend();
 			}
 		});
@@ -307,33 +305,6 @@
 				}
 			}
 			return false;
-		}
-
-		function updateCapitulosToSend() {
-			/*
-			arrCapitulos = [];
-			var trs = $( "#tableCapitulos > tbody > tr" );
-			
-			$( trs ).each(function() {
-				// Busca todas as colunas da linha
-				var tds = $( this ).children();
-				// Seleciona apenas as colunas do id_capitulo, numero_capitulo e nome_capitulo
-				var idCapitulo = tds.eq(0).text();
-				var capituloNumero = tds.eq(1).text();
-				var capituloNome = tds.eq(2).text();
-				
-				// Cria o objeto de capitulo
-				var obj = new Object();
-				
-				if ( idCapitulo != null && idCapitulo != "#" ) {
-					obj.idCapitulo = idCapitulo;
-				}
-				
-				obj.nome = capituloNome;
-				obj.numero = capituloNumero;
-				arrCapitulos.push(obj);
-			});
-			*/
 		}
 		
 		function sendDataToBackend() {
