@@ -16,6 +16,7 @@
 	<div class="panel-heading text-center">
 		Cadastro Livro
 	</div>
+	<button id="btnTabela">TABELA</button>
 	<div class="panel-body">
 		<form method="post" action="" class="form-horizontal" id="formSaveLivro">
 			<input type="hidden" id="livroIdLivro" name="livroIdLivro" value="<%=(livro != null) ? livro.getIdLivro() : ""%>" />
@@ -114,6 +115,36 @@
 		var arrCapitulos = [];
 		var livro = null;
 		
+		function hasCapituloNumero(numero){
+			var existe = false;
+			var table = $('#tableCapitulos');
+
+			table.find('tr').each(function(indice){
+				if(indice>0){
+					if(numero === this.cells[1].innerHTML){
+						existe = true;
+					}
+				}
+			    
+			});
+			return existe;
+		}
+		
+		function hasCapituloNome(nome){
+			var existe = false;
+			var table = $('#tableCapitulos');
+
+			table.find('tr').each(function(indice){
+				if(indice>0){
+					if(nome === this.cells[2].innerHTML){
+						existe = true;
+					}
+				}
+			    
+			});
+			return existe;
+		}
+		
 		function addCapituloNaTabela(idCapitulo, capituloNumero, capituloNome){
 			var contentToAppend = "	<tr>";
 			contentToAppend+= "		<td style=\"width: 15%; text-align: center;\">"+ idCapitulo +"</td>";
@@ -200,11 +231,11 @@
 			var capitulo_exists = existsCapitulo(capituloNumero);
 			
 			var camposValidos = true;
-			if ( capituloNome.length == 0 ) {
+			if ( capituloNome.length == 0 || hasCapituloNome(capituloNome)) {
 				$( "#divCapituloNome" ).addClass("has-error");
 				camposValidos = false;
 			}
-			if ( capituloNumero.length == 0 || !isNumeric || capitulo_exists) {
+			if ( capituloNumero.length == 0 || !isNumeric || hasCapituloNumero(capituloNumero)) {
 				$( "#divCapituloNumero" ).addClass("has-error");
 				camposValidos = false;
 			}
