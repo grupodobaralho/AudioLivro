@@ -62,7 +62,7 @@ public class AddLivroCommand implements Command {
 						}
 						else{
 							capituloAUX.setNome(capitulo.getNome());
-							capitulo.setNumero(capitulo.getNumero());
+							capituloAUX.setNumero(capitulo.getNumero());
 							capituloBO.atualizarCapitulo(capituloAUX);
 						}
 					}
@@ -77,51 +77,4 @@ public class AddLivroCommand implements Command {
 		}
 		return proxima;
 	}
-	
-//	private String addLivro(HttpServletRequest request, Livro livro) {
-//		try {
-//			int idLivro = livroBO.cadastrarLivro(livro);
-//			livro.setIdLivro(idLivro);
-//			
-//			if( livro.getIdLivro() > 0 ){
-//				String jsonCapitulosToUpsert = request.getParameter("capitulosToUpsert");
-//				// Parse from JSON to class
-//				Gson gson = new Gson();
-//				Capitulo[] capitulosToUpsert = gson.fromJson(jsonCapitulosToUpsert, Capitulo[].class);
-//				
-//				boolean resultCapitulos = capituloBO.cadastrarCapitulos(capitulosToUpsert, livro);
-//				if ( !resultCapitulos ) {
-//					// TODO tratamento de erro quando nao conseguir salvar os capitulos
-//				}
-//				proxima = livro.getIdLivro() + ";" + MensagemContantes.MSG_SUC_CADASTRO_LIVRO.replace("?", livro.getTitulo());
-//				request.setAttribute("JSON", true);
-//			}else {
-//				proxima = livro.getIdLivro() + ";" + MensagemContantes.MSG_ERR_LIVRO_DADOS_INVALIDOS;
-//				request.setAttribute("JSON", true);
-//			}
-//		}catch(NegocioException | PersistenciaException e) {
-//			proxima = livro.getIdLivro() + ";" + e.getMessage();
-//			request.setAttribute("JSON", true);
-//		}
-//		
-//		return proxima;
-//	}
-	
-//	private String editLivro(HttpServletRequest request, Livro livro) throws NumberFormatException, PersistenciaException, SQLException {
-//		proxima = "/main?acao=telaLivro";
-//		
-//		String jsonCapitulosToUpsert = request.getParameter("capitulosToUpsert");
-//		// Parse from JSON to class
-//		Gson gson = new Gson();
-//		Capitulo[] capitulosToUpsert = gson.fromJson(jsonCapitulosToUpsert, Capitulo[].class);
-//		
-//		if ( livroBO.atualizarLivro(livro) ) {
-//			capituloBO.processarCapitulos(capitulosToUpsert, livro);
-//			
-//			proxima = livro.getIdLivro() + ";" + MensagemContantes.MSG_SUC_ATUALIZAR_LIVRO.replace("?", livro.getTitulo());
-//			request.setAttribute("JSON", true);
-//		}
-//		
-//		return proxima;
-//	}
 }
