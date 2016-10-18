@@ -133,12 +133,13 @@ public class CapituloDAO {
 			conexao = ConexaoUtil.getConexao();
 
 			StringBuilder sql = new StringBuilder();
-			sql.append("select ID_CAPITULO, NUMERO, NOME ");
+			sql.append("select * ");
 			sql.append("from audio_e.tb_capitulo ");
-			sql.append("where id_livro = ?");
+			sql.append("where id_livro = ? and not status = ?");
 
 			PreparedStatement statement = conexao.prepareStatement(sql.toString());
 			statement.setInt(1, livro.getIdLivro());
+			statement.setString(2, Status.EXCLUIDO.toString());
 			
 			ResultSet resultset = statement.executeQuery();
 			while (resultset.next()) {
