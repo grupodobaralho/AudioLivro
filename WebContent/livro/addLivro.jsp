@@ -42,6 +42,7 @@
 			<hr>
 			<h4>Capítulos</h4>
 			<div class="form-group">
+				<input type="hidden" id="idCapituloEditado" value="0" />
 			    <div class="col-sm-8" id="divCapituloNome">
 			      <input type="text" class="form-control" id="capituloNome" placeholder="Nome capítulo">
 			    </div>
@@ -113,6 +114,27 @@
 		var arrCapitulos = [];
 		var livro = null;
 		
+		function addCapituloNaTabela(idCapitulo, capituloNumero, capituloNome){
+			var contentToAppend = "	<tr>";
+			contentToAppend+= "		<td style=\"width: 15%; text-align: center;\">"+ idCapitulo +"</td>";
+			contentToAppend+= "		<td style=\"width: 15%; text-align: center;\">" + capituloNumero + "</td>";
+			contentToAppend+= "		<td style=\"width: 40%; text-align: center;\">" + capituloNome + "</td>";
+			contentToAppend+= "		<td style=\"width: 15%; text-align: center;\">0</td>";
+			contentToAppend+= "		<td style=\"width: 15%; text-align: center;\">";
+			contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Editar\" id=\"editCapitulo\">";
+			contentToAppend+= "				<span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span>";
+			contentToAppend+= "			</button>";
+			contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Remover\" id=\"deleteCapitulo\">";
+			contentToAppend+= "				<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>";
+			contentToAppend+= "			</button>";
+			contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Adicionar bloco\" data-toggle=\"modal\" data-target=\"#modalCap\" disabled=\"disabled\">";
+			contentToAppend+= "				<span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>";
+			contentToAppend+= "			</button>";
+			contentToAppend+= "		</td>";
+			contentToAppend+= "	</tr>";
+			$('#tableCapitulos > tbody:last-child').append(contentToAppend);
+		}
+		
 		// Ação do botão que salva o formulário
 		$( this ).on('click', '#saveLivro', function() {
 			if ( validateForm() ) {
@@ -146,75 +168,53 @@
 		});
 		
 		// Functions
-		function addCapitulo() {
-			// guarda o nome do capítulo informado pelo usuário
+		function addCapitulo() {			
+			if(validaCamposCapitulo()) {
+				var idCapitulo = $( "input#idCapituloEditado" ).val();
+				var capituloNome = $( "input#capituloNome" ).val();
+				var capituloNumero = $( "input#capituloNumero" ).val().replace(/^0+/, '');
+				var isNumeric = Math.floor(capituloNumero) == capituloNumero && $.isNumeric(capituloNumero);
+				var capitulo_exists = existsCapitulo(capituloNumero);
+				
+				$( "#divCapituloNome" ).removeClass("has-error");
+				$( "#divCapituloNumero" ).removeClass("has-error");
+				$( '#divMsgDadosInvalidos' ).hide();
+				
+				// Cria o objeto de capitulo
+				var obj = new Object();
+				obj.idCapitulo = idCapitulo;
+				obj.nome = capituloNome;
+				obj.numero = capituloNumero;
+				arrCapitulos.push(obj);
+				
+				$( "input#idCapituloEditado" ).val("0");
+				$( "input#capituloNome" ).val("");
+				$( "input#capituloNumero" ).val("");
+				
+				addCapituloNaTabela(idCapitulo, capituloNumero, capituloNome);
+			}			
+		}
+		
+		function validaCamposCapitulo(){
 			var capituloNome = $( "input#capituloNome" ).val();
-			// guarda o número do capítulo informado pelo usuário, já removendo os zeros a esquerda
 			var capituloNumero = $( "input#capituloNumero" ).val().replace(/^0+/, '');
-			$( "#capituloNumero" ).val(capituloNumero);
-			// verifica se o número do capítulo é um número
 			var isNumeric = Math.floor(capituloNumero) == capituloNumero && $.isNumeric(capituloNumero);
-			// verifica se o número do capítulo já não foi adicionado
 			var capitulo_exists = existsCapitulo(capituloNumero);
 			
-			// valida se os campos estão devidamente preenchidos
-			if ( capituloNome.length == 0 && capituloNumero == 0 ) {
+			var camposValidos = true;
+			if ( capituloNome.length == 0 ) {
 				$( "#divCapituloNome" ).addClass("has-error");
+				camposValidos = false;
+			}
+			if ( capituloNumero.length == 0 || !isNumeric || capitulo_exists) {
 				$( "#divCapituloNumero" ).addClass("has-error");
-				
+				camposValidos = false;
+			}
+			if(!camposValidos){
 				$( '#divMsgDadosInvalidos' ).show();
-				return;
-			}
-			else if ( capituloNome.length == 0 ) {
-				$( "#divCapituloNumero" ).removeClass("has-error");
-				$( "#divCapituloNome" ).addClass("has-error");
-				
-				$( '#divMsgDadosInvalidos' ).show();
-				return;
-			}
-			else if ( capituloNumero.length == 0 || !isNumeric || capitulo_exists) {
-				$( "#divCapituloNome" ).removeClass("has-error");
-				$( "#divCapituloNumero" ).addClass("has-error");
-				
-				$( '#divMsgDadosInvalidos' ).show();
-				return;
-			}
-			else {
-				$( "#divCapituloNome" ).removeClass("has-error");
-				$( "#divCapituloNumero" ).removeClass("has-error");
-				
-				$( '#divMsgDadosInvalidos' ).hide();
 			}
 			
-			var contentToAppend = "	<tr>";
-				contentToAppend+= "		<td style=\"width: 15%; text-align: center;\">#</td>";
-				contentToAppend+= "		<td style=\"width: 15%; text-align: center;\">" + capituloNumero + "</td>";
-				contentToAppend+= "		<td style=\"width: 40%; text-align: center;\">" + capituloNome + "</td>";
-				contentToAppend+= "		<td style=\"width: 15%; text-align: center;\">0</td>";
-				contentToAppend+= "		<td style=\"width: 15%; text-align: center;\">";
-				contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Editar\" id=\"editCapitulo\">";
-				contentToAppend+= "				<span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span>";
-				contentToAppend+= "			</button>";
-				contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Remover\" id=\"deleteCapitulo\">";
-				contentToAppend+= "				<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>";
-				contentToAppend+= "			</button>";
-				contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Adicionar bloco\" data-toggle=\"modal\" data-target=\"#modalCap\" disabled=\"disabled\">";
-				contentToAppend+= "				<span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>";
-				contentToAppend+= "			</button>";
-				contentToAppend+= "		</td>";
-				contentToAppend+= "	</tr>";
-			
-			$('#tableCapitulos > tbody:last-child')
-				.append(contentToAppend);
-			
-			$( "input#capituloNome" ).val("");
-			$( "input#capituloNumero" ).val("");
-			
-			// Cria o objeto de capitulo
-			var obj = new Object();
-			obj.nome = capituloNome;
-			obj.numero = capituloNumero;
-			arrCapitulos.push(obj);
+			return camposValidos;
 		}
 		
 		function editCapitulo(btn) {
@@ -226,18 +226,17 @@
 			var tds = $( tr_td_Btn ).children();
 			
 			// Seleciona apenas as colunas do numero do capítulo e do nome do capítulo
+			var idCapituloEditado = tds.eq(0).text();
 			var capituloNumero = tds.eq(1).text();
 			var capituloNome = tds.eq(2).text();
 			
 			// Preenche os valores nos respectivos campos
+			$( "input#idCapituloEditado" ).val(idCapituloEditado);
 			$( "input#capituloNome" ).val(capituloNome);
 			$( "input#capituloNumero" ).val(capituloNumero);
 			
 			// Remove a linha da tabela
 			$( tr_td_Btn ).remove();
-			arrCapitulos = jQuery.grep(arrCapitulos, function(value) {
-			  return value.numero != capituloNumero;
-			});
 		}
 		
 		function deleteCapitulo(btn) {
@@ -247,14 +246,21 @@
 			var tr_td_Btn = $( td_Btn ).parent();
 			// Busca todas as colunas da linha do botão
 			var tds = $( tr_td_Btn ).children();
+			
 			// Seleciona apenas as colunas do numero do capítulo e do nome do capítulo
+			var idCapitulo = tds.eq(0).text();
 			var capituloNumero = tds.eq(1).text();
+			var capituloNome = tds.eq(2).text();
+			
+			// Cria o objeto de capitulo
+			var obj = new Object();
+			obj.idCapitulo = idCapitulo;
+			obj.nome = capituloNome;
+			obj.numero = capituloNumero;
+			arrCapitulos.push(obj);
+			
 			// Remove a linha da tabela
 			$( tr_td_Btn ).remove();
-			
-			arrCapitulos = jQuery.grep(arrCapitulos, function(value) {
-			  return value.numero != capituloNumero;
-			});
 		}
 		
 		function validateForm() {
@@ -304,6 +310,7 @@
 		}
 
 		function updateCapitulosToSend() {
+			/*
 			arrCapitulos = [];
 			var trs = $( "#tableCapitulos > tbody > tr" );
 			
@@ -326,6 +333,7 @@
 				obj.numero = capituloNumero;
 				arrCapitulos.push(obj);
 			});
+			*/
 		}
 		
 		function sendDataToBackend() {

@@ -108,6 +108,7 @@ CREATE TABLE IF NOT EXISTS audio_e.TB_CAPITULO (
   id_livro INT NOT NULL,
   Nome VARCHAR(45) NOT NULL,
   Numero INT NOT NULL,
+  Status VARCHAR(45) NOT NULL,
   PRIMARY KEY (id_capitulo, id_livro),
   INDEX fk_TB_CAPITULO_TB_LIVRO1_idx (id_livro ASC),
   CONSTRAINT fk_id_livro

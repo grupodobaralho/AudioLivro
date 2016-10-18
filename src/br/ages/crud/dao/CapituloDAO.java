@@ -26,7 +26,7 @@ public class CapituloDAO {
 			conexao = ConexaoUtil.getConexao();
 			
 			StringBuilder sql = new StringBuilder();
-			sql.append("insert into tb_Capitulo (id_livro, nome, numero, Data_criacao, Data_alteracao, status_capitulo)");
+			sql.append("insert into tb_Capitulo (id_livro, nome, numero, Data_criacao, Data_alteracao, status)");
 			sql.append("values (?,?,?,?,?,?)");
 			
 			// converte a data para data que o banco reconhece
@@ -40,7 +40,7 @@ public class CapituloDAO {
 			statement.setInt(3, capitulo.getNumero());
 			statement.setDate(4, dataCadastro);
 			statement.setDate(5, dataCadastro);
-			statement.setString(6, capitulo.getStatusCapitulo().toString());
+			statement.setString(6, Status.EM_GRAVACAO.toString());
 			
 			statement.executeUpdate();
 			
@@ -93,20 +93,26 @@ public class CapituloDAO {
 	}
 	
 	public boolean deletarCapitulo(Capitulo capitulo) throws PersistenciaException, SQLException {
-		boolean returnDelete = false;
-		Connection conexao = null;			
-		try {			
-			
+		boolean returnUpdate = false;
+		Connection conexao = null;
+		try {
 			conexao = ConexaoUtil.getConexao();
 			
+			java.util.Date utilDate = new java.util.Date();
+			java.sql.Date sysdate = new java.sql.Date(utilDate.getTime());
+			
 			StringBuilder sql = new StringBuilder();
-			sql.append("DELETE FROM TB_CAPITULO ");
-			sql.append("WHERE ID_CAPITULO = ?");
-
+			sql.append("update tb_Capitulo set ");
+			sql.append("Data_alteracao = ? , ");
+			sql.append("status = ? ");
+			sql.append("where id_capitulo = ?");
+			
 			PreparedStatement statement = conexao.prepareStatement(sql.toString());
-			statement.setInt(1, capitulo.getIdCapitulo());
+			statement.setDate(1, sysdate);
+			statement.setString(2, Status.EXCLUIDO.toString());
+			statement.setInt(3, capitulo.getIdCapitulo());
 			statement.execute();
-			returnDelete = true;
+			returnUpdate = true;
 		} catch (ClassNotFoundException | SQLException e) {
 			throw new PersistenciaException(e);
 		} finally {
@@ -116,7 +122,7 @@ public class CapituloDAO {
 				e.printStackTrace();
 			}
 		}
-		return returnDelete;
+		return returnUpdate;
 	}
 	
 	public ArrayList<Capitulo> buscarCapitulosDoLivro(Livro livro) throws PersistenciaException, SQLException {
@@ -152,5 +158,35 @@ public class CapituloDAO {
 		}
 		
 		return capitulos;
+	}
+
+	public Capitulo buscaCapitulo(Capitulo capituloAUX) throws PersistenciaException {
+		Capitulo capitulo = null;
+		try {
+			Connection conexao = ConexaoUtil.getConexao();
+
+			StringBuilder sql = new StringBuilder();
+			sql.append("select * ");
+			sql.append("from audio_e.tb_capitulo ");
+			sql.append("where ID_CAPITULO = ?");
+
+			PreparedStatement statement = conexao.prepareStatement(sql.toString());
+			statement.setInt(1, capituloAUX.getIdCapitulo());
+			
+			ResultSet resultset = statement.executeQuery();
+			if (resultset.next()) {
+				//Falta o livro no capitulo
+				capitulo = new Capitulo();
+				capitulo.setIdCapitulo(resultset.getInt("ID_CAPITULO"));
+				capitulo.setNumero(resultset.getInt("NUMERO"));
+				capitulo.setNome(resultset.getString("NOME"));
+			}
+			conexao.close();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new PersistenciaException(e);
+		}
+		
+		return capitulo;
 	}
 }

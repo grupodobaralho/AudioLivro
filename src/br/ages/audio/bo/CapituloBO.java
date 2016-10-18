@@ -94,82 +94,82 @@ public class CapituloBO {
 		else return crudCapitulos(capitulosToDelete, livro, 3);
 	}
 	
-	public boolean processarCapitulos(ArrayList<Capitulo> capitulosToUpsert, Livro livro) {
-		boolean updateReturn = false;
-		try {
-			// Busca todos capítulos do livro para efetuar as comparações
-			ArrayList<Capitulo> capitulos = buscarCapitulosDoLivro(livro);
-			
-			// Processa o que é para deletar e deleta
-			ArrayList<Capitulo> capitulosToDelete = getLivrosToDelete(capitulos, capitulosToUpsert);
-			if ( capitulosToDelete.size() > 0 ) {
-				updateReturn = deletarCapitulos(capitulosToDelete, livro);
-			}
-			
-			// Processa o que é para atualizar e atualiza
-			ArrayList<Capitulo> capitulosToUpdate = getLivrosToUpdate(capitulos, capitulosToUpsert);
-			if ( capitulosToUpdate.size() > 0 ) {
-				updateReturn = atualizarCapitulos(capitulosToUpdate, livro);
-			}
-			
-			// Processa o que é para inserir e insere
-			ArrayList<Capitulo> capitulosToInsert = getLivrosToInsert(capitulos, capitulosToUpsert);
-			if ( capitulosToInsert.size() > 0 ) {
-				updateReturn = cadastrarCapitulos(capitulosToInsert.toArray(new Capitulo[capitulosToInsert.size()]), livro);
-			}
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
-
-		return updateReturn;
-	}
+//	public boolean processarCapitulos(ArrayList<Capitulo> capitulosToUpsert, Livro livro) {
+//		boolean updateReturn = false;
+//		try {
+//			// Busca todos capítulos do livro para efetuar as comparações
+//			ArrayList<Capitulo> capitulos = buscarCapitulosDoLivro(livro);
+//			
+//			// Processa o que é para deletar e deleta
+//			ArrayList<Capitulo> capitulosToDelete = getLivrosToDelete(capitulos, capitulosToUpsert);
+//			if ( capitulosToDelete.size() > 0 ) {
+//				updateReturn = deletarCapitulos(capitulosToDelete, livro);
+//			}
+//			
+//			// Processa o que é para atualizar e atualiza
+//			ArrayList<Capitulo> capitulosToUpdate = getLivrosToUpdate(capitulos, capitulosToUpsert);
+//			if ( capitulosToUpdate.size() > 0 ) {
+//				updateReturn = atualizarCapitulos(capitulosToUpdate, livro);
+//			}
+//			
+//			// Processa o que é para inserir e insere
+//			ArrayList<Capitulo> capitulosToInsert = getLivrosToInsert(capitulos, capitulosToUpsert);
+//			if ( capitulosToInsert.size() > 0 ) {
+//				updateReturn = cadastrarCapitulos(capitulosToInsert.toArray(new Capitulo[capitulosToInsert.size()]), livro);
+//			}
+//		} catch (Exception e) {
+//
+//			e.printStackTrace();
+//		}
+//
+//		return updateReturn;
+//	}
 	
-	public ArrayList<Capitulo> getLivrosToDelete(ArrayList<Capitulo> capitulos, List<Capitulo> capitulosToUpsert) {
-		ArrayList<Capitulo> capitulosReturn = new ArrayList<Capitulo>();
-		
-		for ( int i = 0; i < capitulos.size(); i++ ) {
-			Capitulo capitulo = capitulos.get(i);
-			boolean toDelete = true;
-			
-			for ( int j = 0; j < capitulosToUpsert.length; j++ ) {
-				Capitulo capituloToUpsert = capitulosToUpsert[j];
-				if ( capituloToUpsert.getIdCapitulo() > 0 && capituloToUpsert.getIdCapitulo() == capitulo.getIdCapitulo() ) {
-					toDelete = false;
-					break;
-				}
-			}
-			
-			if ( toDelete ) {
-				capitulosReturn.add(capitulo);
-			}
-		}
-		return capitulosReturn;
-	}
-	
-	public ArrayList<Capitulo> getLivrosToUpdate(ArrayList<Capitulo> capitulos, Capitulo[] capitulosToUpsert) {
-		ArrayList<Capitulo> capitulosReturn = new ArrayList<Capitulo>();
-		
-		if (capitulosToUpsert.length > 0) {
-			for ( int i = 0; i < capitulos.size(); i++ ) {
-				Capitulo capitulo = capitulos.get(i);
-				boolean toDelete = true;
-				
-				for ( int j = 0; j < capitulosToUpsert.length; j++ ) {
-					Capitulo capituloToUpsert = capitulosToUpsert[j];
-					if ( capituloToUpsert.getIdCapitulo() > 0 && capituloToUpsert.getIdCapitulo() == capitulo.getIdCapitulo() ) {
-						toDelete = false;
-						break;
-					}
-				}
-				
-				if ( toDelete ) {
-					capitulosReturn.add(capitulo);
-				}
-			}
-		}
-		return capitulosReturn;
-	}
+//	public ArrayList<Capitulo> getLivrosToDelete(ArrayList<Capitulo> capitulos, List<Capitulo> capitulosToUpsert) {
+//		ArrayList<Capitulo> capitulosReturn = new ArrayList<Capitulo>();
+//		
+//		for ( int i = 0; i < capitulos.size(); i++ ) {
+//			Capitulo capitulo = capitulos.get(i);
+//			boolean toDelete = true;
+//			
+//			for ( int j = 0; j < capitulosToUpsert.length; j++ ) {
+//				Capitulo capituloToUpsert = capitulosToUpsert[j];
+//				if ( capituloToUpsert.getIdCapitulo() > 0 && capituloToUpsert.getIdCapitulo() == capitulo.getIdCapitulo() ) {
+//					toDelete = false;
+//					break;
+//				}
+//			}
+//			
+//			if ( toDelete ) {
+//				capitulosReturn.add(capitulo);
+//			}
+//		}
+//		return capitulosReturn;
+//	}
+//	
+//	public ArrayList<Capitulo> getLivrosToUpdate(ArrayList<Capitulo> capitulos, Capitulo[] capitulosToUpsert) {
+//		ArrayList<Capitulo> capitulosReturn = new ArrayList<Capitulo>();
+//		
+//		if (capitulosToUpsert.length > 0) {
+//			for ( int i = 0; i < capitulos.size(); i++ ) {
+//				Capitulo capitulo = capitulos.get(i);
+//				boolean toDelete = true;
+//				
+//				for ( int j = 0; j < capitulosToUpsert.length; j++ ) {
+//					Capitulo capituloToUpsert = capitulosToUpsert[j];
+//					if ( capituloToUpsert.getIdCapitulo() > 0 && capituloToUpsert.getIdCapitulo() == capitulo.getIdCapitulo() ) {
+//						toDelete = false;
+//						break;
+//					}
+//				}
+//				
+//				if ( toDelete ) {
+//					capitulosReturn.add(capitulo);
+//				}
+//			}
+//		}
+//		return capitulosReturn;
+//	}
 	
 	public ArrayList<Capitulo> getLivrosToInsert(ArrayList<Capitulo> capitulos, Capitulo[] capitulosToUpsert) {
 		
@@ -197,5 +197,20 @@ public class CapituloBO {
 	public ArrayList<Capitulo> buscarCapitulosDoLivro(Livro livro) throws PersistenciaException, SQLException {
 		return capituloDAO.buscarCapitulosDoLivro(livro);
 		//TODO verificar se o array � vazio; e se retornar outra coisa??
+	}
+	public Capitulo buscaCapitulo(Capitulo capituloAUX) throws PersistenciaException {
+		return capituloDAO.buscaCapitulo(capituloAUX);
+	}
+	
+	public boolean cadastrarCapitulo(Capitulo capitulo) throws PersistenciaException, SQLException {
+		return capituloDAO.cadastrarCapitulo(capitulo);
+	}
+	
+	public boolean atualizarCapitulo(Capitulo capitulo) throws PersistenciaException, SQLException {
+		return capituloDAO.atualizarCapitulo(capitulo);
+	}
+	
+	public boolean deletarCapitulo(Capitulo capitulo) throws PersistenciaException, SQLException {
+		return capituloDAO.deletarCapitulo(capitulo);
 	}
 }
