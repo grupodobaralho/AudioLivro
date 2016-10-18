@@ -16,7 +16,6 @@
 	<div class="panel-heading text-center">
 		Cadastro Livro
 	</div>
-	<button id="btnTabela">TABELA</button>
 	<div class="panel-body">
 		<form method="post" action="" class="form-horizontal" id="formSaveLivro">
 			<input type="hidden" id="livroIdLivro" name="livroIdLivro" value="<%=(livro != null) ? livro.getIdLivro() : ""%>" />
