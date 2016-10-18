@@ -280,12 +280,24 @@
 			var capituloNumero = tds.eq(1).text();
 			var capituloNome = tds.eq(2).text();
 			
+			var existe = false;
+			$.each(arrCapitulos, function( index, value ) {
+				if(value.idCapitulo === idCapitulo && value.nome === capituloNome && value.numero === capituloNumero){
+					existe = true;
+					//Remover obj da lista :/
+					arrCapitulos.pop(index);
+					return;
+				}
+			});
+			
 			// Cria o objeto de capitulo
-			var obj = new Object();
-			obj.idCapitulo = idCapitulo;
-			obj.nome = capituloNome;
-			obj.numero = capituloNumero;
-			arrCapitulos.push(obj);
+			if(!existe){
+				var obj = new Object();
+				obj.idCapitulo = idCapitulo;
+				obj.nome = capituloNome;
+				obj.numero = capituloNumero;
+				arrCapitulos.push(obj);
+			}
 			
 			// Remove a linha da tabela
 			$( tr_td_Btn ).remove();
