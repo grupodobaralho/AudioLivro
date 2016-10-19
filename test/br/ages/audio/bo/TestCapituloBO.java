@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import br.ages.crud.dao.CapituloDAO;
+import br.ages.crud.exception.NegocioException;
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Capitulo;
 import br.ages.crud.model.Livro;
@@ -41,7 +42,7 @@ public class TestCapituloBO {
 	}
 
 	@Test
-	public void testBuscarCapitulosDoLivroCorreto() throws PersistenciaException, SQLException {
+	public void testBuscarCapitulosDoLivroCorreto() throws PersistenciaException, SQLException, NegocioException {
 		ArrayList<Capitulo> capitulos = new ArrayList<>();
 		Mockito.when(capituloMock.buscarCapitulosDoLivro(livro)).thenReturn(capitulos);
 		ArrayList<Capitulo> condition = capituloBO.buscarCapitulosDoLivro(livro);
@@ -49,7 +50,7 @@ public class TestCapituloBO {
 	}
 
 	@Test
-	public void testBuscarCapitulosDoLivroErrado() throws PersistenciaException, SQLException {
+	public void testBuscarCapitulosDoLivroErrado() throws PersistenciaException, SQLException, NegocioException {
 		ArrayList<Capitulo> capitulos = new ArrayList<>();
 		Mockito.when(capituloMock.buscarCapitulosDoLivro(null)).thenReturn(capitulos);
 		ArrayList<Capitulo> condition = capituloBO.buscarCapitulosDoLivro(null);
