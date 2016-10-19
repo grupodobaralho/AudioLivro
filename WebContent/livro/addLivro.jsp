@@ -42,7 +42,7 @@
 			<hr>
 			<h4>Capítulos</h4>
 			<div class="form-group">
-				<input type="hidden" id="idCapituloEditado" value="0" />
+				<input type="hidden" id="idCapituloEditado" />
 			    <div class="col-sm-8" id="divCapituloNome">
 			      <input type="text" class="form-control" id="capituloNome" placeholder="Nome capítulo">
 			    </div>
@@ -111,8 +111,12 @@
 
 <script type="text/javascript">
 	$( document ).ready(function() {
+		var capitulo = null;
 		var arrCapitulos = [];
+		var capitulosEditados = [];
 		var livro = null;
+		var idAux = 0;
+		$("input#idCapituloEditado").val(idAux);
 		
 		function hasCapituloNumero(numero){
 			var existe = false;
@@ -196,18 +200,21 @@
 		});
 		
 		// Functions
-		function addCapitulo() {			
-			if(validaCamposCapitulo()) {
-				var idCapitulo = $( "input#idCapituloEditado" ).val();
-				var capituloNome = $( "input#capituloNome" ).val();
-				var capituloNumero = $( "input#capituloNumero" ).val().replace(/^0+/, '');
-				var isNumeric = Math.floor(capituloNumero) == capituloNumero && $.isNumeric(capituloNumero);
-				var capitulo_exists = existsCapitulo(capituloNumero);
-				
-				$( "#divCapituloNome" ).removeClass("has-error");
-				$( "#divCapituloNumero" ).removeClass("has-error");
-				$( '#divMsgDadosInvalidos' ).hide();
-				
+		function addCapitulo() {
+			var idCapitulo = $( "input#idCapituloEditado" ).val();
+			var capituloNome = $( "input#capituloNome" ).val();
+			var capituloNumero = $( "input#capituloNumero" ).val().replace(/^0+/, '');
+			if(capitulo!=null && capitulo.idCapitulo === idCapitulo && capitulo.nome === capituloNome && capitulo.numero === capituloNumero){
+				addCapituloNaTabela(idCapitulo, capituloNumero, capituloNome);
+			}
+			else if(validaCamposCapitulo()) {
+				$.each(arrCapitulos, function( index, value ) {
+					if(value.idCapitulo === idCapitulo){
+						arrCapitulos.pop(index);
+						return;
+					}
+				});
+								
 				// Cria o objeto de capitulo
 				var obj = new Object();
 				obj.idCapitulo = idCapitulo;
@@ -215,12 +222,14 @@
 				obj.numero = capituloNumero;
 				arrCapitulos.push(obj);
 				
-				$( "input#idCapituloEditado" ).val("0");
+				idAux--;
+				$("input#idCapituloEditado").val(idAux);
 				$( "input#capituloNome" ).val("");
 				$( "input#capituloNumero" ).val("");
 				
 				addCapituloNaTabela(idCapitulo, capituloNumero, capituloNome);
-			}			
+			}
+			capitulo = null;
 		}
 		
 		function validaCamposCapitulo(){
@@ -240,6 +249,11 @@
 			}
 			if(!camposValidos){
 				$( '#divMsgDadosInvalidos' ).show();
+			}
+			else{
+				$( "#divCapituloNome" ).removeClass("has-error");
+				$( "#divCapituloNumero" ).removeClass("has-error");
+				$( '#divMsgDadosInvalidos' ).hide();
 			}
 			
 			return camposValidos;
@@ -263,6 +277,14 @@
 			$( "input#capituloNome" ).val(capituloNome);
 			$( "input#capituloNumero" ).val(capituloNumero);
 			
+			var obj = new Object();
+			obj.idCapitulo = idCapituloEditado;
+			obj.nome = capituloNome;
+			obj.numero = capituloNumero;
+			capitulo = obj;
+			
+			capitulosEditados.push(obj);
+			
 			// Remove a linha da tabela
 			$( tr_td_Btn ).remove();
 		}
@@ -280,24 +302,34 @@
 			var capituloNumero = tds.eq(1).text();
 			var capituloNome = tds.eq(2).text();
 			
-			var existe = false;
 			$.each(arrCapitulos, function( index, value ) {
-				if(value.idCapitulo === idCapitulo && value.nome === capituloNome && value.numero === capituloNumero){
-					existe = true;
-					//Remover obj da lista :/
+				if(value.idCapitulo === idCapitulo){
 					arrCapitulos.pop(index);
 					return;
 				}
 			});
 			
+			var editado = false;
+			var obj = new Object();
+			$.each(capitulosEditados, function( index, value ) {
+				if(value.idCapitulo === idCapitulo){
+					obj.idCapitulo = value.idCapitulo;
+					obj.nome = value.nome;
+					obj.numero = value.numero;
+					editado = true;
+					return;
+				}
+			});
+			
 			// Cria o objeto de capitulo
-			if(!existe){
-				var obj = new Object();
+			if(!editado){
 				obj.idCapitulo = idCapitulo;
 				obj.nome = capituloNome;
 				obj.numero = capituloNumero;
-				arrCapitulos.push(obj);
 			}
+			arrCapitulos.push(obj);
+			
+			alert("id = "+obj.idCapitulo+" - numero = "+obj.numero+" - nome = "+obj.nome);
 			
 			// Remove a linha da tabela
 			$( tr_td_Btn ).remove();
