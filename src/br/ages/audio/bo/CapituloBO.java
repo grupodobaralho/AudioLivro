@@ -7,11 +7,13 @@ import java.util.Collection;
 import java.util.List;
 
 import br.ages.crud.dao.CapituloDAO;
+import br.ages.crud.exception.NegocioException;
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Bloco;
 import br.ages.crud.model.Capitulo;
 import br.ages.crud.model.Livro;
 import br.ages.crud.model.Status;
+import br.ages.crud.util.MensagemContantes;
 
 public class CapituloBO {
 	
@@ -94,33 +96,20 @@ public class CapituloBO {
 		else return crudCapitulos(capitulosToDelete, livro, 3);
 	}
 	
-	public ArrayList<Capitulo> getLivrosToInsert(ArrayList<Capitulo> capitulos, Capitulo[] capitulosToUpsert) {
-		
-		ArrayList<Capitulo> capitulosReturn = new ArrayList<Capitulo>();
-		
-		for ( int i = 0; i < capitulos.size(); i++ ) {
-			Capitulo capitulo = capitulos.get(i);
-			boolean toDelete = true;
-			
-			for ( int j = 0; j < capitulosToUpsert.length; j++ ) {
-				Capitulo capituloToUpsert = capitulosToUpsert[j];
-				if ( capituloToUpsert.getIdCapitulo() > 0 && capituloToUpsert.getIdCapitulo() == capitulo.getIdCapitulo() ) {
-					toDelete = false;
-					break;
-				}
-			}
-			
-			if ( toDelete ) {
-				capitulosReturn.add(capitulo);
-			}
+	public ArrayList<Capitulo> buscarCapitulosDoLivro(Livro livro) throws NegocioException {
+		 
+		try{
+			ArrayList<Capitulo> aux = capituloDAO.buscarCapitulosDoLivro(livro);
+			if(aux.size()<=0)				
+				throw new NegocioException(MensagemContantes.MSG_ERR_LIVRO_SEM_CAPITULOS);
+			else return aux;
 		}
-		return capitulosReturn;
-	}
+		catch (Exception e) {
+				e.printStackTrace();
+				throw new NegocioException(e);
+		}
+	}		
 	
-	public ArrayList<Capitulo> buscarCapitulosDoLivro(Livro livro) throws PersistenciaException, SQLException {
-		return capituloDAO.buscarCapitulosDoLivro(livro);
-		//TODO verificar se o array é vazio; e se retornar outra coisa??
-	}
 	public Capitulo buscaCapitulo(Capitulo capituloAUX) throws PersistenciaException {
 		return capituloDAO.buscaCapitulo(capituloAUX);
 	}
