@@ -327,7 +327,9 @@
 				obj.nome = capituloNome;
 				obj.numero = capituloNumero;
 			}
-			arrCapitulos.push(obj);
+			if(obj.idCapitulo>0){
+				arrCapitulos.push(obj);
+			}
 			
 			alert("id = "+obj.idCapitulo+" - numero = "+obj.numero+" - nome = "+obj.nome);
 			
