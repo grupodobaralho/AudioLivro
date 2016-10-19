@@ -330,9 +330,7 @@
 			if(obj.idCapitulo>0){
 				arrCapitulos.push(obj);
 			}
-			
-			alert("id = "+obj.idCapitulo+" - numero = "+obj.numero+" - nome = "+obj.nome);
-			
+						
 			// Remove a linha da tabela
 			$( tr_td_Btn ).remove();
 		}
