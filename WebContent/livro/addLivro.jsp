@@ -109,6 +109,7 @@
 <jsp:include page="/template/foot.jsp"></jsp:include>
 
 <script type="text/javascript">
+
 	$( document ).ready(function() {
 		var arrCapitulos = [];
 		var livro = null;
