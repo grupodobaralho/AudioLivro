@@ -8,7 +8,7 @@ public class Capitulo {
 	private String nome;
 	private int numero;
 	private Livro livro;
-	private List<Bloco> blocos;
+	private ArrayList<Bloco> blocos;
 	private Status statusCapitulo;
 	
 	public Capitulo() {}
@@ -37,11 +37,11 @@ public class Capitulo {
 		this.numero = numero;
 	}
 
-	public List<Bloco> getBlocos() {
+	public ArrayList<Bloco> getBlocos() {
 		return blocos;
 	}
 
-	public void setBlocos(List<Bloco> blocos) {
+	public void setBlocos(ArrayList<Bloco> blocos) {
 		this.blocos = blocos;
 	}
 
