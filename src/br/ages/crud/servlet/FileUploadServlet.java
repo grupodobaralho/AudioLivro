@@ -18,7 +18,7 @@ import br.ages.audio.bo.BlocoBO;
 import br.ages.crud.dao.BlocoDAO;
 import br.ages.crud.model.Bloco;
 import br.ages.crud.model.Projeto;
-import br.ages.crud.model.Status;
+import br.ages.crud.model.StatusBloco;
 import br.ages.crud.util.Constantes;
  
 /**
@@ -147,7 +147,7 @@ public class FileUploadServlet extends HttpServlet {
 			// caminho que será salvo no banco com o local onde o pdf está salvo
 			String caminho = savePath + fileName;
 			
-			Bloco bloco = new Bloco(caminho, "nao definido", Status.DISPONIVEL_PARA_GRAVACAO);
+			Bloco bloco = new Bloco(caminho, "nao definido", StatusBloco.DISPONIVEL_PARA_GRAVACAO);
 			BlocoBO blocoBO = new BlocoBO();
 			int	idbloco = blocoBO.cadastraBloco(bloco, Integer.parseInt(idCap));
 			bloco.setId_bloco(idbloco);

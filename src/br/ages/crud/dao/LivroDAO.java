@@ -11,7 +11,7 @@ import com.mysql.jdbc.Statement;
 
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Livro;
-import br.ages.crud.model.Status;
+import br.ages.crud.model.StatusLivro;
 import br.ages.crud.util.ConexaoUtil;
 import br.ages.crud.util.MensagemContantes;
 
@@ -158,7 +158,7 @@ public class LivroDAO {
 		return listarLivros;
 	}
 
-	public List<Livro> listarLivros(Status status) throws PersistenciaException, SQLException {
+	public List<Livro> listarLivros(StatusLivro status) throws PersistenciaException, SQLException {
 			Connection conexao = null;
 			// tentativa de readaptação do listarUsuarios()
 			try {

@@ -5,9 +5,9 @@ public class Bloco {
 	private Integer id_bloco;
 	private String lcl_conteudo;
 	private String lcl_arq_audio;
-	private Status statusBloco;
+	private StatusBloco statusBloco;
 		
-	public Bloco(String lclC, String lclArq, Status x){
+	public Bloco(String lclC, String lclArq, StatusBloco x){
 		lcl_conteudo = lclC;
 		lcl_arq_audio = lclArq;
 		statusBloco = x;
@@ -41,11 +41,11 @@ public class Bloco {
 		this.lcl_arq_audio = lcl_arq_audio;
 	}
 
-	public Status getStatusBloco() {
+	public StatusBloco getStatusBloco() {
 		return statusBloco;
 	}
 
-	public void setStatusBloco(Status statusBloco) {
+	public void setStatusBloco(StatusBloco statusBloco) {
 		this.statusBloco = statusBloco;
 	}
 	

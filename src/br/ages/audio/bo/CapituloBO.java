@@ -12,7 +12,7 @@ import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Bloco;
 import br.ages.crud.model.Capitulo;
 import br.ages.crud.model.Livro;
-import br.ages.crud.model.Status;
+import br.ages.crud.model.StatusBloco;
 import br.ages.crud.util.MensagemContantes;
 
 public class CapituloBO {
@@ -84,7 +84,7 @@ public class CapituloBO {
 			
 			for(int i = 0; i < blocos.size() && blocoEmGravacao == false; i++){
 				
-				if (blocos.get(i).getStatusBloco() == Status.EM_GRAVACAO){
+				if (blocos.get(i).getStatusBloco() == StatusBloco.EM_GRAVACAO){
 					blocoEmGravacao = true;
 				}
 			}
