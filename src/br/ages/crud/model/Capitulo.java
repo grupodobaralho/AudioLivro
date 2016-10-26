@@ -9,11 +9,11 @@ public class Capitulo {
 	private int numero;
 	private Livro livro;
 	private ArrayList<Bloco> blocos;
-	private Status statusCapitulo;
+	private StatusCapitulo statusCapitulo;
 	
 	public Capitulo() {}
 	
-	public Capitulo(String nome, int numero, Livro livro, Status s){
+	public Capitulo(String nome, int numero, Livro livro, StatusCapitulo s){
 		this.nome = nome;
 		this.numero = numero;
 		this.setLivro(livro);
@@ -61,11 +61,11 @@ public class Capitulo {
 		this.idCapitulo = idCapitulo;
 	}
 	
-	public Status getStatusCapitulo(){
+	public StatusCapitulo getStatusCapitulo(){
 		return statusCapitulo;
 	}
 	
-	public void setStatusCapitulo(Status s){
+	public void setStatusCapitulo(StatusCapitulo s){
 		this.statusCapitulo = s;		
 	}
 	

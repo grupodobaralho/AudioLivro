@@ -15,7 +15,7 @@ import br.ages.crud.model.Bloco;
 import br.ages.crud.model.Capitulo;
 import br.ages.crud.model.Livro;
 import br.ages.crud.model.PerfilAcesso;
-import br.ages.crud.model.Status;
+import br.ages.crud.model.StatusBloco;
 import br.ages.crud.util.ConexaoUtil;
 import br.ages.crud.util.MensagemContantes;
 
@@ -159,7 +159,7 @@ public BlocoDAO(){
 				bloco.setId_bloco(resultset.getInt("ID_BLOCO"));	
 				bloco.setLcl_conteudo(resultset.getString("LCL_CONTEUDO"));
 				bloco.setLcl_arq_audio(resultset.getString("LCL_ARQ_AUDIO"));
-				bloco.setStatusBloco(Status.valueOf(resultset.getString("STATUS_BLOCO")));
+				bloco.setStatusBloco(StatusBloco.valueOf(resultset.getString("STATUS_BLOCO")));
 								
 				
 			}
@@ -200,7 +200,7 @@ public BlocoDAO(){
 				bloco.setId_bloco(resultset.getInt("ID_BLOCO"));	
 				bloco.setLcl_conteudo(resultset.getString("LCL_CONTEUDO"));
 				bloco.setLcl_arq_audio(resultset.getString("LCL_ARQ_AUDIO"));
-				bloco.setStatusBloco(Status.valueOf(resultset.getString("STATUS_BLOCO")));
+				bloco.setStatusBloco(StatusBloco.valueOf(resultset.getString("STATUS_BLOCO")));
 				
 				blocos.add(bloco);
 			}			

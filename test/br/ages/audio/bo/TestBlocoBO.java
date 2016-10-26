@@ -16,7 +16,7 @@ import br.ages.crud.dao.CapituloBlocoDAO;
 import br.ages.crud.exception.NegocioException;
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Bloco;
-import br.ages.crud.model.Status;
+import br.ages.crud.model.StatusBloco;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestBlocoBO {
@@ -35,7 +35,7 @@ public class TestBlocoBO {
 		blocoBO = new BlocoBO();
 		blocoBO.setBlocoDAO(blocoDAOMock);
 		blocoBO.setCapituloBlocoDAO(capituloBlocoDAOMock);
-		bloco = new Bloco("conteudo", "audio", Status.APROVADO);
+		bloco = new Bloco("conteudo", "audio", StatusBloco.APROVADO);
 	}
 
 	@Test

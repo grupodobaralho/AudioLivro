@@ -1,4 +1,4 @@
-package br.ages.crud.model;
+/**package br.ages.crud.model;
 
 public enum Status {
 
@@ -10,5 +10,5 @@ public enum Status {
 	EXCLUIDO, 
 	CONCLUIDO
 
-}
+}*/
 

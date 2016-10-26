@@ -68,6 +68,8 @@ public class MensagemContantes {
 	
 	public static final String MSG_ERR_LIVRO_DADOS_INVALIDOS = "Dados do Livro invÃ¡lidos ou inconsistentes!";
 	
+	public static final String MSG_ERR_LIVRO_SEM_CAPITULOS = "Livro não possui capítulos cadastrados!";
+	
 	public static final String MSG_ERR_EXCLUIR_BLOCO_INEXISTENTE = "Bloco informado para exclusão não foi encontrado na base de dados!";
 	
 	

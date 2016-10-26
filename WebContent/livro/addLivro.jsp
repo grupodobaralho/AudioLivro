@@ -110,6 +110,7 @@
 <jsp:include page="/template/foot.jsp"></jsp:include>
 
 <script type="text/javascript">
+
 	$( document ).ready(function() {
 		var capitulo = null;
 		var arrCapitulos = [];
