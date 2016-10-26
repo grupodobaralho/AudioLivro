@@ -11,8 +11,7 @@ import com.mysql.jdbc.Statement;
 
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Livro;
-import br.ages.crud.model.StatusCapitulo;
-import br.ages.crud.model.StatusLivro;
+import br.ages.crud.model.StatusLivroEnum;
 import br.ages.crud.util.ConexaoUtil;
 import br.ages.crud.util.MensagemContantes;
 
@@ -46,7 +45,7 @@ public class LivroDAO {
 			statement.setString(3, livro.getAutores());
 			statement.setDate(4, dataCadastro);
 			statement.setDate(5, dataCadastro);
-			statement.setString(6, StatusLivro.INCOMPLETO.toString());
+			statement.setString(6, StatusLivroEnum.INCOMPLETO.toString());
 			
 			statement.executeUpdate();
 			
@@ -160,7 +159,7 @@ public class LivroDAO {
 		return listarLivros;
 	}
 
-	public List<Livro> listarLivros(StatusLivro status) throws PersistenciaException, SQLException {
+	public List<Livro> listarLivros(StatusLivroEnum status) throws PersistenciaException, SQLException {
 			Connection conexao = null;
 			// tentativa de readaptação do listarUsuarios()
 			try {

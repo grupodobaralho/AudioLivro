@@ -22,6 +22,7 @@
                     <th style="text-align: center;">ISBN</th>
                     <th style="text-align: center;">Título</th>
 					<th style="text-align: center;">Autores</th>
+					<th style="text-align: center;">Status</th>
 					<th style="text-align: center;"></th>
 					<th style="text-align: center;"></th>
                 </tr>
@@ -38,6 +39,7 @@
 	            	<td align="center"><%=livro.getISBN() %></td>
 	            	<td align="center"><%=livro.getTitulo() %></td>
 	            	<td align="center"><%=livro.getAutores() %></td>
+	            	<td align="center"><%=livro.getStatus() %></td>
 	            	<td align="center">
 						<form action="" method="post">
             				<a href="main?acao=telaLivro&livroIdLivro=<%=livro.getIdLivro().toString()%>" title="Editar"> <i class="glyphicon glyphicon-pencil"></i></a>

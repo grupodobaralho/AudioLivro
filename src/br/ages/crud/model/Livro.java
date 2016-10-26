@@ -8,7 +8,7 @@ public class Livro {
 	private String ISBN;
 	private String autores;
 	private List<Capitulo> capitulos;
-	private StatusLivro statusLivro;
+	private StatusLivroEnum statusLivro;
 	
 	public Livro(){}
 
@@ -56,11 +56,11 @@ public class Livro {
 		this.idLivro = idLivro;
 	}
 	
-	public StatusLivro getStatus(){
+	public StatusLivroEnum getStatus(){
 		return statusLivro;
 	}
 	
-	public void setStatus(StatusLivro status){
+	public void setStatus(StatusLivroEnum status){
 		statusLivro = status;
 	}	
 	

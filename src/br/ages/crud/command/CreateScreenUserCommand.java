@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import br.ages.audio.bo.UsuarioBO;
 import br.ages.crud.dao.UsuarioDAO;
 import br.ages.crud.exception.NegocioException;
-import br.ages.crud.model.PerfilAcesso;
+import br.ages.crud.model.PerfilAcessoEnum;
 import br.ages.crud.model.Stakeholder;
 import br.ages.crud.model.TipoUsuario;
 import br.ages.crud.model.Usuario;
@@ -31,7 +31,7 @@ public class CreateScreenUserCommand implements Command {
 		Usuario currentUser = (Usuario)request.getSession().getAttribute("usuarioSessao");
 
 		try {			
-			if( !currentUser.getPerfilAcesso().equals(PerfilAcesso.ADMINISTRADOR) ) throw new NegocioException(MensagemContantes.MSG_INF_DENY);
+			if( !currentUser.getPerfilAcesso().equals(PerfilAcessoEnum.ADMINISTRADOR) ) throw new NegocioException(MensagemContantes.MSG_INF_DENY);
 			// Verifica se abre tela edição de pessoa ou de adição de pessoa.
 			
 			String isEdit = request.getParameter("isEdit");

@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import br.ages.audio.bo.UsuarioBO;
 import br.ages.crud.exception.NegocioException;
-import br.ages.crud.model.PerfilAcesso;
+import br.ages.crud.model.PerfilAcessoEnum;
 import br.ages.crud.model.Usuario;
 import br.ages.crud.util.MensagemContantes;
 
@@ -22,7 +22,7 @@ public class RemoveUserCommand implements Command {
 		Usuario usuario = (Usuario)request.getSession().getAttribute("usuarioSessao");		
 
 		try {
-			if( !usuario.getPerfilAcesso().equals(PerfilAcesso.ADMINISTRADOR) ) throw new NegocioException(MensagemContantes.MSG_INF_DENY);
+			if( !usuario.getPerfilAcesso().equals(PerfilAcessoEnum.ADMINISTRADOR) ) throw new NegocioException(MensagemContantes.MSG_INF_DENY);
 			
 			Integer idUsuario = Integer.parseInt(request.getParameter("id_usuario"));
 			usuarioBO.removerUsuario(idUsuario);

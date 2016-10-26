@@ -11,13 +11,13 @@ public class Ponto implements Serializable {
 	private Date dataSaida;
 	private Usuario aluno;
 	private Usuario responsavel;
-	private StatusPonto status;
+	private StatusPontoEnum status;
 
 	public Ponto() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Ponto(int idPonto, Date dataEntrada, Date dataSaida, Usuario aluno, Usuario responsavel, StatusPonto status) {
+	public Ponto(int idPonto, Date dataEntrada, Date dataSaida, Usuario aluno, Usuario responsavel, StatusPontoEnum status) {
 		super();
 		this.idPonto = idPonto;
 		this.dataEntrada = dataEntrada;
@@ -67,11 +67,11 @@ public class Ponto implements Serializable {
 		this.responsavel = responsavel;
 	}
 
-	public StatusPonto getStatus() {
+	public StatusPontoEnum getStatus() {
 		return status;
 	}
 
-	public void setStatus(StatusPonto status) {
+	public void setStatus(StatusPontoEnum status) {
 		this.status = status;
 	}
 

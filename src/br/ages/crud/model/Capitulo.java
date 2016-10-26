@@ -9,17 +9,18 @@ public class Capitulo {
 	private int numero;
 	private Livro livro;
 	private ArrayList<Bloco> blocos;
-	private StatusCapitulo statusCapitulo;
+	private StatusCapituloEnum statusCapitulo;
 	
-	//public Capitulo() {}
+	public Capitulo() {}
 	
-	//public Capitulo(String nome, int numero, Livro livro, StatusCapitulo s){
-		//this.nome = nome;
-	//	this.numero = numero;
-	//	this.setLivro(livro);
-	//	blocos = new ArrayList<Bloco>();
-	//	statusCapitulo = s;
-//	}
+
+	public Capitulo(String nome, int numero, Livro livro, StatusCapituloEnum s){
+		this.nome = nome;
+		this.numero = numero;
+		this.setLivro(livro);
+		blocos = new ArrayList<Bloco>();
+		statusCapitulo = s;
+	}
 
 	public String getNome() {
 		return nome;
@@ -61,11 +62,11 @@ public class Capitulo {
 		this.idCapitulo = idCapitulo;
 	}
 	
-	public StatusCapitulo getStatusCapitulo(){
+	public StatusCapituloEnum getStatusCapitulo(){
 		return statusCapitulo;
 	}
 	
-	public void setStatusCapitulo(StatusCapitulo s){
+	public void setStatusCapitulo(StatusCapituloEnum s){
 		this.statusCapitulo = s;		
 	}
 	
