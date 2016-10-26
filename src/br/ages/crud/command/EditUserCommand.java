@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import br.ages.audio.bo.UsuarioBO;
 import br.ages.crud.dao.UsuarioDAO;
 import br.ages.crud.exception.NegocioException;
-import br.ages.crud.model.PerfilAcesso;
-import br.ages.crud.model.StatusUsuario;
+import br.ages.crud.model.PerfilAcessoEnum;
+import br.ages.crud.model.StatusUsuarioEnum;
 import br.ages.crud.model.TipoUsuario;
 import br.ages.crud.model.Usuario;
 import br.ages.crud.util.MensagemContantes;
@@ -44,9 +44,9 @@ public class EditUserCommand implements Command{
 			TipoUsuario tipoUsuario = new TipoUsuario();
 			tipoUsuario.setIdTipoUsuario(Integer.parseInt(idTipoUsuario));
 			
-			PerfilAcesso perfilAcesso = PerfilAcesso.valueOf(perfilAcessoString);
+			PerfilAcessoEnum perfilAcesso = PerfilAcessoEnum.valueOf(perfilAcessoString);
 			
-			StatusUsuario statusUsuario = StatusUsuario.valueOf(statusUsuarioString);
+			StatusUsuarioEnum statusUsuario = StatusUsuarioEnum.valueOf(statusUsuarioString);
 						
 			usuario = new Usuario();
 			

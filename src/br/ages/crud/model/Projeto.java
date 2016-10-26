@@ -14,7 +14,7 @@ public class Projeto implements Serializable {
 	private int idProjeto;
 	private String nomeProjeto;
 	private ArrayList<Usuario> usuarios;
-	private StatusProjeto status;
+	private StatusProjetoEnum status;
 	private String workspace;
 	private ArrayList<Stakeholder> stakeholders;
 	private Date dataInclusao;
@@ -26,7 +26,7 @@ public class Projeto implements Serializable {
 		this.dataInclusao = new Date();
 	}
 	
-	public Projeto(int idProjeto, String nome, StatusProjeto status, Date dataInicio, Date dataFimPrevisto) {
+	public Projeto(int idProjeto, String nome, StatusProjetoEnum status, Date dataInicio, Date dataFimPrevisto) {
 		this.idProjeto = idProjeto;
 		this.nomeProjeto = nomeProjeto;		
 		this.status = status;
@@ -34,7 +34,7 @@ public class Projeto implements Serializable {
 		this.dataFimPrevisto = dataFimPrevisto;
 	}
 	
-	public Projeto(int idProjeto, String nomeProjeto, ArrayList<Usuario> usuarios, String workspace, StatusProjeto status,
+	public Projeto(int idProjeto, String nomeProjeto, ArrayList<Usuario> usuarios, String workspace, StatusProjetoEnum status,
 	ArrayList<Stakeholder> stakeholders, Date dataInicio, Date dataFim, Date dataFimPrevisto) {
 		this.idProjeto = idProjeto;
 		this.nomeProjeto = nomeProjeto;
@@ -64,11 +64,11 @@ public class Projeto implements Serializable {
 		this.stakeholders = stakeholders;
 	}
 	
-	public StatusProjeto getStatusProjeto(){
+	public StatusProjetoEnum getStatusProjeto(){
 		return status;
 	}
 	
-	public void setStatusProjeto(StatusProjeto status) {
+	public void setStatusProjeto(StatusProjetoEnum status) {
 		this.status = status;
 	}
 	
