@@ -26,7 +26,7 @@ public class CapituloDAO {
 			conexao = ConexaoUtil.getConexao();
 			
 			StringBuilder sql = new StringBuilder();
-			sql.append("insert into tb_Capitulo (id_livro, nome, numero, Data_criacao, Data_alteracao, status)");
+			sql.append("insert into tb_Capitulo (id_livro, nome, numero, Data_criacao, Data_alteracao, Status)");
 			sql.append("values (?,?,?,?,?,?)");
 			
 			// converte a data para data que o banco reconhece

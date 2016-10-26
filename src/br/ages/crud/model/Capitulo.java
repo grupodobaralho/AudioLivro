@@ -11,15 +11,15 @@ public class Capitulo {
 	private ArrayList<Bloco> blocos;
 	private StatusCapitulo statusCapitulo;
 	
-	public Capitulo() {}
+	//public Capitulo() {}
 	
-	public Capitulo(String nome, int numero, Livro livro, StatusCapitulo s){
-		this.nome = nome;
-		this.numero = numero;
-		this.setLivro(livro);
-		blocos = new ArrayList<Bloco>();
-		statusCapitulo = s;
-	}
+	//public Capitulo(String nome, int numero, Livro livro, StatusCapitulo s){
+		//this.nome = nome;
+	//	this.numero = numero;
+	//	this.setLivro(livro);
+	//	blocos = new ArrayList<Bloco>();
+	//	statusCapitulo = s;
+//	}
 
 	public String getNome() {
 		return nome;
