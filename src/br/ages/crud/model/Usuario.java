@@ -16,8 +16,8 @@ public class Usuario implements Serializable, Comparable<Usuario> {
 	private String usuario;
 	private String senha;
 	private TipoUsuario tipoUsuario;
-	private PerfilAcesso perfilAcesso;
-	private StatusUsuario statusUsuario;
+	private PerfilAcessoEnum perfilAcesso;
+	private StatusUsuarioEnum statusUsuario;
 	private String matricula;
 	private String nome;
 	private String email;
@@ -33,7 +33,7 @@ public class Usuario implements Serializable, Comparable<Usuario> {
 		this.dataInclusao = new Date();
 	}
 
-	public Usuario(String usuario, String senha, String matricula, String nome, String email, StatusUsuario statusUsuario, TipoUsuario tipoUsuario, PerfilAcesso perfilAcesso) {
+	public Usuario(String usuario, String senha, String matricula, String nome, String email, StatusUsuarioEnum statusUsuario, TipoUsuario tipoUsuario, PerfilAcessoEnum perfilAcesso) {
 		super();
 		this.usuario = usuario;
 		this.senha = senha;
@@ -83,11 +83,11 @@ public class Usuario implements Serializable, Comparable<Usuario> {
 		this.tipoUsuario = tipoUsuario;
 	}
 
-	public StatusUsuario getStatusUsuario() {
+	public StatusUsuarioEnum getStatusUsuario() {
 		return statusUsuario;
 	}
 
-	public void setStatusUsuario(StatusUsuario statusUsuario) {
+	public void setStatusUsuario(StatusUsuarioEnum statusUsuario) {
 		this.statusUsuario = statusUsuario;
 	}
 
@@ -119,11 +119,11 @@ public class Usuario implements Serializable, Comparable<Usuario> {
 		return dataInclusao;
 	}
 
-	public PerfilAcesso getPerfilAcesso() {
+	public PerfilAcessoEnum getPerfilAcesso() {
 		return perfilAcesso;
 	}
 
-	public void setPerfilAcesso(PerfilAcesso perfilAcesso) {
+	public void setPerfilAcesso(PerfilAcessoEnum perfilAcesso) {
 		this.perfilAcesso = perfilAcesso;
 	}
 

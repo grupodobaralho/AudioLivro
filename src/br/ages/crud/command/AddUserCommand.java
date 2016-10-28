@@ -5,8 +5,8 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 import br.ages.audio.bo.UsuarioBO;
-import br.ages.crud.model.PerfilAcesso;
-import br.ages.crud.model.StatusUsuario;
+import br.ages.crud.model.PerfilAcessoEnum;
+import br.ages.crud.model.StatusUsuarioEnum;
 import br.ages.crud.model.TipoUsuario;
 import br.ages.crud.model.Usuario;
 import br.ages.crud.util.MensagemContantes;
@@ -38,8 +38,8 @@ public class AddUserCommand implements Command {
 			user.setMatricula(matricula);
 			user.setUsuario(usuario);
 			user.setSenha(senha);
-			user.setStatusUsuario(StatusUsuario.valueOf(statusUsuario));
-			user.setPerfilAcesso(PerfilAcesso.valueOf(perfilAcesso));
+			user.setStatusUsuario(StatusUsuarioEnum.valueOf(statusUsuario));
+			user.setPerfilAcesso(PerfilAcessoEnum.valueOf(perfilAcesso));
 			TipoUsuario tUser = new TipoUsuario();
 			
 			tUser = usuarioBO.consultaTipoUsuario(tipoUsuario);

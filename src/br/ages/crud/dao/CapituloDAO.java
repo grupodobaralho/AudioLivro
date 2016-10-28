@@ -12,7 +12,7 @@ import com.mysql.jdbc.Statement;
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Capitulo;
 import br.ages.crud.model.Livro;
-import br.ages.crud.model.Status;
+import br.ages.crud.model.StatusCapituloEnum;
 import br.ages.crud.util.ConexaoUtil;
 import br.ages.crud.util.MensagemContantes;
 
@@ -26,7 +26,7 @@ public class CapituloDAO {
 			conexao = ConexaoUtil.getConexao();
 			
 			StringBuilder sql = new StringBuilder();
-			sql.append("insert into tb_Capitulo (id_livro, nome, numero, Data_criacao, Data_alteracao, status)");
+			sql.append("insert into tb_Capitulo (id_livro, nome, numero, Data_criacao, Data_alteracao, Status)");
 			sql.append("values (?,?,?,?,?,?)");
 			
 			// converte a data para data que o banco reconhece
@@ -40,7 +40,7 @@ public class CapituloDAO {
 			statement.setInt(3, capitulo.getNumero());
 			statement.setDate(4, dataCadastro);
 			statement.setDate(5, dataCadastro);
-			statement.setString(6, Status.EM_GRAVACAO.toString());
+			statement.setString(6, StatusCapituloEnum.INCOMPLETO.toString());
 			
 			statement.executeUpdate();
 			
@@ -109,7 +109,7 @@ public class CapituloDAO {
 			
 			PreparedStatement statement = conexao.prepareStatement(sql.toString());
 			statement.setDate(1, sysdate);
-			statement.setString(2, Status.EXCLUIDO.toString());
+			statement.setString(2, StatusCapituloEnum.EXCLUIDO.toString());
 			statement.setInt(3, capitulo.getIdCapitulo());
 			statement.execute();
 			returnUpdate = true;
@@ -139,7 +139,7 @@ public class CapituloDAO {
 
 			PreparedStatement statement = conexao.prepareStatement(sql.toString());
 			statement.setInt(1, livro.getIdLivro());
-			statement.setString(2, Status.EXCLUIDO.toString());
+			statement.setString(2, StatusCapituloEnum.EXCLUIDO.toString());
 			
 			ResultSet resultset = statement.executeQuery();
 			while (resultset.next()) {

@@ -11,7 +11,7 @@ import com.mysql.jdbc.Statement;
 
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Livro;
-import br.ages.crud.model.Status;
+import br.ages.crud.model.StatusLivroEnum;
 import br.ages.crud.util.ConexaoUtil;
 import br.ages.crud.util.MensagemContantes;
 
@@ -31,8 +31,8 @@ public class LivroDAO {
 			conexao = ConexaoUtil.getConexao();
 			
 			StringBuilder sql = new StringBuilder();
-			sql.append("insert into tb_livro (Titulo, ISBN, Autores, Data_criacao, Data_alteracao)");
-			sql.append("values (?,?,?,?,?)");
+			sql.append("insert into tb_livro (Titulo, ISBN, Autores, Data_criacao, Data_alteracao,Status)");
+			sql.append("values (?,?,?,?,?,?)");
 			
 			// converte a data para data Juliana, data que o banco reconhece
 			java.util.Date utilDate = new java.util.Date();
@@ -45,6 +45,7 @@ public class LivroDAO {
 			statement.setString(3, livro.getAutores());
 			statement.setDate(4, dataCadastro);
 			statement.setDate(5, dataCadastro);
+			statement.setString(6, StatusLivroEnum.INCOMPLETO.toString());
 			
 			statement.executeUpdate();
 			
@@ -158,7 +159,7 @@ public class LivroDAO {
 		return listarLivros;
 	}
 
-	public List<Livro> listarLivros(Status status) throws PersistenciaException, SQLException {
+	public List<Livro> listarLivros(StatusLivroEnum status) throws PersistenciaException, SQLException {
 			Connection conexao = null;
 			// tentativa de readaptação do listarUsuarios()
 			try {
