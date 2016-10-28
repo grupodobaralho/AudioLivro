@@ -14,7 +14,6 @@ public class Bloco {
 	}
 	
 	public Bloco() {
-		
 	}
 
 	public Integer getId_bloco() {

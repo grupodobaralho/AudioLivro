@@ -94,7 +94,7 @@ public class CapituloBO {
 	
 		if (capitulosToDelete.size() == 0) return false;
 		else return crudCapitulos(capitulosToDelete, livro, 3);
-	}
+	}	
 	
 	public ArrayList<Capitulo> buscarCapitulosDoLivro(Livro livro) throws NegocioException {
 		 
@@ -125,4 +125,6 @@ public class CapituloBO {
 	public boolean deletarCapitulo(Capitulo capitulo) throws PersistenciaException, SQLException {
 		return capituloDAO.deletarCapitulo(capitulo);
 	}
+	
+	
 }
