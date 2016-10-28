@@ -79,13 +79,13 @@ public class BlocoBO {
 		
 	}
 	
-	public void alterarStatusDoBloco(int idBloco, StatusBlocoEnum status) throws NegocioException{
+	public boolean alterarStatusDoBloco(int idBloco, StatusBlocoEnum status) throws NegocioException{
 		boolean statusAlterado = false;
 		
 		try{
-			statusAlterado = blocoDAO.statusAltexcluirBloco(idBloco);				
-			}
-			return blocoExcluido;
+			statusAlterado = blocoDAO.alterarStatusDoBloco(idBloco, status);				
+			
+			return statusAlterado;
 		}	
 		
 		catch (Exception e){
