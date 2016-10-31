@@ -27,6 +27,14 @@ public class BlocoBO {
 		this.capituloBlocoDAO = capituloBlocoDAO;
 	}
 	
+	public boolean setStatus(StatusBlocoEnum status){
+		
+		return false;
+	}
+		
+
+
+	
 	public int cadastraBloco(Bloco bloco,Integer idCapitulo) throws NegocioException {
 		try {
 			Integer idBloco = blocoDAO.cadastraBloco(bloco);
@@ -50,13 +58,13 @@ public class BlocoBO {
 	}
 		
 	public boolean excluirBloco(int idBloco) throws NegocioException {
-		boolean idBlocoExcluido = false;	
+		boolean blocoExcluido = false;	
 		try{
 			if (blocoDAO.buscarBlocoID(idBloco).getStatusBloco() != StatusBlocoEnum.EM_GRAVACAO)
 			{
-				idBlocoExcluido = blocoDAO.excluirBloco(idBloco);				
+				blocoExcluido = blocoDAO.excluirBloco(idBloco);				
 			}
-			return idBlocoExcluido;
+			return blocoExcluido;
 		}	
 		
 		catch (Exception e){
@@ -69,6 +77,20 @@ public class BlocoBO {
 		 
 		return blocoDAO.buscarBlocoID(idBloco);
 		
+	}
+	
+	public boolean alterarStatusDoBloco(int idBloco, StatusBlocoEnum status) throws NegocioException{
+		boolean statusAlterado = false;
+		
+		try{
+			statusAlterado = blocoDAO.alterarStatusDoBloco(idBloco, status);				
+			
+			return statusAlterado;
+		}	
+		
+		catch (Exception e){
+				throw new NegocioException(MensagemContantes.MSG_ERR_EXCLUIR_BLOCO_INEXISTENTE); 
+		}
 	}
 	
 		

@@ -72,7 +72,7 @@ public class MensagemContantes {
 	
 	public static final String MSG_ERR_EXCLUIR_BLOCO_INEXISTENTE = "Bloco informado para exclusão não foi encontrado na base de dados!";
 	
-	
+	public static final String MSG_ERR_ASSOCIAR_INVALIDO = "Impossívelç associar doador ao bloco informado!";
 
 	//msgs de projeto
 
