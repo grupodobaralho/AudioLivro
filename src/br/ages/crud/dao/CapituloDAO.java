@@ -9,7 +9,9 @@ import java.util.List;
 
 import com.mysql.jdbc.Statement;
 
+import br.ages.audio.bo.BlocoBO;
 import br.ages.crud.exception.PersistenciaException;
+import br.ages.crud.model.Bloco;
 import br.ages.crud.model.Capitulo;
 import br.ages.crud.model.Livro;
 import br.ages.crud.model.StatusCapituloEnum;
@@ -148,6 +150,11 @@ public class CapituloDAO {
 				capitulo.setNumero(resultset.getInt("NUMERO"));
 				capitulo.setNome(resultset.getString("NOME"));
 				capitulo.setLivro(livro);
+				BlocoBO blocoBO = new BlocoBO();
+				
+				ArrayList<Bloco> blocosLivro = blocoBO.buscarBlocosDoCapitulo(capitulo);
+				
+				capitulo.setBlocos(blocosLivro);
 				
 				capitulos.add(capitulo);
 			}

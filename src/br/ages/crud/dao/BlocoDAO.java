@@ -174,34 +174,39 @@ public BlocoDAO(){
 	
 	//Recebe por parâmetro um capítulo e retorna uma lista com todos os blocos que pertencem a ele
 	public List<Bloco> buscarBlocosDoCapitulo(Capitulo capitulo) throws PersistenciaException, SQLException{
-		List<Bloco> blocos; 
+		List<Bloco> blocos = null;
 		Connection conexao = null;
 	
 		try {
 			conexao = ConexaoUtil.getConexao();
 
 			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT ID_BLOCO, LCL_CONTEUDO, LCL_ARQ_AUDIO, _STATUS_BLOCO");
-			sql.append("FROM (TB_CAPITULO CAP INNER JOIN TB_CAPITULO_BLOCO CPB");
-			sql.append("ON CAP.ID_CAPITULO = CPB.ID_CAPITULO)");
-			sql.append("INNER JOIN TB_BLOCO BL");
-			sql.append("ON CPB.ID_BLOCO = BL.ID_BLOCO");
-			sql.append("WHERE ID_CAPITULO = ?");
+			sql.append("SELECT * ");
+			sql.append("FROM TB_CAPITULO C INNER JOIN TB_CAPITULO_BLOCO CB ");
+			sql.append("ON C.ID_CAPITULO = CB.ID_CAPITULO ");
+			sql.append("INNER JOIN TB_BLOCO B ");
+			sql.append("ON CB.ID_BLOCO = B.ID_BLOCO ");
+			sql.append("WHERE C.ID_CAPITULO = ?");
 
 			PreparedStatement statement = conexao.prepareStatement(sql.toString());
 			statement.setInt(1, capitulo.getIdCapitulo());
 			
 			ResultSet resultset = statement.executeQuery();
-			
+//			
 			blocos = new ArrayList<Bloco>();
-			
+//			
 			while (resultset.next()) {
 				Bloco bloco = new Bloco();
-				bloco.setId_bloco(resultset.getInt("ID_BLOCO"));	
-				bloco.setLcl_conteudo(resultset.getString("LCL_CONTEUDO"));
-				bloco.setLcl_arq_audio(resultset.getString("LCL_ARQ_AUDIO"));
+				bloco.setId_bloco(resultset.getInt("B.ID_BLOCO"));
+				//Data_criacao
+				//Data_alteracao
+				bloco.setLcl_conteudo(resultset.getString("B.LOCAL_CONTEUDO"));
+				bloco.setLcl_arq_audio(resultset.getString("B.LOCAL_ARQUIVO_AUDIO"));
 				bloco.setStatusBloco(StatusBlocoEnum.valueOf(resultset.getString("STATUS_BLOCO")));
-				
+				//Tamanho_arquivopdf
+				//Tamanho_arquivomp3
+				//Ordem_bloco
+//				
 				blocos.add(bloco);
 			}			
 

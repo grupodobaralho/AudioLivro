@@ -1,12 +1,14 @@
 package br.ages.audio.bo;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import br.ages.crud.dao.BlocoDAO;
 import br.ages.crud.dao.CapituloBlocoDAO;
 import br.ages.crud.exception.NegocioException;
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Bloco;
+import br.ages.crud.model.Capitulo;
 import br.ages.crud.model.StatusBlocoEnum;
 import br.ages.crud.util.MensagemContantes;
 
@@ -69,6 +71,10 @@ public class BlocoBO {
 		 
 		return blocoDAO.buscarBlocoID(idBloco);
 		
+	}
+
+	public ArrayList<Bloco> buscarBlocosDoCapitulo(Capitulo capitulo) throws PersistenciaException, SQLException {
+		return (ArrayList<Bloco>) blocoDAO.buscarBlocosDoCapitulo(capitulo);
 	}
 	
 		

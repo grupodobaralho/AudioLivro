@@ -9,7 +9,10 @@ import java.util.List;
 
 import com.mysql.jdbc.Statement;
 
+import br.ages.audio.bo.CapituloBO;
+import br.ages.crud.exception.NegocioException;
 import br.ages.crud.exception.PersistenciaException;
+import br.ages.crud.model.Capitulo;
 import br.ages.crud.model.Livro;
 import br.ages.crud.model.StatusLivroEnum;
 import br.ages.crud.util.ConexaoUtil;
@@ -129,7 +132,7 @@ public class LivroDAO {
 		}
 	}
 	
-	public List<Livro> listarLivros() throws PersistenciaException, SQLException {
+	public List<Livro> listarLivros() throws PersistenciaException, SQLException, NegocioException {
 		Connection conexao = null;
 		// tentativa de readaptação do listarUsuarios()
 		try {
@@ -147,6 +150,12 @@ public class LivroDAO {
 				livro.setISBN(resultset.getString("ISBN"));
 				livro.setTitulo(resultset.getString("TITULO"));
 				livro.setAutores(resultset.getString("AUTORES"));
+				
+				CapituloBO capituloBO = new CapituloBO();
+				ArrayList<Capitulo> capitulosLivro = capituloBO.buscarCapitulosDoLivro(livro);
+				
+				livro.setCapitulos(capitulosLivro);
+				
 				
 				listarLivros.add(livro);
 			}
