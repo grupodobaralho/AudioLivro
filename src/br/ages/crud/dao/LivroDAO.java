@@ -31,7 +31,7 @@ public class LivroDAO {
 			conexao = ConexaoUtil.getConexao();
 			
 			StringBuilder sql = new StringBuilder();
-			sql.append("insert into tb_livro (Titulo, ISBN, Autores, Data_criacao, Data_alteracao,Status)");
+			sql.append("insert into tb_livro (Titulo, ISBN, Autores, Data_criacao, Data_alteracao, Status)");
 			sql.append("values (?,?,?,?,?,?)");
 			
 			// converte a data para data Juliana, data que o banco reconhece
