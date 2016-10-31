@@ -7,6 +7,7 @@ import br.ages.crud.dao.CapituloBlocoDAO;
 import br.ages.crud.exception.NegocioException;
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Bloco;
+import br.ages.crud.model.Doador;
 import br.ages.crud.model.StatusBlocoEnum;
 import br.ages.crud.util.MensagemContantes;
 
@@ -32,9 +33,6 @@ public class BlocoBO {
 		return false;
 	}
 		
-
-
-	
 	public int cadastraBloco(Bloco bloco,Integer idCapitulo) throws NegocioException {
 		try {
 			Integer idBloco = blocoDAO.cadastraBloco(bloco);
@@ -61,16 +59,14 @@ public class BlocoBO {
 		boolean blocoExcluido = false;	
 		try{
 			if (blocoDAO.buscarBlocoID(idBloco).getStatusBloco() != StatusBlocoEnum.EM_GRAVACAO)
-			{
-				blocoExcluido = blocoDAO.excluirBloco(idBloco);				
-			}
-			return blocoExcluido;
-		}	
+			
+				blocoExcluido = blocoDAO.excluirBloco(idBloco);
+			}	
 		
 		catch (Exception e){
 				throw new NegocioException(MensagemContantes.MSG_ERR_EXCLUIR_BLOCO_INEXISTENTE); 
 		}
-		
+		return blocoExcluido;
 	}
 		
 	public Bloco buscarBlocoID (int idBloco) throws PersistenciaException, SQLException{
@@ -78,6 +74,19 @@ public class BlocoBO {
 		return blocoDAO.buscarBlocoID(idBloco);
 		
 	}
+	
+	public boolean associarDoadorBloco(int idBloco, Doador doador) throws NegocioException{
+		boolean associacao = false;
+		try{
+			if(blocoDAO.associarDoadorBloco(idBloco,doador))
+				associacao = true;
+		}
+		catch (Exception e){
+			throw new NegocioException(MensagemContantes.MSG_ERR_ASSOCIAR_INVALIDO);				
+		}
+		return associacao;		
+	}
+	
 	
 	public boolean alterarStatusDoBloco(int idBloco, StatusBlocoEnum status) throws NegocioException{
 		boolean statusAlterado = false;
@@ -91,9 +100,7 @@ public class BlocoBO {
 		catch (Exception e){
 				throw new NegocioException(MensagemContantes.MSG_ERR_EXCLUIR_BLOCO_INEXISTENTE); 
 		}
-	}
-	
-		
+	}	
 	
 }
 	
