@@ -13,9 +13,11 @@ import br.ages.crud.exception.NegocioException;
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Bloco;
 import br.ages.crud.model.Capitulo;
+import br.ages.crud.model.Doador;
 import br.ages.crud.model.Livro;
 import br.ages.crud.model.PerfilAcessoEnum;
 import br.ages.crud.model.StatusBlocoEnum;
+import br.ages.crud.model.StatusCapituloEnum;
 import br.ages.crud.util.ConexaoUtil;
 import br.ages.crud.util.MensagemContantes;
 
@@ -169,7 +171,39 @@ public BlocoDAO(){
 
 		} finally {
 			conexao.close();
+			
 		}
+	}
+	
+	public boolean alterarStatusDoBloco(int idBloco, StatusBlocoEnum status) throws PersistenciaException, SQLException{
+		Connection conexao = null;
+				
+		try{
+			
+			conexao = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			
+			sql.append("UPDATE TB_BLOCO SET STATUS_BLOCO = ? WHERE ID_BLOCO = ?");
+			
+			PreparedStatement statement = conexao.prepareStatement(sql.toString());
+			
+			statement.setString(1, status.toString());
+			statement.setInt(2, idBloco);
+			
+			statement.executeUpdate();			
+			
+		return true;
+				
+			}
+
+		catch (ClassNotFoundException | SQLException e) {
+			throw new PersistenciaException("Error");
+
+		} finally {
+			conexao.close();
+			
+		}
+		
 	}
 	
 	//Recebe por parâmetro um capítulo e retorna uma lista com todos os blocos que pertencem a ele
@@ -216,6 +250,11 @@ public BlocoDAO(){
 			conexao.close();
 		}
 		return blocos;		
+	}
+
+	public boolean associarDoadorBloco(int idBloco, Doador doador) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

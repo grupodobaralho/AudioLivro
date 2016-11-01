@@ -34,7 +34,7 @@ public class LivroDAO {
 			conexao = ConexaoUtil.getConexao();
 			
 			StringBuilder sql = new StringBuilder();
-			sql.append("insert into tb_livro (Titulo, ISBN, Autores, Data_criacao, Data_alteracao,Status)");
+			sql.append("insert into tb_livro (Titulo, ISBN, Autores, Data_criacao, Data_alteracao, Status)");
 			sql.append("values (?,?,?,?,?,?)");
 			
 			// converte a data para data Juliana, data que o banco reconhece
@@ -170,7 +170,7 @@ public class LivroDAO {
 
 	public List<Livro> listarLivros(StatusLivroEnum status) throws PersistenciaException, SQLException {
 			Connection conexao = null;
-			// tentativa de readaptação do listarUsuarios()
+			
 			try {
 				conexao = ConexaoUtil.getConexao();
 
@@ -178,8 +178,10 @@ public class LivroDAO {
 				sql.append("select ID_LIVRO, ISBN, TITULO, AUTORES ");
 				sql.append("from audio_e.tb_livro");
 				sql.append("where STATUS =?");
-
+				
 				PreparedStatement statement = conexao.prepareStatement(sql.toString());
+				
+				statement.setString(1, status.toString());
 				
 				ResultSet resultset = statement.executeQuery();
 				
