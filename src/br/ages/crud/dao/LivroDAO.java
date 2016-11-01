@@ -139,7 +139,7 @@ public class LivroDAO {
 			conexao = ConexaoUtil.getConexao();
 
 			StringBuilder sql = new StringBuilder();
-			sql.append("select ID_LIVRO, ISBN, TITULO, AUTORES ");
+			sql.append("select ID_LIVRO, ISBN, TITULO, AUTORES, STATUS ");
 			sql.append("from audio_e.tb_livro");
 
 			PreparedStatement statement = conexao.prepareStatement(sql.toString());
@@ -150,6 +150,7 @@ public class LivroDAO {
 				livro.setISBN(resultset.getString("ISBN"));
 				livro.setTitulo(resultset.getString("TITULO"));
 				livro.setAutores(resultset.getString("AUTORES"));
+				livro.setStatus(StatusLivroEnum.valueOf(resultset.getString("STATUS")));
 				
 				CapituloBO capituloBO = new CapituloBO();
 				ArrayList<Capitulo> capitulosLivro = capituloBO.buscarCapitulosDoLivro(livro);
