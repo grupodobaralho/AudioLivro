@@ -43,6 +43,17 @@ $( document ).ready(function() {
 	$( this ).on('click', 'button#modalBlocoBtnSalvar', function() {
 		$( 'form#formBloco' ).submit();
 	});
+	
+	$('#modalExcluirLivro').on('show.bs.modal', function (event) {
+	  	var botao = $(event.relatedTarget);
+	  	var livro = botao.data('livro');
+		var id = botao.data('id');
+	  	
+	  	$(this).find('.modal-title').text('Excluir livro');
+	  	$(this).find('#modal-descricao').text('Você realmente deseja excluir o livro ' + livro + '?');
+	  	
+	  	//$('#formExcluir').attr('action', "main?acao=removerUsuario&id_usuario=" + id);
+	});
 });
 </script>
 
@@ -124,6 +135,30 @@ $( document ).ready(function() {
 	      			<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
 	      			<button type="button" class="btn btn-primary" id="modalBlocoBtnSalvar">Salvar</button>
 		      	</div>
+		    </div>
+	  	</div>
+	</div>
+	
+	<div class="modal fade" id="modalExcluirLivro" role="dialog">
+  		<div class="modal-dialog">
+	  		<div class="modal-content">
+	  		
+	      		<div class="modal-header modal-ages">
+		        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+		        	<h4 class="modal-title"></h4>
+	      		</div>
+	      		
+		      	<div class="modal-body">
+	        		<p id="modal-descricao"></p>
+		      	</div>
+		      	
+		      	<div class="modal-footer">
+		      		<form action="" method="post" id="formExcluir">
+		      			<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+		      			<button type="submit" class="btn btn-primary">Excluir</button>
+		      		</form>
+		      	</div>
+		      	
 		    </div>
 	  	</div>
 	</div>

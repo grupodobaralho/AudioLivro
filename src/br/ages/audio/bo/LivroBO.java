@@ -13,16 +13,16 @@ import br.ages.crud.util.MensagemContantes;
 public class LivroBO {
 
 	private LivroDAO livroDAO = new LivroDAO();
-	
-		
+
 	public void setLivroDAO(LivroDAO livroDAO) {
 		this.livroDAO = livroDAO;
 	}
 
-	public LivroBO(){}
-	
+	public LivroBO() {
+	}
+
 	public int cadastrarLivro(Livro livro) throws PersistenciaException, NegocioException {
-				
+
 		try {
 			if (validaLivro(livro)) {
 				int idLivro = livroDAO.cadastraLivro(livro);
@@ -30,26 +30,27 @@ public class LivroBO {
 			}
 			throw new NegocioException("O cadastro não pode ser efetuado");
 		} catch (Exception e) {
-			throw new PersistenciaException(MensagemContantes.MSG_ERR_LIVRO_JA_EXISTENTE.replace("?", livro.getTitulo()));
+			throw new PersistenciaException(
+					MensagemContantes.MSG_ERR_LIVRO_JA_EXISTENTE.replace("?", livro.getTitulo()));
 		}
 	}
-	
+
 	public boolean atualizarLivro(Livro livro) throws PersistenciaException, SQLException {
 		return livroDAO.atualizarLivro(livro);
 	}
 
 	public boolean validaLivro(Livro livro) {
-		if (livro==null)
+		if (livro == null)
 			return false;
-		if (livro.getISBN()!=null)
+		if (livro.getISBN() != null)
 			return true;
-		return false; 
+		return false;
 	}
-	
+
 	public Livro buscarLivro(int idLivro) throws PersistenciaException, SQLException {
 		return livroDAO.buscarLivro(idLivro);
 	}
-	
+
 	public List<Livro> listarLivros() throws NegocioException {
 
 		List<Livro> listLivros = null;
@@ -62,6 +63,15 @@ public class LivroBO {
 		}
 
 		return listLivros;
+	}
+
+	public void excluirLivro(int idLivro) throws PersistenciaException, SQLException {
+		try {
+			livroDAO.excluirLivro(idLivro);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

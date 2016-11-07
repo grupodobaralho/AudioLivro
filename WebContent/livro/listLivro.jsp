@@ -48,7 +48,8 @@
             		
             		<td align="center">
             			<form action="" method="post">
-            				<a href="" title="Deletar"> <i class="glyphicon glyphicon-trash"></i></a>
+            				<a href="" data-toggle="modal" data-id="<%=livro.getIdLivro()%>" data-livro="<%=livro.getTitulo()%>" 
+            				data-target="#modalExcluirLivro" title="Deletar"> <i class="glyphicon glyphicon-trash"></i></a>
             			</form>
             		</td>
             	</tr>
