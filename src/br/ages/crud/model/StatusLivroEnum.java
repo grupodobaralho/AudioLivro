@@ -2,6 +2,6 @@ package br.ages.crud.model;
 
 public enum StatusLivroEnum {
 	
-	EXCLUIDO, CONCLUIDO, INCOMPLETO
+	EXCLUIDO, CONCLUIDO, INCOMPLETO, EXTRAIDO
 	
 }
