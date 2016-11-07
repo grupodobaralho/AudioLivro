@@ -12,8 +12,10 @@ import com.mysql.jdbc.Statement;
 import br.ages.audio.bo.CapituloBO;
 import br.ages.crud.exception.NegocioException;
 import br.ages.crud.exception.PersistenciaException;
+import br.ages.crud.model.Bloco;
 import br.ages.crud.model.Capitulo;
 import br.ages.crud.model.Livro;
+import br.ages.crud.model.StatusBlocoEnum;
 import br.ages.crud.model.StatusCapituloEnum;
 import br.ages.crud.model.StatusLivroEnum;
 import br.ages.crud.util.ConexaoUtil;
@@ -107,6 +109,16 @@ public class LivroDAO {
 		boolean returnUpdate = false;
 		Connection conexao = null;
 		try {
+			
+			Livro livro = buscarLivro(idLivro);
+			for(Capitulo capitulo : livro.getCapitulos()){
+				for(Bloco bloco : capitulo.getBlocos()){
+					if(bloco.getStatusBloco() == StatusBlocoEnum.EM_GRAVACAO){
+						return false;
+					}
+				}
+			}
+			
 			conexao = ConexaoUtil.getConexao();
 
 			java.util.Date utilDate = new java.util.Date();
@@ -155,6 +167,11 @@ public class LivroDAO {
 				livro.setISBN(resultset.getString("ISBN"));
 				livro.setTitulo(resultset.getString("TITULO"));
 				livro.setAutores(resultset.getString("AUTORES"));
+				
+				CapituloBO capituloBO = new CapituloBO();
+				ArrayList<Capitulo> capitulosLivro = capituloBO.buscarCapitulosDoLivro(livro);
+
+				livro.setCapitulos(capitulosLivro);
 			}
 			return livro;
 		} catch (ClassNotFoundException | SQLException e) {

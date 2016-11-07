@@ -22,6 +22,7 @@ import br.ages.crud.command.ListUserCommand;
 import br.ages.crud.command.LoginCommand;
 import br.ages.crud.command.LogoutCommand;
 import br.ages.crud.command.ModeloCommand;
+import br.ages.crud.command.RemoveLivroCommand;
 import br.ages.crud.command.RemoveUserCommand;
 import br.ages.crud.command.SenhaCommand;
 import br.ages.crud.command.TelaBlocoCommand;
@@ -58,6 +59,7 @@ public class MainServlet extends HttpServlet {
 		comandos.put("telaLivro", new TelaLivroCommand());
 		comandos.put("listLivro", new ListLivroCommand());
 		comandos.put("cadastraLivro", new AddLivroCommand());
+		comandos.put("removerLivro", new RemoveLivroCommand());
 		
 		//Bloco
 		comandos.put("telaBloco", new TelaBlocoCommand());

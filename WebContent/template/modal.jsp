@@ -52,7 +52,7 @@ $( document ).ready(function() {
 	  	$(this).find('.modal-title').text('Excluir livro');
 	  	$(this).find('#modal-descricao').text('Você realmente deseja excluir o livro ' + livro + '?');
 	  	
-	  	//$('#formExcluir').attr('action', "main?acao=removerUsuario&id_usuario=" + id);
+	  	$('#formExcluirLivro').attr('action', "main?acao=removerLivro&idLivro=" + id);
 	});
 });
 </script>
@@ -153,7 +153,7 @@ $( document ).ready(function() {
 		      	</div>
 		      	
 		      	<div class="modal-footer">
-		      		<form action="" method="post" id="formExcluir">
+		      		<form action="" method="post" id="formExcluirLivro">
 		      			<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
 		      			<button type="submit" class="btn btn-primary">Excluir</button>
 		      		</form>
