@@ -64,4 +64,10 @@ public class LivroBO {
 		return listLivros;
 	}
 
+	public void excluirLivro() throws PersistenciaException, SQLException{
+	
+	}
+	
+	
+
 }

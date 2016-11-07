@@ -14,6 +14,7 @@ import br.ages.crud.exception.NegocioException;
 import br.ages.crud.exception.PersistenciaException;
 import br.ages.crud.model.Capitulo;
 import br.ages.crud.model.Livro;
+import br.ages.crud.model.StatusCapituloEnum;
 import br.ages.crud.model.StatusLivroEnum;
 import br.ages.crud.util.ConexaoUtil;
 import br.ages.crud.util.MensagemContantes;
@@ -100,7 +101,36 @@ public class LivroDAO {
 		}
 		return returnUpdate;
 	}
-	
+	public boolean excluirLivro(Livro livro) throws PersistenciaException, SQLException{
+		boolean returnUpdate = false;
+		Connection conexao = null;
+		try{
+			conexao = ConexaoUtil.getConexao();
+
+			java.util.Date utilDate = new java.util.Date();
+			java.sql.Date sysdate = new java.sql.Date(utilDate.getTime());
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("update tb_Livro set ");
+			sql.append("Data_alteracao = ? , ");
+			sql.append("status = ? ");
+			sql.append("where id_livro = ?");
+			
+			PreparedStatement statement = conexao.prepareStatement(sql.toString());
+			statement.setDate(1, sysdate);
+			statement.setString(2, StatusLivroEnum.EXCLUIDO.toString());
+			statement.setInt(3, livro.getIdLivro());
+			statement.execute();
+			returnUpdate = true;
+			
+		}catch (ClassNotFoundException | SQLException e){
+			throw new PersistenciaException(e);
+		}finally{
+			conexao.close();
+		
+	}
+		return returnUpdate;
+	}
 	public Livro buscarLivro(int idLivro) throws PersistenciaException, SQLException {
 		Livro livro = null;
 		
