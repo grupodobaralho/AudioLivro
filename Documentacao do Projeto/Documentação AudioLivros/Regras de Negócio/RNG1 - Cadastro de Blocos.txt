@@ -1,0 +1,20 @@
+#[RNG1]#
+
+O sistema deverá armazenar os arquivos no diretório e com as características
+descritas a seguir:
+
+Pasta com codigo livro + palavra "(até 20 caracteres iniciais do nome do livro,
+ sem espaços e sem caracteres especiais)".
+
+Dentro da pasta arquivo nomeado: 
+codigo livro + "_(até 20 caracteres iniciais do nome do livro, sem espaços e sem caracteres especiais)" +
+codigo capitulo + "_cap" +
+codigo bloco + "_bl"
+
+Exemplo: 01paixaodecristo / 01_paixaodecristo_01_cap_01_bl.pdf
+01_paixaodecristo_01_cap_02_bl.pd
+
+01paixaodecristo / 01_paixaodecristo_01_cap_01_bl.mp3
+
+	[RNG1.1] Nome dos casos de uso que utilizam esta regra:
+		#UC2_CadastrarBloco
