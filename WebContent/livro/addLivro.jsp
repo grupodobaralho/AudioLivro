@@ -402,7 +402,7 @@
 							$( "#msg" ).val(msg);
 						}
 						if(idLivro != null && idLivro != "0" && idLivro != "null") {
-							urlComplement = "&livroIdLivro=" + idLivro;
+							urlComplement = "&livroIdLivro=" + livro.idLivro;
 						}
 						
 						$( "#saveLivro" ).prop("disabled", false);
