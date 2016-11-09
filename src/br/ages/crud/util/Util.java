@@ -92,4 +92,18 @@ public class Util {
 
 		return data;
 	}
+	
+	/*
+	public static String removeEspacamento(String tituloLivro) {
+		if(tituloLivro=="")
+			return null;
+		
+	}
+	*/
+	
+	
+	
+	
+	
+	
 }

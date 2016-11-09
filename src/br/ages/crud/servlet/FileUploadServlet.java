@@ -20,6 +20,7 @@ import br.ages.crud.model.Bloco;
 import br.ages.crud.model.Projeto;
 import br.ages.crud.model.StatusBlocoEnum;
 import br.ages.crud.util.Constantes;
+import br.ages.crud.util.Util;
  
 /**
  * A Java servlet that handles file upload from client.
@@ -134,6 +135,9 @@ public class FileUploadServlet extends HttpServlet {
 			
 			String isbn = request.getParameter("isbn");
 			String idCap = request.getParameter("idCapitulo");
+			
+			//String livroTitulo = Util.acertoNomeLivro(request.getParameter("livroTitulo"));
+			
 			System.out.println(isbn);
 			
 			if (!fileSaveDir.exists())
@@ -153,7 +157,7 @@ public class FileUploadServlet extends HttpServlet {
 			bloco.setId_bloco(idbloco);
 			
 			//novo caminho com o nome padrao do bloco
-			caminho = savePath + isbn+"_CAP"+idCap+"_B"+idbloco+".pdf";
+			caminho = savePath + isbn+"_C"+idCap+"_B"+idbloco+".pdf";
 			
 			//altera o nome para o nome do bloco
 			alteraNome(file1, caminho);

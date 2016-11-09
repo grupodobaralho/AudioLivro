@@ -38,6 +38,7 @@ $( document ).ready(function() {
 		
 		$( "#idCapitulo" ).val(capituloId);
 		$( "#isbn" ).val(isbn);
+		$( "#livroTitulo" ).val(livroNome);
 	});
 	
 	$( this ).on('click', 'button#modalBlocoBtnSalvar', function() {
@@ -123,9 +124,10 @@ $( document ).ready(function() {
 	        			<label for="capituloNome" class="col-sm-10 control-label leftAli" id="capituloNome" > </label>
 	        		</div>
 	        		<form method="post" action='upload' enctype="multipart/form-data" id="formBloco">
-	        			<input type="hidden" id="idLivro" name="idLivro" value="" />
-		      			<input type="hidden" id="isbn" name="isbn" value="" />
-		      			<input type="hidden" id="idCapitulo" name="idCapitulo" value="" />
+	        			<input type="hidden" id="livroTitulo" name="livroTitulo" value="" />
+	        			<input type="hidden" id="idLivro"     name="idLivro"   value="" />
+		      			<input type="hidden" id="isbn"        name="isbn"      value="" />
+		      			<input type="hidden" id="idCapitulo"  name="idCapitulo" value="" />
 		      			
 						<label class="form-label ages">Arquivo:</label>
 						<input class="form-control" id="file" name="file" value="${param.file}" type="file" maxlength="120">
