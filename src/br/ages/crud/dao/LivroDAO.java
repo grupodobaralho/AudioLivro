@@ -194,7 +194,7 @@ public class LivroDAO {
 			sql.append("where not status = ?");
 
 			PreparedStatement statement = conexao.prepareStatement(sql.toString());
-			statement.setString(1, StatusCapituloEnum.EXCLUIDO.toString());
+			statement.setString(1, StatusLivroEnum.EXCLUIDO.toString());
 			ResultSet resultset = statement.executeQuery();
 			while (resultset.next()) {
 				Livro livro = new Livro();
