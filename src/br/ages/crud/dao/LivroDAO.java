@@ -190,9 +190,11 @@ public class LivroDAO {
 
 			StringBuilder sql = new StringBuilder();
 			sql.append("select ID_LIVRO, ISBN, TITULO, AUTORES, STATUS ");
-			sql.append("from audio_e.tb_livro");
+			sql.append("from audio_e.tb_livro ");
+			sql.append("where not status = ?");
 
 			PreparedStatement statement = conexao.prepareStatement(sql.toString());
+			statement.setString(1, StatusCapituloEnum.EXCLUIDO.toString());
 			ResultSet resultset = statement.executeQuery();
 			while (resultset.next()) {
 				Livro livro = new Livro();
