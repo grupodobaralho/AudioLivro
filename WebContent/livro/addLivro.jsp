@@ -408,7 +408,7 @@
 						$( "#saveLivro" ).prop("disabled", false);
 						$( "#saveLivro" ).val("Salvar");
 						
-						$( "form#formSaveLivro" ).attr("action", "main?acao=telaLivro" + urlComplement);
+						$( "form#formSaveLivro" ).attr("action", "main?acao=listLivro");
 						$( "form#formSaveLivro" ).submit();
 					}
 				}
