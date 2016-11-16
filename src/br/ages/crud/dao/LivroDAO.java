@@ -23,10 +23,10 @@ import br.ages.crud.util.MensagemContantes;
 
 public class LivroDAO {
 
-	private ArrayList<Livro> listarLivros;
+	private ArrayList<Livro> listaLivros;
 
 	public LivroDAO() {
-		listarLivros = new ArrayList<>();
+		listaLivros = new ArrayList<>();
 	}
 
 	public int cadastraLivro(Livro livro) throws PersistenciaException, SQLException {
@@ -43,7 +43,7 @@ public class LivroDAO {
 			// converte a data para data Juliana, data que o banco reconhece
 			java.util.Date utilDate = new java.util.Date();
 			java.sql.Date dataCadastro = new java.sql.Date(utilDate.getTime());
-
+			
 			// cadastra o livro e gera id
 			PreparedStatement statement = conexao.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, livro.getTitulo());
@@ -189,13 +189,14 @@ public class LivroDAO {
 			conexao = ConexaoUtil.getConexao();
 
 			StringBuilder sql = new StringBuilder();
-			sql.append("select ID_LIVRO, ISBN, TITULO, AUTORES, STATUS ");
-			sql.append("from audio_e.tb_livro ");
-			sql.append("where not status = ?");
+			sql.append("SELECT ID_LIVRO, ISBN, TITULO, AUTORES, STATUS ");
+			sql.append("FROM AUDIO_E.TB_LIVRO ");
+			sql.append("WHERE NOT STATUS = ?");
 
 			PreparedStatement statement = conexao.prepareStatement(sql.toString());
 			statement.setString(1, StatusLivroEnum.EXCLUIDO.toString());
 			ResultSet resultset = statement.executeQuery();
+			
 			while (resultset.next()) {
 				Livro livro = new Livro();
 				livro.setIdLivro(resultset.getInt("ID_LIVRO"));
@@ -209,7 +210,7 @@ public class LivroDAO {
 
 				livro.setCapitulos(capitulosLivro);
 
-				listarLivros.add(livro);
+				listaLivros.add(livro);
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -217,7 +218,7 @@ public class LivroDAO {
 		} finally {
 			conexao.close();
 		}
-		return listarLivros;
+		return listaLivros;
 	}
 
 	public List<Livro> listarLivros(StatusLivroEnum status) throws PersistenciaException, SQLException {
@@ -244,7 +245,7 @@ public class LivroDAO {
 				livro.setTitulo(resultset.getString("TITULO"));
 				livro.setAutores(resultset.getString("AUTORES"));
 
-				listarLivros.add(livro);
+				listaLivros.add(livro);
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -252,7 +253,7 @@ public class LivroDAO {
 		} finally {
 			conexao.close();
 		}
-		return listarLivros;
+		return listaLivros;
 
 	}
 
