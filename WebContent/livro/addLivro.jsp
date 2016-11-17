@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@page import="br.ages.crud.model.Livro"%>
 <%@page import="br.ages.crud.model.Capitulo"%>
+<%@page import="br.ages.crud.model.Bloco"%>
 <%@page import="java.util.ArrayList"%>
 
 <jsp:include page="../template/head.jsp"></jsp:include>
@@ -63,7 +64,7 @@
 								<th style="width: 15%; text-align: center;">ID</th>
 								<th style="width: 15%; text-align: center;">Capítulo</th>
 								<th style="width: 40%; text-align: center;">Nome</th>
-								<th style="width: 15%; text-align: center;">Qtd Blocos</th>
+								<th style="width: 15%; text-align: center;">Bloco</th>
 								<th style="width: 15%; text-align: center;">Ações</th>
 							</tr>
 						</thead>
@@ -77,7 +78,7 @@
 								<td style="width: 15%; text-align: center;"><%=capitulo.getIdCapitulo()%></td>
             					<td style="width: 15%; text-align: center;"><%=capitulo.getNumero()%></td>
             					<td style="width: 40%; text-align: center;"><%=capitulo.getNome()%></td>
-            					<td style="width: 15%; text-align: center;">0</td>
+            					<td style="width: 15%; text-align: center;">---</td>
             					<td style="width: 15%; text-align: center;">
             						<button type="button" class="btn btn-default btn-xs" title="Editar" id="editCapitulo">
 										<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
@@ -91,6 +92,31 @@
             					</td>
             				</tr>
 							<% 
+										for (Bloco bloco : capitulo.getBlocos()) {
+							%>
+											<tr>
+											<td style="width: 15%; text-align: center;"></td>
+			            					<td style="width: 15%; text-align: center;"></td>
+			            					<td style="width: 40%; text-align: center;"></td>
+			            					<td style="width: 15%; text-align: center;">NomeDoBlocoAqui</td>
+			            					<td style="width: 15%; text-align: center;">
+			            						<!--
+			            						<button type="button" class="btn btn-default btn-xs" title="Editar" id="editCapitulo">
+													<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+												</button>
+												 -->
+												<button type="button" class="btn btn-default btn-xs" title="Remover" id="deleteCapitulo">
+													<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+												</button>
+												<!-- 
+												<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalBloco" data-livro_nome="<%=livro.getTitulo()%>" data-capitulo_nome="<%=capitulo.getNome()%>" data-capitulo_numero="<%=capitulo.getNumero()%>" data-capitulo_id="<%=capitulo.getIdCapitulo()%>" data-livro_isbn="<%=livro.getISBN()%>">
+													<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+												</button>
+												 -->
+			            					</td>
+			            				</tr>
+							<%			
+										}
 									}
 								}
 							%>
@@ -154,7 +180,7 @@
 			contentToAppend+= "		<td style=\"width: 15%; text-align: center;\">"+ idCapitulo +"</td>";
 			contentToAppend+= "		<td style=\"width: 15%; text-align: center;\">" + capituloNumero + "</td>";
 			contentToAppend+= "		<td style=\"width: 40%; text-align: center;\">" + capituloNome + "</td>";
-			contentToAppend+= "		<td style=\"width: 15%; text-align: center;\">0</td>";
+			contentToAppend+= "		<td style=\"width: 15%; text-align: center;\">---</td>";
 			contentToAppend+= "		<td style=\"width: 15%; text-align: center;\">";
 			contentToAppend+= "			<button type=\"button\" class=\"btn btn-default btn-xs\" title=\"Editar\" id=\"editCapitulo\">";
 			contentToAppend+= "				<span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span>";
