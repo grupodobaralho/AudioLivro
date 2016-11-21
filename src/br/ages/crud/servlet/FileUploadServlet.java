@@ -136,7 +136,7 @@ public class FileUploadServlet extends HttpServlet {
 			String isbn = request.getParameter("isbn");
 			String idCap = request.getParameter("idCapitulo");
 			
-			//String livroTitulo = Util.acertoNomeLivro(request.getParameter("livroTitulo"));
+			String livroTitulo = Util.removeEspacamento(request.getParameter("livroTitulo"));
 			
 			System.out.println(isbn);
 			
@@ -157,7 +157,7 @@ public class FileUploadServlet extends HttpServlet {
 			bloco.setId_bloco(idbloco);
 			
 			//novo caminho com o nome padrao do bloco
-			caminho = savePath + isbn+"_C"+idCap+"_B"+idbloco+".pdf";
+			caminho = savePath + isbn+"_"+livroTitulo+"_"+idCap+"_cap_"+idbloco+"_bl"+".pdf";
 			
 			//altera o nome para o nome do bloco
 			alteraNome(file1, caminho);

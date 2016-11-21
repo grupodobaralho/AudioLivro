@@ -93,13 +93,13 @@ public class Util {
 		return data;
 	}
 	
-	/*
+	
 	public static String removeEspacamento(String tituloLivro) {
-		if(tituloLivro=="")
+		if(tituloLivro.equals(""))
 			return null;
-		
+		return tituloLivro.replaceAll("\\s","");		
 	}
-	*/
+	
 	
 	
 	

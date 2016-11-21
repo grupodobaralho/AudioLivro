@@ -3,6 +3,7 @@ package br.ages.crud.model;
 public class Bloco {
 	
 	private Integer id_bloco;
+	private String nome;
 	private String lcl_conteudo;
 	private String lcl_arq_audio;
 	private StatusBlocoEnum statusBloco;
@@ -22,6 +23,14 @@ public class Bloco {
 
 	public void setId_bloco(Integer id_bloco) {
 		this.id_bloco = id_bloco;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getLcl_conteudo() {
