@@ -249,4 +249,9 @@ public class BlocoDAO {
 		return false;
 	}
 
+	public boolean revisarBlocoAudio(int idBloco) {
+		
+		return false;
+	}
+
 }

@@ -108,5 +108,18 @@ public boolean setStatus(StatusBlocoEnum status){
 		return associacao;		
 	}
 		
-	
+	public boolean revisarBlocoAudio(int idBloco) throws NegocioException{
+		boolean downloadAudio = false;
+		
+		try{
+			downloadAudio = blocoDAO.revisarBlocoAudio(idBloco);
+			if(downloadAudio)
+				alterarStatusDoBloco(idBloco, StatusBlocoEnum.AGUARDANDO_REVISAO);			
+		}
+		
+		catch (NegocioException e){
+			throw new NegocioException(MensagemContantes.MSG_ERR_EXCLUIR_BLOCO_INEXISTENTE); 
+		}
+	return downloadAudio;
+	}
 }
