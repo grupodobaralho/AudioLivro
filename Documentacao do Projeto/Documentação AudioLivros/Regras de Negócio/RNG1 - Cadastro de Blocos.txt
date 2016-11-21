@@ -7,14 +7,17 @@ Pasta com codigo livro + palavra "(até 20 caracteres iniciais do nome do livro,
  sem espaços e sem caracteres especiais)".
 
 Dentro da pasta arquivo nomeado: 
-codigo livro + "_(até 20 caracteres iniciais do nome do livro, sem espaços e sem caracteres especiais)" +
-codigo capitulo + "_cap" +
-codigo bloco + "_bl"
+codigo livro + "_(até 20 caracteres iniciais do nome do livro, sem espaços e sem caracteres especiais)" + "_" +
+codigo capitulo + "_cap_" + 
+codigo bloco + "_bl"+
 
 Exemplo: 01paixaodecristo / 01_paixaodecristo_01_cap_01_bl.pdf
-01_paixaodecristo_01_cap_02_bl.pd
+01_paixaodecristo_01_cap_02_bl.pdf
 
 01paixaodecristo / 01_paixaodecristo_01_cap_01_bl.mp3
+
+*Código implementado:
+caminho = savePath + isbn+"_"+livroTitulo+"_"+idCap+"_cap_"+idbloco+"_bl"+".pdf";
 
 	[RNG1.1] Nome dos casos de uso que utilizam esta regra:
 		#UC2_CadastrarBloco
