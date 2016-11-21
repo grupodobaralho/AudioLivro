@@ -71,6 +71,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS audio_e.TB_BLOCO (
   id_bloco INT NOT NULL AUTO_INCREMENT,
+  Nome VARCHAR(45) NOT NULL,
   Data_criacao DATE NOT NULL,
   Data_alteracao DATE NOT NULL,
   Local_conteudo VARCHAR(100) NOT NULL,
