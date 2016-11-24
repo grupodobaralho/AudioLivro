@@ -116,7 +116,7 @@
 								<td style="width: 15%; text-align: center;"></td>
 								<td style="width: 15%; text-align: center;"></td>
 								<td style="width: 40%; text-align: center;"></td>
-								<td style="width: 15%; text-align: center;">NomeDoBlocoAqui</td>
+								<td style="width: 15%; text-align: center;"><%=bloco.getNome() %></td>
 								<td style="width: 15%; text-align: center;">
 									<!--
 			            						<button type="button" class="btn btn-default btn-xs" title="Editar" id="editCapitulo">
@@ -224,7 +224,6 @@
 
 						$(".cap").click(function() {
 							var idCapitulo = $(this).find(".id").html();
-							//alert(idCapitulo);
 							$(".bloco").hide();
 							if(idCapituloAberto===idCapitulo){
 								$(".blocoCapitulo"+idCapitulo).hide();

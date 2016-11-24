@@ -58,6 +58,16 @@ public boolean setStatus(StatusBlocoEnum status){
 		return alterado;		
 	}
 	
+	public boolean alteraNome(String nome, int idBloco){
+		boolean alterado = false;
+		try {
+			alterado = blocoDAO.alteraNome(nome, idBloco);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return alterado;		
+	}
+	
 	public boolean excluirBloco(int idBloco) throws NegocioException {
 		boolean blocoExcluido = false;	
 		try{

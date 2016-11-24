@@ -43,7 +43,10 @@ public class BlocoDAO {
 
 			PreparedStatement statement = conexao.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 
-			statement.setString(1, bloco.getLcl_conteudo());
+			String lcl = bloco.getLcl_conteudo();
+			String caminho [] = lcl.split("\\\\");
+//			String nome [] = caminho[caminho.length-1].split("."); 
+			statement.setString(1, lcl);
 			statement.setDate(2, dataCadastro);
 			statement.setDate(3, dataCadastro);
 			statement.setString(4, bloco.getLcl_arq_audio());
@@ -223,6 +226,7 @@ public class BlocoDAO {
 			//
 			while (resultset.next()) {
 				Bloco bloco = new Bloco();
+				bloco.setNome(resultset.getString("B.NOME"));
 				bloco.setId_bloco(resultset.getInt("B.ID_BLOCO"));
 				// Data_criacao
 				// Data_alteracao
@@ -252,6 +256,33 @@ public class BlocoDAO {
 	public boolean revisarBlocoAudio(int idBloco) {
 		
 		return false;
+	}
+
+	public boolean alteraNome(String nome, int idBloco) throws SQLException {
+		Connection conexao = null;
+		boolean alterado = false;
+
+		try {
+
+			conexao = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+
+			sql.append("update audio_e.tb_bloco set Nome = ?  where id_bloco = ? ");
+
+			PreparedStatement statement = conexao.prepareStatement(sql.toString());
+
+			statement.setString(1, nome);
+			statement.setInt(2, idBloco);
+
+			statement.executeUpdate();
+			return true;
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new SQLException(e);
+		} finally {
+			conexao.close();
+		}
 	}
 
 }

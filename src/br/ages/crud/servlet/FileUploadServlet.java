@@ -153,15 +153,16 @@ public class FileUploadServlet extends HttpServlet {
 			
 			Bloco bloco = new Bloco(caminho, "nao definido", StatusBlocoEnum.DISPONIVEL_PARA_GRAVACAO);
 			BlocoBO blocoBO = new BlocoBO();
-			int	idbloco = blocoBO.cadastraBloco(bloco, Integer.parseInt(idCap));
-			bloco.setId_bloco(idbloco);
+			int	idBloco = blocoBO.cadastraBloco(bloco, Integer.parseInt(idCap));
+			bloco.setId_bloco(idBloco);
 			
 			//novo caminho com o nome padrao do bloco
-			caminho = savePath + isbn+"_"+livroTitulo+"_"+idCap+"_cap_"+idbloco+"_bl"+".pdf";
+			caminho = savePath + isbn+"_"+livroTitulo+"_"+idCap+"_cap_"+idBloco+"_bl"+".pdf";
 			
 			//altera o nome para o nome do bloco
 			alteraNome(file1, caminho);
-			blocoBO.alteraCaminho(caminho, idbloco);
+			blocoBO.alteraCaminho(caminho, idBloco);
+			blocoBO.alteraNome(isbn+"_"+livroTitulo+"_"+idCap+"_cap_"+idBloco+"_bl", idBloco);
 			
 			request.setAttribute("msgSucesso", "Upload feito com sucesso!");
 			
