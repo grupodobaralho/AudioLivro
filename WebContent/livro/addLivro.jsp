@@ -124,13 +124,13 @@
 												</button>
 												 -->
 									<button type="button" class="btn btn-default btn-xs"
-										title="Remover" id="deleteCapitulo">
+										title="Remover Bloco" id="deleteCapitulo">
 										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-									</button> <!-- 
-												<button type="button" class="btn btn-default btn-xs" title="Adicionar bloco" data-toggle="modal" data-target="#modalBloco" data-livro_nome="<%=livro.getTitulo()%>" data-capitulo_nome="<%=capitulo.getNome()%>" data-capitulo_numero="<%=capitulo.getNumero()%>" data-capitulo_id="<%=capitulo.getIdCapitulo()%>" data-livro_isbn="<%=livro.getISBN()%>">
-													<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-												</button>
-												 -->
+									</button> 
+									<button type="button" class="btn btn-default btn-xs"
+										title="Baixar bloco" id="downloadBloco">
+										<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+									</button> 
 								</td>
 							</tr>
 							<%
