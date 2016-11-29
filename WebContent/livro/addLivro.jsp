@@ -70,10 +70,11 @@
 					<table class="table table-striped header-fixed" id="tableCapitulos">
 						<thead>
 							<tr>
-								<th style="width: 15%; text-align: center;">ID</th>
-								<th style="width: 15%; text-align: center;">Capítulo</th>
-								<th style="width: 40%; text-align: center;">Nome</th>
-								<th style="width: 15%; text-align: center;">Bloco</th>
+								<th style="width: 10%; text-align: center;">&nbsp;</th>
+								<th style="width: 5%; text-align: center;">ID</th>
+								<th style="width: 20%; text-align: center;">Capítulo</th>
+								<th style="width: 35%; text-align: center;">Nome</th>
+								<th style="width: 15%; text-align: center;">Bloco(s)</th>
 								<th style="width: 15%; text-align: center;">Ações</th>
 							</tr>
 						</thead>
@@ -84,10 +85,11 @@
 									for (Capitulo capitulo : capitulos) {
 							%>
 							<tr class="cap">
-								<td class="id" style="width: 15%; text-align: center;"><%=capitulo.getIdCapitulo()%></td>
-								<td style="width: 15%; text-align: center;"><%=capitulo.getNumero()%></td>
-								<td style="width: 40%; text-align: center;"><%=capitulo.getNome()%></td>
-								<td style="width: 15%; text-align: center;">---</td>
+								<td style="width: 10%; text-align: center;"><span id="seta<%= capitulo.getIdCapitulo() %>" class="seta glyphicon glyphicon-menu-down"></span></td>
+								<td class="id" style="width: 5%; text-align: center;"><%=capitulo.getIdCapitulo()%></td>
+								<td style="width: 20%; text-align: center;"><%=capitulo.getNumero()%></td>
+								<td style="width: 35%; text-align: center;"><%=capitulo.getNome()%></td>
+								<td style="width: 15%; text-align: center;"><%=capitulo.getBlocos().size() %></td>
 								<td style="width: 15%; text-align: center;">
 									<button type="button" class="btn btn-default btn-xs"
 										title="Editar" id="editCapitulo">
@@ -112,11 +114,12 @@
 							<%
 								for (Bloco bloco : capitulo.getBlocos()) {
 							%>
-							<tr class="bloco blocoCapitulo<%=capitulo.getIdCapitulo()%>" style="display: none;">
-								<td style="width: 15%; text-align: center;"></td>
-								<td style="width: 15%; text-align: center;"></td>
-								<td style="width: 40%; text-align: center;"></td>
-								<td style="width: 15%; text-align: center;"><%=bloco.getNome() %></td>
+							<tr class="bloco blocoCapitulo<%=capitulo.getIdCapitulo()%>"
+								style="display: none;">
+								<td style="width: 10%; text-align: center;"></td>
+								<td style="width: 30%; text-align: center; font-style:italic;">Bloco</td>
+								<td style="width: 30%; text-align: center; font-style:italic;"><%=bloco.getNome()%></td>
+								<td style="width: 15%; text-align: center;">-</td>
 								<td style="width: 15%; text-align: center;">
 									<!--
 			            						<button type="button" class="btn btn-default btn-xs" title="Editar" id="editCapitulo">
@@ -126,11 +129,12 @@
 									<button type="button" class="btn btn-default btn-xs"
 										title="Remover Bloco" id="deleteCapitulo">
 										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-									</button> 
+									</button>
 									<button type="button" class="btn btn-default btn-xs"
 										title="Baixar bloco" id="downloadBloco">
-										<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-									</button> 
+										<span class="glyphicon glyphicon-download-alt"
+											aria-hidden="true"></span>
+									</button>
 								</td>
 							</tr>
 							<%
@@ -224,14 +228,18 @@
 
 						$(".cap").click(function() {
 							var idCapitulo = $(this).find(".id").html();
-							$(".bloco").hide();
-							if(idCapituloAberto===idCapitulo){
-								$(".blocoCapitulo"+idCapitulo).hide();
-								idCapituloAberto=0;
-							}
-							else{
-								$(".blocoCapitulo"+idCapitulo).show();
-								idCapituloAberto=idCapitulo;
+							$('.bloco').hide();
+							$('.seta').each(function(){
+								$(this).removeClass("glyphicon-menu-up").addClass("glyphicon-menu-down");
+							})
+							if (idCapituloAberto === idCapitulo) {
+								$(".blocoCapitulo" + idCapitulo).hide();
+								$("#seta" + idCapitulo).removeClass('glyphicon-menu-up').addClass('glyphicon-menu-down');
+								idCapituloAberto = 0;
+							} else {
+								$(".blocoCapitulo" + idCapitulo).show();
+								$("#seta" + idCapitulo).removeClass('glyphicon-menu-down').addClass('glyphicon-menu-up');;
+								idCapituloAberto = idCapitulo;
 							}
 						});
 
